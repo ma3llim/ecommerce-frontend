@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { adminLoginSchema, type AdminLoginFormData } from '../schemas/adminLogin.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Card } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 
 const AdminLoginPage = () => {
     const {
@@ -27,37 +27,47 @@ const AdminLoginPage = () => {
     return (
         <main className="flex min-h-screen items-center justify-center bg-background px-4 py-8">
             <Card className="w-full max-w-md p-8">
-                <div className="mb-8 text-center">
-                    <h1 className="font-heading text-2xl font-bold tracking-tight text-text-primary">Welcome back</h1>
-                    <p className="mt-2 text-sm text-text-muted">Sign in to your {APP_NAME} admin account</p>
+                <div className="mb-8 space-y-2 text-center">
+                    <h1 className="text-2xl font-bold tracking-tight text-foreground">Welcome back</h1>
+
+                    <p className="text-sm text-muted-foreground">Sign in to your {APP_NAME} admin account</p>
                 </div>
+                <form className="space-y-6" onSubmit={handleSubmit(onSubmit)} noValidate>
+                    <FieldGroup>
+                        <Field>
+                            <FieldLabel htmlFor="email">Email address</FieldLabel>
 
-                <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
-                    <div>
-                        <Label htmlFor="email">Email address</Label>
-                        <Input id="email" type="email" autoComplete="email" placeholder="admin@example.com" {...register('email')} />
-                        error={errors.email?.message}
-                    </div>
+                            <Input
+                                id="email"
+                                type="email"
+                                autoComplete="email"
+                                placeholder="admin@example.com"
+                                {...register('email')}
+                                aria-invalid={!!errors.email}
+                            />
 
-                    <div>
-                        <div className="mb-2 flex items-center justify-between">
-                            <Label htmlFor="password" className="mb-0">
-                                Password
-                            </Label>
-                        </div>
-                        <Input
-                            id="password"
-                            type="password"
-                            autoComplete="current-password"
-                            placeholder="Enter your password"
-                            {...register('password')}
-                        />
-                        error={errors.password?.message}
-                    </div>
+                            {errors.email && <FieldError>{errors.email.message}</FieldError>}
+                        </Field>
 
-                    <Button type="submit" size="lg">
-                        Sign in
-                    </Button>
+                        <Field>
+                            <FieldLabel htmlFor="password">Password</FieldLabel>
+
+                            <Input
+                                id="password"
+                                type="password"
+                                autoComplete="current-password"
+                                placeholder="Enter your password"
+                                {...register('password')}
+                                aria-invalid={!!errors.password}
+                            />
+
+                            {errors.password && <FieldError>{errors.password.message}</FieldError>}
+                        </Field>
+
+                        <Button type="submit" size="lg" className="w-full">
+                            Sign in
+                        </Button>
+                    </FieldGroup>
                 </form>
             </Card>
         </main>
