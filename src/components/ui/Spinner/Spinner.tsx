@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 import type { HTMLAttributes } from 'react';
 
 type SpinnerSize = 'sm' | 'md' | 'lg';
@@ -18,7 +18,7 @@ const Spinner = ({ size = 'md', className = '', ...props }: SpinnerProps) => {
         <span
             role="status"
             aria-label="Loading"
-            className={clsx('inline-block animate-spin rounded-full', 'border-current border-t-transparent', sizeClasses[size], className)}
+            className={cn('inline-block animate-spin rounded-full', 'border-current border-t-transparent', sizeClasses[size], className)}
             {...props}
         />
     );

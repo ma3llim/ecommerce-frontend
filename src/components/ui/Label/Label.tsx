@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 import type { LabelHTMLAttributes } from 'react';
 
 interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
@@ -7,7 +7,7 @@ interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
 
 const Label = ({ children, required = false, className = '', ...props }: LabelProps) => {
     return (
-        <label className={clsx('mb-2 block text-sm font-medium text-text-secondary', className)} {...props}>
+        <label className={cn('mb-2 block text-sm font-medium text-text-secondary', className)} {...props}>
             {children}
             {required && (
                 <span className="ml-1 text-danger" aria-hidden="true">

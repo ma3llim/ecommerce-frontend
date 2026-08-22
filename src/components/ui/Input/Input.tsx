@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 import type { InputHTMLAttributes } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -10,7 +10,7 @@ const Input = ({ error, className = '', id, ...props }: InputProps) => {
         <div className="w-full">
             <input
                 id={id}
-                className={clsx(
+                className={cn(
                     'w-full rounded-lg border',
                     'bg-surface text-text-primary',
                     'placeholder:text-text-muted',

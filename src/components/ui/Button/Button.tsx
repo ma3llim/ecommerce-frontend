@@ -1,5 +1,5 @@
 import { type ButtonHTMLAttributes, type ReactNode } from 'react';
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -31,7 +31,7 @@ const Button = ({ children, variant = 'primary', size = 'sm', loading, disabled 
         <button
             type="button"
             disabled={disabled || loading}
-            className={clsx(
+            className={cn(
                 'inline-flex items-center justify-center gap-2',
                 'rounded-lg',
                 'font-medium',
