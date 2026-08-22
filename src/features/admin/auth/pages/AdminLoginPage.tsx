@@ -6,8 +6,15 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { login } from '@/services/api/admin/adminAuthApi';
+import { useAppDispatch } from '@/store/hooks';
+import { setAdminUser } from '@/store/slices/admin/adminAuthSlice';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AdminLoginPage = () => {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -21,7 +28,17 @@ const AdminLoginPage = () => {
     });
 
     const onSubmit = async (data: AdminLoginFormData) => {
-        console.log('Login Data', data);
+        try {
+            const response = await login(data);
+
+            dispatch(setAdminUser(response.data));
+
+            toast.success('Login successful');
+
+            navigate('/admin/dashboard');
+        } catch (error) {
+            console.error('Login failed', error);
+        }
     };
 
     return (
@@ -29,9 +46,9 @@ const AdminLoginPage = () => {
             <Card className="w-full max-w-md p-8">
                 <div className="mb-8 space-y-2 text-center">
                     <h1 className="text-2xl font-bold tracking-tight text-foreground">Welcome back</h1>
-
                     <p className="text-sm text-muted-foreground">Sign in to your {APP_NAME} admin account</p>
                 </div>
+
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)} noValidate>
                     <FieldGroup>
                         <Field>
@@ -42,6 +59,7 @@ const AdminLoginPage = () => {
                                 type="email"
                                 autoComplete="email"
                                 placeholder="admin@example.com"
+                                disabled={isSubmitting}
                                 {...register('email')}
                                 aria-invalid={!!errors.email}
                             />
@@ -55,6 +73,7 @@ const AdminLoginPage = () => {
                             <Input
                                 id="password"
                                 type="password"
+                                disabled={isSubmitting}
                                 autoComplete="current-password"
                                 placeholder="Enter your password"
                                 {...register('password')}
@@ -64,8 +83,8 @@ const AdminLoginPage = () => {
                             {errors.password && <FieldError>{errors.password.message}</FieldError>}
                         </Field>
 
-                        <Button type="submit" size="lg" className="w-full">
-                            Sign in
+                        <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                            {isSubmitting ? 'Signing in...' : 'Sign in'}
                         </Button>
                     </FieldGroup>
                 </form>
