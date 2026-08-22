@@ -1,10 +1,5 @@
-import type { AdminUser } from '@/features/admin/auth/types';
+import type { AdminAuthState, AuthUser } from '@/types/admin/auth';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-
-interface AdminAuthState {
-    user: AdminUser | null;
-    isAuthenticated: boolean;
-}
 
 const initialState: AdminAuthState = {
     user: null,
@@ -15,17 +10,17 @@ const adminAuthSlice = createSlice({
     name: 'adminAuth',
     initialState,
     reducers: {
-        setAdminUser: (state, action: PayloadAction<AdminUser>) => {
-            state.isAuthenticated = true;
+        setAdminUser: (state, action: PayloadAction<AuthUser>) => {
             state.user = action.payload;
+            state.isAuthenticated = true;
         },
-        clearnAdmin: (state) => {
+        clearAdmin: (state) => {
             state.isAuthenticated = false;
             state.user = null;
         },
     },
 });
 
-export const { setAdminUser, clearnAdmin } = adminAuthSlice.actions;
+export const { setAdminUser, clearAdmin } = adminAuthSlice.actions;
 
 export default adminAuthSlice.reducer;

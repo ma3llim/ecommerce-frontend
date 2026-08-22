@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import adminAuthReducer from '@/store/slices/adminAuthSlice';
+import adminAuthReducer from '@/store/slices/admin/adminAuthSlice';
 
 export const store = configureStore({
     reducer: {
