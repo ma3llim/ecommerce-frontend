@@ -1,9 +1,11 @@
+import { BASE_URL } from '@/constants';
 import axios from 'axios';
 
 export const api = axios.create({
-    baseURL: import.meta.env.BASE_URL,
+    baseURL: BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
+    withCredentials: true,
     timeout: 15_000,
 });
