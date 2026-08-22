@@ -1,8 +1,11 @@
-import { Button, Card, Input, Label } from '@/components/ui';
 import { APP_NAME } from '@/constants';
 import { useForm } from 'react-hook-form';
 import { adminLoginSchema, type AdminLoginFormData } from '../schemas/adminLogin.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Card } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const AdminLoginPage = () => {
     const {
@@ -31,22 +34,14 @@ const AdminLoginPage = () => {
 
                 <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
                     <div>
-                        <Label htmlFor="email" required>
-                            Email address
-                        </Label>
-                        <Input
-                            id="email"
-                            type="email"
-                            autoComplete="email"
-                            placeholder="admin@example.com"
-                            error={errors.email?.message}
-                            {...register('email')}
-                        />
+                        <Label htmlFor="email">Email address</Label>
+                        <Input id="email" type="email" autoComplete="email" placeholder="admin@example.com" {...register('email')} />
+                        error={errors.email?.message}
                     </div>
 
                     <div>
                         <div className="mb-2 flex items-center justify-between">
-                            <Label htmlFor="password" required className="mb-0">
+                            <Label htmlFor="password" className="mb-0">
                                 Password
                             </Label>
                         </div>
@@ -55,12 +50,12 @@ const AdminLoginPage = () => {
                             type="password"
                             autoComplete="current-password"
                             placeholder="Enter your password"
-                            error={errors.password?.message}
                             {...register('password')}
                         />
+                        error={errors.password?.message}
                     </div>
 
-                    <Button type="submit" fullWidth size="lg" loading={isSubmitting}>
+                    <Button type="submit" size="lg">
                         Sign in
                     </Button>
                 </form>
