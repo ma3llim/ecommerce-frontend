@@ -14,3 +14,8 @@ export interface AdminAuthState {
     user: AuthUser | null;
     isAuthenticated: boolean;
 }
+
+export interface LoginRequest {
+    email: string;
+    password: string;
+}
