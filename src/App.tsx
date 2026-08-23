@@ -1,11 +1,9 @@
-import DesignSystem from "./client/pages/DesignSystem";
-import ThemeToggle from "./providers/ThemeToggle";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
     return (
         <>
-            <ThemeToggle />
-            <DesignSystem />
+            <AppRouter />
         </>
     );
 }
