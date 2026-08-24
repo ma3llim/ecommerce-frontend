@@ -1,4 +1,4 @@
-import { ADMIN_ENDPOINTS } from "@/admin/api/AdminAuth.endpoints";
+import { ADMIN_ENDPOINTS } from "@/admin/api/Admin.endpoints";
 import { cleanAdmin, setAccessToken } from "@/admin/store/slice/AdminAuth.slice";
 import { ReduxStore } from "@/store/store";
 import type { ApiError } from "@/types/common/ApiError.types";
