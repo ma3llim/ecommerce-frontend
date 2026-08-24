@@ -1,10 +1,7 @@
-import type { FieldErrorResponse } from "./FieldErrorResponse.types";
-
-export type ApiResponse = {
+export type ApiResponse<T> = {
     success: boolean;
     message: string;
-    errorCode: string;
-    errors: FieldErrorResponse[] | null;
+    data: T;
     timestamp: string;
     path: string | null;
 };
