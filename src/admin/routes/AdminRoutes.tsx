@@ -1,10 +1,11 @@
 import PageLoader from "@/components/common/PageLoader";
 import { lazy, Suspense } from "react";
-import { Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 import Adminlayout from "../layout/Adminlayout";
 
 const Login = lazy(() => import("@/admin/pages/auth/Login"));
 const Dashboard = lazy(() => import("@/admin/pages/Dashboard"));
+const AddCategory = lazy(() => import("@/admin/pages/categories/AddCategory"));
 
 const AdminRoutes = () => {
     return (
@@ -19,7 +20,9 @@ const AdminRoutes = () => {
             />
 
             <Route element={<Adminlayout />}>
+                <Route index element={<Navigate to="dashboard" replace />} />
                 <Route
+                    index
                     path="dashboard"
                     element={
                         <Suspense fallback={<PageLoader />}>
@@ -27,6 +30,17 @@ const AdminRoutes = () => {
                         </Suspense>
                     }
                 />
+                <Route path="categories">
+                    <Route
+                        index
+                        path="add-category"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <AddCategory />
+                            </Suspense>
+                        }
+                    />
+                </Route>
             </Route>
         </Route>
     );

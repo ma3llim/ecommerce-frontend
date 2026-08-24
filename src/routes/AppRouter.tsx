@@ -6,8 +6,8 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                {ClientRoutes()}
                 {AdminRoutes()}
+                {ClientRoutes()}
             </Routes>
         </BrowserRouter>
     );

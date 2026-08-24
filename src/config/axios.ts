@@ -1,4 +1,4 @@
-import { ADMIN_AUTH_ENDPOINTS } from "@/admin/api/AdminAuth.endpoints";
+import { ADMIN_ENDPOINTS } from "@/admin/api/AdminAuth.endpoints";
 import { cleanAdmin, setAccessToken } from "@/admin/store/slice/AdminAuth.slice";
 import { ReduxStore } from "@/store/store";
 import type { ApiError } from "@/types/common/ApiError.types";
@@ -36,11 +36,11 @@ axiosInstance.interceptors.response.use(
             _retry?: boolean;
         };
 
-        if (error.config?.url === ADMIN_AUTH_ENDPOINTS.LOGOUT) {
+        if (error.config?.url === ADMIN_ENDPOINTS.AUTH.LOGOUT) {
             return Promise.reject(error.response?.data ?? error);
         }
 
-        if (error.config?.url === ADMIN_AUTH_ENDPOINTS.REFRESH) {
+        if (error.config?.url === ADMIN_ENDPOINTS.AUTH.REFRESH) {
             ReduxStore.dispatch(cleanAdmin());
 
             return Promise.reject(error.response?.data ?? error);
@@ -58,7 +58,7 @@ axiosInstance.interceptors.response.use(
         originalRequest._retry = true;
 
         try {
-            const response = await axiosInstance.post(ADMIN_AUTH_ENDPOINTS.REFRESH);
+            const response = await axiosInstance.post(ADMIN_ENDPOINTS.AUTH.REFRESH);
             const accessToken = response.data.data.accessToken;
 
             ReduxStore.dispatch(setAccessToken(accessToken));
