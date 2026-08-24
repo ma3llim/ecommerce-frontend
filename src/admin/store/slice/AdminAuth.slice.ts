@@ -18,9 +18,12 @@ const AdminAuthSlice = createSlice({
             state.admin = null;
             state.accessToken = null;
         },
+        setAccessToken: (state, action: PayloadAction<string>) => {
+            state.accessToken = action.payload;
+        },
     },
 });
 
-export const { cleanAdmin, setAdmin } = AdminAuthSlice.actions;
+export const { cleanAdmin, setAdmin, setAccessToken } = AdminAuthSlice.actions;
 
 export default AdminAuthSlice.reducer;

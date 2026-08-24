@@ -1,6 +1,8 @@
+import { ADMIN_AUTH_ENDPOINTS } from "@/admin/auth/api/AdminAuth.endpoints";
+import { cleanAdmin, setAccessToken } from "@/admin/store/slice/AdminAuth.slice";
 import { ReduxStore } from "@/store/store";
 import type { ApiError } from "@/types/common/ApiError.types";
-import axios from "axios";
+import axios, { type InternalAxiosRequestConfig } from "axios";
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -10,7 +12,7 @@ const axiosInstance = axios.create({
     },
 });
 
-axios.interceptors.request.use(config => {
+axiosInstance.interceptors.request.use(config => {
     const accessToken = ReduxStore.getState().AdminAuth.accessToken;
 
     if (accessToken) {
@@ -20,14 +22,45 @@ axios.interceptors.request.use(config => {
     return config;
 });
 
+// Attach access token
 axiosInstance.interceptors.response.use(
     response => response,
-    error => {
-        if (axios.isAxiosError<ApiError>(error)) {
+    async error => {
+        if (!axios.isAxiosError<ApiError>(error)) {
+            return Promise.reject(error);
+        }
+        const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+        // Don't refresh if this is already the refresh request
+        if (error.config?.url === ADMIN_AUTH_ENDPOINTS.REFRESH) {
+            ReduxStore.dispatch(cleanAdmin());
+
+            return Promise.reject(error.response?.data ?? error);
+        }
+        // Only handle 401
+        if (error.response?.status !== 401) {
+            return Promise.reject(error.response?.data ?? error);
+        }
+        // Don't refresh the same request twice
+        if (originalRequest._retry) {
             return Promise.reject(error.response?.data ?? error);
         }
 
-        return Promise.reject(error);
+        originalRequest._retry = true;
+
+        try {
+            const response = await axiosInstance.post(ADMIN_AUTH_ENDPOINTS.REFRESH);
+            const accessToken = response.data.data.accessToken;
+            ReduxStore.dispatch(setAccessToken(accessToken));
+
+            originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+
+            return axiosInstance(originalRequest);
+        } catch (refreshError) {
+            ReduxStore.dispatch(cleanAdmin());
+
+            return Promise.reject(refreshError);
+        }
     }
 );
 
