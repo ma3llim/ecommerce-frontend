@@ -7,7 +7,7 @@ import ThemeProvider from "./providers/ThemeProvider.tsx";
 import { Provider } from "react-redux";
 import { persistor, ReduxStore } from "./store/store.ts";
 import { PersistGate } from "redux-persist/integration/react";
-import PageLoader from "./components/PageLoader.tsx";
+import PageLoader from "./components/common/PageLoader.tsx";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>

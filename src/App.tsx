@@ -1,5 +1,5 @@
-import ResponsiveViewer from "@/components/ResponsiveViewer";
-import ToastProvider from "@/components/ToastProvider";
+import ResponsiveViewer from "@/components/common/ResponsiveViewer";
+import ToastProvider from "@/components/common/ToastProvider";
 import AppRouter from "@/routes/AppRouter";
 
 function App() {

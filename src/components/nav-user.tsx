@@ -14,7 +14,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import ToastService from "@/services/ToastService";
 import { useMutation } from "@tanstack/react-query";
-import { ChevronsUpDownIcon, SparklesIcon, BadgeCheckIcon, CreditCardIcon, BellIcon, LogOutIcon, UserShield } from "lucide-react";
+import { ChevronsUpDownIcon, LogOutIcon, UserShield } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 

@@ -1,4 +1,4 @@
-import PageLoader from "@/components/PageLoader";
+import PageLoader from "@/components/common/PageLoader";
 import { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import Adminlayout from "../layout/Adminlayout";
