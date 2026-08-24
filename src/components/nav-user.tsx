@@ -1,6 +1,6 @@
-import { AdminAuthApi } from "@/admin/auth/api/AdminAuth.api";
-import type { Admin, NavUserProps } from "@/admin/auth/types/AdminAuth.types";
+import { AdminAuthApi } from "@/admin/api/AdminAuth.api";
 import { cleanAdmin } from "@/admin/store/slice/AdminAuth.slice";
+import type { NavUserProps } from "@/admin/types/AdminAuth.types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
     DropdownMenu,

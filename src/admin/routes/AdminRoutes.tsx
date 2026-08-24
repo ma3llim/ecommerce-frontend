@@ -2,8 +2,9 @@ import PageLoader from "@/components/common/PageLoader";
 import { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import Adminlayout from "../layout/Adminlayout";
-const Login = lazy(() => import("@/admin/auth/pages/Login"));
-const Dashboard = lazy(() => import("@/admin/dashoarad/pages/Dashboard"));
+
+const Login = lazy(() => import("@/admin/pages/auth/Login"));
+const Dashboard = lazy(() => import("@/admin/pages/Dashboard"));
 
 const AdminRoutes = () => {
     return (
