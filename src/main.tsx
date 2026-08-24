@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App.tsx";
 import QueryProvider from "./query/QueryProvider.tsx";
 import ThemeProvider from "./providers/ThemeProvider.tsx";
-import ResponsiveViewer from "./components/ResponsiveViewer.tsx";
 import { Provider } from "react-redux";
 import { ReduxStore } from "./store/store.ts";
 
@@ -15,7 +14,6 @@ createRoot(document.getElementById("root")!).render(
                 <Provider store={ReduxStore}>
                     <App />
                 </Provider>
-                <ResponsiveViewer />
             </QueryProvider>
         </ThemeProvider>
     </StrictMode>
