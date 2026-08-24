@@ -1,28 +1,22 @@
-import type { Admin, AdminAuthState } from "@/admin/auth/types/AdminAuth.types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Admin, AdminAuthState, LoginRequest, LoginResponse } from "@/admin/auth/types/AdminAuth.types";
 
 const initialState: AdminAuthState = {
     admin: null,
-    isAuthenticated: false,
-    isLoading: false,
-    initialized: false,
+    accessToken: null,
 };
 
 const AdminAuthSlice = createSlice({
     name: "adminAuth",
     initialState,
     reducers: {
-        setAdmin: (state, action: PayloadAction<Admin>) => {
-            state.admin = action.payload;
-            state.isAuthenticated = true;
-            state.isLoading = false;
-            state.initialized = true;
+        setAdmin: (state, action: PayloadAction<LoginResponse>) => {
+            state.admin = action.payload.admin;
+            state.accessToken = action.payload.accessToken;
         },
         cleanAdmin: state => {
             state.admin = null;
-            state.isAuthenticated = false;
-            state.isLoading = false;
-            state.initialized = false;
+            state.accessToken = null;
         },
     },
 });

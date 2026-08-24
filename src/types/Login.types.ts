@@ -5,4 +5,7 @@ export interface LoginRequest {
     password: string;
 }
 
-export interface LoginResponse extends User {}
+export interface LoginResponse {
+    accessToken: string;
+    user: User;
+}

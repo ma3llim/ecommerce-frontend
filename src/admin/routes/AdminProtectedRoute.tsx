@@ -4,9 +4,9 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const AdminProtectedRoute = () => {
     const location = useLocation();
-    const { admin, isAuthenticated } = useSelector((state: RootState) => state.AdminAuth);
+    const admin = useSelector((state: RootState) => state.AdminAuth.admin);
 
-    if (!isAuthenticated && !admin) {
+    if (!admin) {
         return <Navigate to="/admin/login" replace state={{ from: location }} />;
     }
     return <Outlet />;

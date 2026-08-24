@@ -1,3 +1,4 @@
+import { ReduxStore } from "@/store/store";
 import type { ApiError } from "@/types/common/ApiError.types";
 import axios from "axios";
 
@@ -7,6 +8,16 @@ const axiosInstance = axios.create({
     headers: {
         "Content-Type": "application/json",
     },
+});
+
+axios.interceptors.request.use(config => {
+    const accessToken = ReduxStore.getState().AdminAuth.accessToken;
+
+    if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+
+    return config;
 });
 
 axiosInstance.interceptors.response.use(

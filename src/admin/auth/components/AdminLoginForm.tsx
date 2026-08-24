@@ -34,7 +34,7 @@ const AdminLoginForm = () => {
             }),
 
         onSuccess: response => {
-            const admin = response.data;
+            const admin = response.data.user;
 
             if (!admin.emailVerified) {
                 ToastService.error("Please verify your email.");
@@ -47,7 +47,7 @@ const AdminLoginForm = () => {
             }
 
             ToastService.success(response.message);
-            dispatch(setAdmin(admin));
+            dispatch(setAdmin({ accessToken: response.data.accessToken, admin: response.data.user }));
             navigate("/admin/dashboard");
         },
 
