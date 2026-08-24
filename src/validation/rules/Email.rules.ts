@@ -5,7 +5,7 @@ interface EmailOptions {
     required?: boolean;
 }
 
-export const EmailField = ({ label = "Email", required = true }: EmailOptions) => {
+export const EmailField = ({ label = "Email", required = true }: EmailOptions = {}) => {
     let schema = yup.string().trim().email(`${label} must be a valid email address.`);
 
     if (required) {
