@@ -8,10 +8,10 @@ import { Navigate, useLocation } from "react-router-dom";
 
 const Adminlayout = () => {
     const location = useLocation();
-    const admin = useSelector((state: RootState) => state.AdminAuth.admin);
+    const { admin, accessToken } = useSelector((state: RootState) => state.AdminAuth);
     console.log(admin);
 
-    if (!admin) {
+    if (!admin || !accessToken) {
         return <Navigate to="/admin/login" replace state={{ from: location }} />;
     }
     return (
