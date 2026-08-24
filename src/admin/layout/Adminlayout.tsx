@@ -9,7 +9,6 @@ import { Navigate, useLocation } from "react-router-dom";
 const Adminlayout = () => {
     const location = useLocation();
     const { admin, accessToken } = useSelector((state: RootState) => state.AdminAuth);
-    console.log(admin);
 
     if (!admin || !accessToken) {
         return <Navigate to="/admin/login" replace state={{ from: location }} />;
@@ -41,7 +40,7 @@ const Adminlayout = () => {
                         <div className="aspect-video rounded-xl bg-muted/50" />
                         <div className="aspect-video rounded-xl bg-muted/50" />
                     </div>
-                    <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+                    <div className="min-h-screen flex-1 rounded-xl bg-muted/50 md:min-h-min" />
                 </div>
             </SidebarInset>
         </SidebarProvider>

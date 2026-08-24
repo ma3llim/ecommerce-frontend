@@ -1,6 +1,6 @@
 import type React from "react";
-import type { User } from "../../../types/User.types";
 import { Sidebar } from "@/components/ui/sidebar";
+import type { User } from "@/types/User.types";
 
 export type LoginRequest = {
     email: string;
