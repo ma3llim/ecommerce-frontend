@@ -1,4 +1,6 @@
+import { AdminAuthApi } from "@/admin/auth/api/AdminAuth.api";
 import type { Admin, NavUserProps } from "@/admin/auth/types/AdminAuth.types";
+import { cleanAdmin } from "@/admin/store/slice/AdminAuth.slice";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
     DropdownMenu,
@@ -10,9 +12,29 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import ToastService from "@/services/ToastService";
+import { useMutation } from "@tanstack/react-query";
 import { ChevronsUpDownIcon, SparklesIcon, BadgeCheckIcon, CreditCardIcon, BellIcon, LogOutIcon, UserShield } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export function NavUser({ email, firstName, lastName, role }: NavUserProps) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { mutate, isPending } = useMutation({
+        mutationFn: () => AdminAuthApi.logout(),
+        onSuccess: () => {
+            ToastService.success("Logout Successfully");
+            dispatch(cleanAdmin());
+
+            navigate("/admin/login", { replace: true });
+        },
+        onError: error => {
+            ToastService.error(error.message);
+        },
+    });
+
     const { isMobile } = useSidebar();
     return (
         <SidebarMenu>
@@ -61,7 +83,7 @@ export function NavUser({ email, firstName, lastName, role }: NavUserProps) {
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+                        <DropdownMenuItem disabled={isPending} onClick={() => mutate()}>
                             <LogOutIcon />
                             Log out
                         </DropdownMenuItem>

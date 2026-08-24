@@ -12,6 +12,7 @@ const axiosInstance = axios.create({
     },
 });
 
+// Attach access token to every request
 axiosInstance.interceptors.request.use(config => {
     const accessToken = ReduxStore.getState().AdminAuth.accessToken;
 
@@ -22,26 +23,34 @@ axiosInstance.interceptors.request.use(config => {
     return config;
 });
 
-// Attach access token
+// Handle responses and token refresh
 axiosInstance.interceptors.response.use(
     response => response,
+
     async error => {
         if (!axios.isAxiosError<ApiError>(error)) {
             return Promise.reject(error);
         }
-        const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-        // Don't refresh if this is already the refresh request
+        const originalRequest = error.config as InternalAxiosRequestConfig & {
+            _retry?: boolean;
+        };
+
+        if (error.config?.url === ADMIN_AUTH_ENDPOINTS.LOGOUT) {
+            return Promise.reject(error.response?.data ?? error);
+        }
+
         if (error.config?.url === ADMIN_AUTH_ENDPOINTS.REFRESH) {
             ReduxStore.dispatch(cleanAdmin());
 
             return Promise.reject(error.response?.data ?? error);
         }
-        // Only handle 401
+
+        // Only handle 401 responses.
         if (error.response?.status !== 401) {
             return Promise.reject(error.response?.data ?? error);
         }
-        // Don't refresh the same request twice
+
         if (originalRequest._retry) {
             return Promise.reject(error.response?.data ?? error);
         }
@@ -51,6 +60,7 @@ axiosInstance.interceptors.response.use(
         try {
             const response = await axiosInstance.post(ADMIN_AUTH_ENDPOINTS.REFRESH);
             const accessToken = response.data.data.accessToken;
+
             ReduxStore.dispatch(setAccessToken(accessToken));
 
             originalRequest.headers.Authorization = `Bearer ${accessToken}`;
