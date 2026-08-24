@@ -1,12 +1,8 @@
 "use client";
-
-import * as React from "react";
-
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
 import {
     GalleryVerticalEndIcon,
     AudioLinesIcon,
@@ -15,22 +11,17 @@ import {
     BotIcon,
     BookOpenIcon,
     Settings2Icon,
-    FrameIcon,
-    PieChartIcon,
-    MapIcon,
+    HomeIcon,
+    LayoutDashboardIcon,
+    User,
 } from "lucide-react";
 import type { AdminSidebarProps } from "@/admin/auth/types/AdminAuth.types";
 
 // This is sample data.
 const data = {
-    user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
-    },
     teams: [
         {
-            name: "Acme Inc",
+            name: "Profile",
             logo: <GalleryVerticalEndIcon />,
             plan: "Enterprise",
         },
@@ -132,21 +123,24 @@ const data = {
             ],
         },
     ],
-    projects: [
+    quickLinks: [
         {
-            name: "Design Engineering",
-            url: "#",
-            icon: <FrameIcon />,
+            name: "Main Site",
+            url: "/",
+            icon: <HomeIcon />,
+            target: true,
         },
         {
-            name: "Sales & Marketing",
-            url: "#",
-            icon: <PieChartIcon />,
+            name: "Dashboard",
+            url: "/admin/dashboard",
+            icon: <LayoutDashboardIcon />,
+            target: false,
         },
         {
-            name: "Travel",
-            url: "#",
-            icon: <MapIcon />,
+            name: "Profile",
+            url: "/admin/profile",
+            icon: <User />,
+            target: false,
         },
     ],
 };
@@ -154,12 +148,9 @@ const data = {
 export function AppSidebar({ user, ...props }: AdminSidebarProps) {
     return (
         <Sidebar collapsible="icon" {...props}>
-            <SidebarHeader>
-                <TeamSwitcher teams={data.teams} />
-            </SidebarHeader>
             <SidebarContent>
+                <NavProjects projects={data.quickLinks} />
                 <NavMain items={data.navMain} />
-                <NavProjects projects={data.projects} />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser email={user.email} firstName={user.firstName} lastName={user.lastName} role={user.role} />
