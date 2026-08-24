@@ -10,7 +10,9 @@ const DesignSystem = () => {
 
                     <h1 className="text-4xl font-bold tracking-tight">Design System Playground</h1>
 
-                    <p className="max-w-2xl text-muted-foreground">A testing page for colors, typography, components, product cards, states, and light/dark themes.</p>
+                    <p className="max-w-2xl text-muted-foreground">
+                        A testing page for colors, typography, components, product cards, states, and light/dark themes.
+                    </p>
                 </section>
 
                 {/* Colors */}
@@ -69,13 +71,19 @@ const DesignSystem = () => {
                     </div>
 
                     <div className="flex flex-wrap gap-3">
-                        <button className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90">Add to Cart</button>
+                        <button className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90">
+                            Add to Cart
+                        </button>
 
-                        <button className="rounded-lg bg-secondary px-5 py-2.5 text-sm font-medium text-secondary-foreground transition-opacity hover:opacity-80">Buy Now</button>
+                        <button className="rounded-lg bg-secondary px-5 py-2.5 text-sm font-medium text-secondary-foreground transition-opacity hover:opacity-80">
+                            Buy Now
+                        </button>
 
                         <button className="rounded-lg border bg-background px-5 py-2.5 text-sm font-medium transition-colors hover:bg-muted">Cancel</button>
 
-                        <button className="rounded-lg bg-destructive px-5 py-2.5 text-sm font-medium text-destructive-foreground transition-opacity hover:opacity-90">Delete</button>
+                        <button className="rounded-lg bg-destructive px-5 py-2.5 text-sm font-medium text-destructive-foreground transition-opacity hover:opacity-90">
+                            Delete
+                        </button>
 
                         <button className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground opacity-50">Disabled</button>
                     </div>
@@ -131,7 +139,9 @@ const DesignSystem = () => {
                                 <span className="rounded-full bg-destructive/10 px-2.5 py-1 text-xs font-medium text-destructive">29% OFF</span>
                             </div>
 
-                            <p className="text-muted-foreground">A short product description demonstrating how your ecommerce content will look using the design tokens.</p>
+                            <p className="text-muted-foreground">
+                                A short product description demonstrating how your ecommerce content will look using the design tokens.
+                            </p>
 
                             <div className="flex items-center gap-3">
                                 <button className="flex h-11 w-11 items-center justify-center rounded-lg border hover:bg-muted">
@@ -232,7 +242,11 @@ const ProductCard = () => {
             <div className="relative aspect-square bg-muted">
                 <div className="absolute left-3 top-3 rounded-full bg-primary px-2.5 py-1 text-xs font-medium text-primary-foreground">New</div>
 
-                <button type="button" aria-label="Add to wishlist" className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-background/90 shadow-sm backdrop-blur">
+                <button
+                    type="button"
+                    aria-label="Add to wishlist"
+                    className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-background/90 shadow-sm backdrop-blur"
+                >
                     <Heart size={16} />
                 </button>
             </div>
