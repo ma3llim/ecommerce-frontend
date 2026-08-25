@@ -4,7 +4,7 @@ import type { PageResponse } from "@/types/common/PageResponse.types";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
 import { ADMIN_ENDPOINTS } from "./Admin.endpoints";
 import type { Category } from "../types/Category.types";
-import type { AddCategoryFormValues } from "@/validation/admin/categories/CategorySchema";
+import type { AddCategoryFormValues, UpdateCategoryFormValues } from "@/validation/admin/categories/CategorySchema";
 
 export const CategoryApi = {
     getAllCategoris: async (params: PaginationRequest = {}) => {
@@ -21,12 +21,20 @@ export const CategoryApi = {
 
         return response.data;
     },
-    updateCategory: async (categoryId: string, data: AddCategoryFormValues) => {
+    getCategoryById: async (categoryId: string) => {
+        const response = await axiosInstance.get<ApiResponse<Category>>(ADMIN_ENDPOINTS.CATEGORY.GET(categoryId));
+
+        return response.data;
+    },
+    updateCategory: async (categoryId: string, data: UpdateCategoryFormValues) => {
         const formData = new FormData();
 
         formData.append("name", data.name);
-        formData.append("categoryImage", data.categoryImage);
         formData.append("active", String(data.active));
+
+        if (data.categoryImage) {
+            formData.append("categoryImage", data.categoryImage);
+        }
 
         const response = await axiosInstance.put<ApiResponse<Category>>(ADMIN_ENDPOINTS.CATEGORY.UPDATE(categoryId), formData);
 

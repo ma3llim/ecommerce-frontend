@@ -4,7 +4,7 @@ import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
-import { TerminalSquareIcon, BotIcon, BookOpenIcon, Settings2Icon, HomeIcon, LayoutDashboardIcon, ChartBarStacked } from "lucide-react";
+import { BotIcon, BookOpenIcon, Settings2Icon, HomeIcon, LayoutDashboardIcon, ChartBarStacked } from "lucide-react";
 
 // This is sample data.
 const data = {

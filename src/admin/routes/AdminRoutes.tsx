@@ -7,6 +7,7 @@ const Login = lazy(() => import("@/admin/pages/auth/Login"));
 const Dashboard = lazy(() => import("@/admin/pages/Dashboard"));
 const AddCategory = lazy(() => import("@/admin/pages/categories/AddCategory"));
 const CategoryListing = lazy(() => import("@/admin/pages/categories/CategoryListing"));
+const EditCategory = lazy(() => import("@/admin/pages/categories/EditCategory"));
 
 const AdminRoutes = () => {
     return (
@@ -46,6 +47,14 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <CategoryListing />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":categoryId/edit"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <EditCategory />
                             </Suspense>
                         }
                     />

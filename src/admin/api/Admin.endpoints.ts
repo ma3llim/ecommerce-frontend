@@ -7,6 +7,7 @@ export const ADMIN_ENDPOINTS = {
 
     CATEGORY: {
         GET_ALL: "/admin/categories",
+        GET: (categoryId: string) => `/admin/categories/${categoryId}`,
         CREATE: "/admin/categories",
         UPDATE: (categoryId: string) => `/admin/categories/${categoryId}`,
         DELETE: (categoryId: string) => `/admin/categories/${categoryId}`,

@@ -1,6 +1,5 @@
 import { CategoryApi } from "@/admin/api/Category.api";
 import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
-import type { Category } from "@/admin/types/Category.types";
 import ErrorState from "@/components/common/ErrorState";
 import PageLoader from "@/components/common/PageLoader";
 import { Badge } from "@/components/ui/badge";
@@ -48,9 +47,11 @@ const CategoryListing = () => {
     if (isError) {
         return <ErrorState message="Something went wrong while fetch categories" />;
     }
+
     const handleEdit = (categoryId: string) => {
         navigate(`/admin/categories/${categoryId}/edit`);
     };
+
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between">

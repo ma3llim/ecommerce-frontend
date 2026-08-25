@@ -46,7 +46,7 @@ const ButtonWithAlert = ({
 
                 <AlertDialogFooter>
                     <AlertDialogCancel disabled={disabled}>{dialogCancelTitle}</AlertDialogCancel>
-                    <AlertDialogAction disabled={disabled} onClick={dialogActionfn}>
+                    <AlertDialogAction variant="destructive" disabled={disabled} onClick={dialogActionfn}>
                         {dialogActionTitle}
                     </AlertDialogAction>
                 </AlertDialogFooter>
