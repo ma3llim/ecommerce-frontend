@@ -48,81 +48,10 @@ const CategoryListing = () => {
     if (isError) {
         return <ErrorState message="Something went wrong while fetch categories" />;
     }
-    const handleEdit = categoryId => {};
+    const handleEdit = (categoryId: string) => {
+        navigate(`/admin/categories/${categoryId}/edit`);
+    };
     return (
-        // <div className="space-y-6">
-        //     <div>
-        //         <h1 className="text-2xl font-semibold">Categories</h1>
-        //         <p className="text-sm text-muted-foreground">Manage your product categories.</p>
-        //     </div>
-        //     <div className="rounded-lg border">
-        //         <div className="overflow-x-auto">
-        //             <table className="w-full">
-        //                 <thead>
-        //                     <tr className="border-b">
-        //                         <th className="p-4 text-left">Image</th>
-        //                         <th className="p-4 text-left">Name</th>
-        //                         <th className="p-4 text-left">Slug</th>
-        //                         <th className="p-4 text-left">Status</th>
-        //                         <th className="p-4 text-left">Actions</th>
-        //                     </tr>
-        //                 </thead>
-
-        //                 <tbody>
-        //                     {pageData?.content.map((category: Category) => (
-        //                         <tr key={category.categoryId} className="border-b">
-        //                             <td className="p-4">
-        //                                 <img src={category.imageUrl} alt={category.name} className="h-12 w-12 rounded-md object-cover" />
-        //                             </td>
-        //                             <td className="p-4 font-medium">{category.name}</td>
-        //                             <td className="p-4 text-muted-foreground">{category.slug}</td>
-        //                             <td className="p-4">{category.active ? "Active" : "Inactive"}</td>
-
-        //                             <td className="p-4">{/* Edit/Delete */}</td>
-        //                         </tr>
-        //                     ))}
-        //                 </tbody>
-        //             </table>
-        //         </div>
-        //     </div>
-
-        //     {/* Pagination */}
-        //     <div className="flex items-center justify-between">
-        //         <p className="text-sm text-muted-foreground">
-        //             Page {pageData ? pageData.page + 1 : 1} of {pageData?.totalPages ?? 1}
-        //         </p>
-
-        //         <div className="flex gap-2">
-        //             <button
-        //                 type="button"
-        //                 disabled={pageData?.first ?? true}
-        //                 onClick={() =>
-        //                     setPagination(prev => ({
-        //                         ...prev,
-        //                         page: Math.max((prev.page ?? 0) - 1, 0),
-        //                     }))
-        //                 }
-        //                 className="rounded-md cursor-pointer border px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
-        //             >
-        //                 Previous
-        //             </button>
-
-        //             <button
-        //                 type="button"
-        //                 disabled={pageData?.last ?? true}
-        //                 onClick={() =>
-        //                     setPagination(prev => ({
-        //                         ...prev,
-        //                         page: (prev.page ?? 0) + 1,
-        //                     }))
-        //                 }
-        //                 className="rounded-md cursor-pointer border px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
-        //             >
-        //                 Next
-        //             </button>
-        //         </div>
-        //     </div>
-        // </div>
         <Card>
             <CardHeader className="flex flex-row items-center justify-between">
                 <div>
