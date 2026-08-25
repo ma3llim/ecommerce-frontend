@@ -34,19 +34,13 @@ const AddCategoryForm = () => {
     });
     const { mutate, isPending } = useMutation({
         mutationFn: (data: AddCategoryFormValues) => {
-            const formData = new FormData();
-
-            formData.append("name", data.name);
-            formData.append("categoryImage", data.categoryImage);
-            formData.append("active", String(data.active));
-
-            return CategoryApi.addCategory(formData);
+            return CategoryApi.addCategory(data);
         },
-        onSuccess: () => {
+        onSuccess: response => {
             queryClient.invalidateQueries({
                 queryKey: ["categoryList"],
             });
-
+            ToastService.success(response.message);
             navigate("/admin/categories/category-listing");
         },
         onError: error => {

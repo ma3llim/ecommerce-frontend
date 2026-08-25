@@ -6,6 +6,7 @@ import Adminlayout from "../layout/Adminlayout";
 const Login = lazy(() => import("@/admin/pages/auth/Login"));
 const Dashboard = lazy(() => import("@/admin/pages/Dashboard"));
 const AddCategory = lazy(() => import("@/admin/pages/categories/AddCategory"));
+const CategoryListing = lazy(() => import("@/admin/pages/categories/CategoryListing"));
 
 const AdminRoutes = () => {
     return (
@@ -37,6 +38,14 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <AddCategory />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="category-listing"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <CategoryListing />
                             </Suspense>
                         }
                     />

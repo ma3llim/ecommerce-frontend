@@ -15,12 +15,12 @@ const data = {
             icon: <ChartBarStacked />,
             items: [
                 {
-                    title: "Category Listing",
-                    url: "/admin/categories/category-listing",
-                },
-                {
                     title: "Add Category",
                     url: "/admin/categories/add-category",
+                },
+                {
+                    title: "Category Listing",
+                    url: "/admin/categories/category-listing",
                 },
             ],
         },
