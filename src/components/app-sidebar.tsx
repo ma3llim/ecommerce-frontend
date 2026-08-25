@@ -1,59 +1,26 @@
 "use client";
+import type { AdminSidebarProps } from "@/admin/types/AdminAuth.types";
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
-import {
-    GalleryVerticalEndIcon,
-    AudioLinesIcon,
-    TerminalIcon,
-    TerminalSquareIcon,
-    BotIcon,
-    BookOpenIcon,
-    Settings2Icon,
-    HomeIcon,
-    LayoutDashboardIcon,
-    User,
-} from "lucide-react";
-import type { AdminSidebarProps } from "@/admin/auth/types/AdminAuth.types";
+import { TerminalSquareIcon, BotIcon, BookOpenIcon, Settings2Icon, HomeIcon, LayoutDashboardIcon, ChartBarStacked } from "lucide-react";
 
 // This is sample data.
 const data = {
-    teams: [
-        {
-            name: "Profile",
-            logo: <GalleryVerticalEndIcon />,
-            plan: "Enterprise",
-        },
-        {
-            name: "Acme Corp.",
-            logo: <AudioLinesIcon />,
-            plan: "Startup",
-        },
-        {
-            name: "Evil Corp.",
-            logo: <TerminalIcon />,
-            plan: "Free",
-        },
-    ],
     navMain: [
         {
-            title: "Playground",
-            url: "#",
-            icon: <TerminalSquareIcon />,
-            isActive: true,
+            title: "Manage Category",
+            url: "/admin/categories",
+            icon: <ChartBarStacked />,
             items: [
                 {
-                    title: "History",
-                    url: "#",
+                    title: "Category Listing",
+                    url: "/admin/categories/category-listing",
                 },
                 {
-                    title: "Starred",
-                    url: "#",
-                },
-                {
-                    title: "Settings",
-                    url: "#",
+                    title: "Add Category",
+                    url: "/admin/categories/add-category",
                 },
             ],
         },
@@ -134,12 +101,6 @@ const data = {
             name: "Dashboard",
             url: "/admin/dashboard",
             icon: <LayoutDashboardIcon />,
-            target: false,
-        },
-        {
-            name: "Profile",
-            url: "/admin/profile",
-            icon: <User />,
             target: false,
         },
     ],

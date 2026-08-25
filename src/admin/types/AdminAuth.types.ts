@@ -16,7 +16,7 @@ export interface AdminAuthState {
 
 export type LoginResponse = {
     accessToken: string;
-    admin: Admin;
+    user: Admin;
 };
 
 export interface AdminSidebarProps extends React.ComponentProps<typeof Sidebar> {

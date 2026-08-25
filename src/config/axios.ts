@@ -7,9 +7,6 @@ import axios, { type InternalAxiosRequestConfig } from "axios";
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
     withCredentials: true,
-    headers: {
-        "Content-Type": "application/json",
-    },
 });
 
 // Attach access token to every request

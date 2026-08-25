@@ -1,8 +1,7 @@
 import type { ApiResponse } from "@/types/common/ApiResponse.types";
-import type { LoginRequest } from "@/types/Login.types";
-import type { LoginResponse } from "../types/AdminAuth.types";
 import { axiosInstance } from "@/config/axios";
 import { ADMIN_ENDPOINTS } from "./Admin.endpoints";
+import type { LoginRequest, LoginResponse } from "../types/AdminAuth.types";
 
 export const AdminAuthApi = {
     login: async (payload: LoginRequest): Promise<ApiResponse<LoginResponse>> => {
