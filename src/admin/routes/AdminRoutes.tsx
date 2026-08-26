@@ -11,6 +11,9 @@ const EditCategory = lazy(() => import("@/admin/pages/categories/EditCategory"))
 const ProductListing = lazy(() => import("@/admin/pages/products/ProductListing"));
 const AddProduct = lazy(() => import("@/admin/pages/products/AddProduct"));
 const EditProduct = lazy(() => import("@/admin/pages/products/EditProduct"));
+const AddTag = lazy(() => import("@/admin/pages/tags/AddTag"));
+const EditTag = lazy(() => import("@/admin/pages/tags/EditTag"));
+const TagListing = lazy(() => import("@/admin/pages/tags/TagListing"));
 
 const AdminRoutes = () => {
     return (
@@ -88,6 +91,34 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <EditProduct />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+
+                <Route path="tags">
+                    <Route index element={<Navigate to="add-tag" replace />} />
+                    <Route
+                        path="add-tag"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <AddTag />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="tag-listing"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <TagListing />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="edit-tag/:tagId"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <EditTag />
                             </Suspense>
                         }
                     />

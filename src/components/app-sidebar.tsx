@@ -4,7 +4,7 @@ import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
-import { BookOpenIcon, Settings2Icon, HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package } from "lucide-react";
+import { BookOpenIcon, Settings2Icon, HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags } from "lucide-react";
 
 // This is sample data.
 const data = {
@@ -36,6 +36,21 @@ const data = {
                 {
                     title: "Product Listing",
                     url: "/admin/products/product-listing",
+                },
+            ],
+        },
+        {
+            title: "Manage Tags",
+            url: "/admin/tags",
+            icon: <Tags />,
+            items: [
+                {
+                    title: "Add Tag",
+                    url: "/admin/tags/add-tag",
+                },
+                {
+                    title: "Tag Listing",
+                    url: "/admin/tags/tag-listing",
                 },
             ],
         },

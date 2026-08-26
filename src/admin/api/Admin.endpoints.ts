@@ -13,6 +13,7 @@ export const ADMIN_ENDPOINTS = {
         UPDATE: (categoryId: string) => `/admin/categories/${categoryId}`,
         DELETE: (categoryId: string) => `/admin/categories/${categoryId}`,
     },
+
     PRODUCTS: {
         GET_ALL: "/admin/products",
         CREATE: "/admin/products",
@@ -20,6 +21,14 @@ export const ADMIN_ENDPOINTS = {
         UPDATE_PRODUCT_STATUS: (productId: string) => `admin/products/${productId}/status`,
         UPDATE_PRODUCT: (productId: string) => `/admin/products/${productId}`,
         DELETE: (productId: string) => `/admin/products/${productId}`,
+    },
+
+    TAGS: {
+        GET_ALL: "/admin/tags",
+        CREATE: "/admin/tags",
+        GET_BY_ID: (tagId: string) => `/admin/tags/${tagId}`,
+        UPDATE: (tagId: string) => `/admin/tags/${tagId}`,
+        DELETE: (tagId: string) => `/admin/tags/${tagId}`,
     },
 
     COUPON: {
