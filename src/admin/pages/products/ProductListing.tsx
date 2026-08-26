@@ -4,89 +4,12 @@ import type { Product } from "@/admin/types/Product.types";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
 import { useQuery } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
+import { Eye, Package, Pencil, Power, Trash2 } from "lucide-react";
 import { useState } from "react";
-
-const productColumns: ColumnDef<Product>[] = [
-    {
-        accessorKey: "name",
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Product" />,
-    },
-    {
-        accessorKey: "categoryName",
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Category" />,
-    },
-    {
-        accessorKey: "specifications",
-        header: "Specifications",
-        cell: ({ row }) => {
-            const specifications = row.original.specifications;
-            return (
-                <div className="flex gap-2">
-                    {Object.entries(specifications).map(([key, value]) => (
-                        <span key={key} className="text-sm">
-                            {key}: {String(value)}
-                        </span>
-                    ))}
-                </div>
-            );
-        },
-    },
-    {
-        accessorKey: "published",
-        header: "Published",
-        cell: ({ row }) => {
-            const published = row.getValue<boolean>("published");
-            return published ? "Published" : "Draft";
-        },
-    },
-    {
-        accessorKey: "createdAt",
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Created At" />,
-        cell: ({ row }) => {
-            const createdAt = row.getValue<string>("createdAt");
-            return new Date(createdAt).toLocaleDateString();
-        },
-    },
-    {
-        id: "actions",
-        accessorKey: "Actions",
-        cell: ({ row }) => (
-            <DataTableRowActions
-                row={row}
-                onView={product => {
-                    console.log("View product:", product);
-                }}
-
-                onEdit={product => {
-                    console.log("Edit product:", product);
-                }}
-
-                actions={[
-                    {
-                        label: "Manage Variants",
-                        variant: "accent",
-                        onClick: product => {
-                            console.log("Manage variants:", product);
-                        },
-                    },
-                    {
-                        label: "Manage Images",
-                        variant: "teal",
-                        onClick: product => {
-                            console.log("Manage images:", product);
-                        },
-                    },
-                ]}
-
-                onDelete={product => {
-                    console.log("Delete product:", product);
-                }}
-            />
-        ),
-    },
-];
+import { useNavigate } from "react-router-dom";
 
 const ProductListing = () => {
+    const navigate = useNavigate();
     const [pagination, setPagination] = useState<PaginationRequest>({
         page: 0,
         size: 10,
@@ -102,11 +25,107 @@ const ProductListing = () => {
     }
 
     const products = data?.data.content ?? [];
+
+    const productColumns: ColumnDef<Product>[] = [
+        {
+            accessorKey: "name",
+            header: ({ column }) => <DataTableColumnHeader column={column} title="Product" />,
+        },
+        {
+            accessorKey: "categoryName",
+            header: ({ column }) => <DataTableColumnHeader column={column} title="Category" />,
+        },
+        {
+            accessorKey: "specifications",
+            header: "Specifications",
+            cell: ({ row }) => {
+                const specifications = row.original.specifications;
+                return (
+                    <div className="flex gap-2">
+                        {Object.entries(specifications).map(([key, value]) => (
+                            <span key={key} className="text-sm">
+                                {key}: {String(value)}
+                            </span>
+                        ))}
+                    </div>
+                );
+            },
+        },
+        {
+            accessorKey: "published",
+            header: "Published",
+            cell: ({ row }) => {
+                const published = row.getValue<boolean>("published");
+                return published ? "Published" : "Draft";
+            },
+        },
+        {
+            accessorKey: "createdAt",
+            header: ({ column }) => <DataTableColumnHeader column={column} title="Created At" />,
+            cell: ({ row }) => {
+                const createdAt = row.getValue<string>("createdAt");
+                return new Date(createdAt).toLocaleDateString();
+            },
+        },
+        {
+            id: "actions",
+            accessorKey: "Actions",
+            cell: ({ row }) => {
+                const product = row.original;
+                return (
+                    <DataTableRowActions
+                        actions={[
+                            {
+                                label: "View",
+                                icon: Eye,
+                                variant: "info",
+                                onClick: () => navigate(`/admin/products/view-product/${product.id}`),
+                            },
+                            {
+                                label: "Edit",
+                                icon: Pencil,
+                                variant: "primary",
+                                onClick: () => navigate(`/admin/products/edit-product/${product.id}`),
+                            },
+                            {
+                                label: "Variants",
+                                icon: Package,
+                                variant: "success",
+                                onClick: () => handleVariants(product.id),
+                            },
+                            {
+                                label: product.published ? "Unpublish" : "Publish",
+                                icon: Power,
+                                variant: "warning",
+                                onClick: () => handlePublish(product.id),
+                            },
+                            {
+                                label: "Delete",
+                                icon: Trash2,
+                                variant: "danger",
+                                onClick: () => handleDelete(product.id),
+                            },
+                        ]}
+                    />
+                );
+            },
+        },
+    ];
+
+    const handleVariants = (productId: string) => {
+        console.log("product ID" + productId);
+    };
+    const handlePublish = (productId: string) => {
+        console.log("product ID" + productId);
+    };
+    const handleDelete = (productId: string) => {
+        console.log("product ID" + productId);
+    };
+
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-2xl font-semibold">Products</h1>
-
+                <h1 className="text-2xl font-semibold text-">Products</h1>
                 <p className="text-muted-foreground">Manage your products.</p>
             </div>
 

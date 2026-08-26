@@ -1,55 +1,41 @@
-import type { Row } from "@tanstack/react-table";
-import { Eye, Pencil, Trash2 } from "lucide-react";
 import { AdminButton } from "@/components/common/AdminButton";
-import type { AdminButtonVariant } from "@/types/ButtonVariant.types";
+import type { AdminButtonSize, AdminButtonVariant } from "@/types/ButtonVariant.types";
+import type { LucideIcon } from "lucide-react";
 
-interface DataTableRowAction<TData> {
+export interface DataTableRowAction {
     label: string;
-    icon?: React.ReactNode;
+    icon?: LucideIcon;
     variant?: AdminButtonVariant;
-    onClick: (data: TData) => void;
+    size?: AdminButtonSize;
+    onClick: () => void;
+    disabled?: boolean;
+    className?: string;
 }
 
-interface DataTableRowActionsProps<TData> {
-    row: Row<TData>;
-    onView?: (data: TData) => void;
-    onEdit?: (data: TData) => void;
-    onDelete?: (data: TData) => void;
-    actions?: DataTableRowAction<TData>[];
+interface DataTableRowActionsProps {
+    actions?: DataTableRowAction[];
 }
 
-export function DataTableRowActions<TData>({ row, onView, onEdit, onDelete, actions = [] }: DataTableRowActionsProps<TData>) {
-    const data = row.original;
-
+export function DataTableRowActions({ actions = [] }: DataTableRowActionsProps) {
     return (
-        <div className="flex flex-wrap items-center gap-2 max-w-44">
-            {onView && (
-                <AdminButton variant="info" className="h-8 px-3" onClick={() => onView(data)}>
-                    <Eye className="mr-1 h-4 w-4" />
-                    View
-                </AdminButton>
-            )}
+        <div className="flex flex-wrap items-center gap-2">
+            {actions.map((action, index) => {
+                const Icon = action.icon;
 
-            {onEdit && (
-                <AdminButton variant="success" className="h-8 px-3" onClick={() => onEdit(data)}>
-                    <Pencil className="mr-1 h-4 w-4" />
-                    Edit
-                </AdminButton>
-            )}
-
-            {actions.map(action => (
-                <AdminButton key={action.label} variant={action.variant ?? "accent"} className="h-8 px-3" onClick={() => action.onClick(data)}>
-                    {action.icon && <span className="mr-2">{action.icon}</span>}
-                    {action.label}
-                </AdminButton>
-            ))}
-
-            {onDelete && (
-                <AdminButton variant="danger" className="h-8 px-3" onClick={() => onDelete(data)}>
-                    <Trash2 className="mr-2 h-4 w-4" />
-                    Delete
-                </AdminButton>
-            )}
+                return (
+                    <AdminButton
+                        key={`${action.label}-${index}`}
+                        variant={action.variant ?? "secondary"}
+                        size="sm"
+                        onClick={action.onClick}
+                        disabled={action.disabled}
+                        className={action.className}
+                    >
+                        {Icon && <Icon className="size-4" />}
+                        {action.label}
+                    </AdminButton>
+                );
+            })}
         </div>
     );
 }
