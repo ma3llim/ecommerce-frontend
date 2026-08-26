@@ -42,7 +42,7 @@ const ProductListing = () => {
             cell: ({ row }) => {
                 const specifications = row.original.specifications;
                 return (
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                         {Object.entries(specifications).map(([key, value]) => (
                             <span key={key} className="text-sm">
                                 {key}: {String(value)}
