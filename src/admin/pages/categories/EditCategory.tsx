@@ -42,6 +42,13 @@ const EditCategory = () => {
     });
 
     useEffect(() => {
+        if (!isLoading && !data?.data) {
+            ToastService.info("Category not found");
+            navigate("/admin/categories/category-listing");
+        }
+    }, [data, isLoading, navigate]);
+
+    useEffect(() => {
         if (data?.data) {
             reset({
                 name: data.data.name,
@@ -57,13 +64,6 @@ const EditCategory = () => {
     if (isError) {
         return <ErrorState message={error.message} />;
     }
-
-    useEffect(() => {
-        if (!isLoading && !data?.data) {
-            ToastService.info("Category not found");
-            navigate("/admin/categories/category-listing");
-        }
-    }, [data, isLoading, navigate]);
 
     const category = data?.data;
 

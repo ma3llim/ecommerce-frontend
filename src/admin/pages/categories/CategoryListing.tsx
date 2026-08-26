@@ -1,5 +1,7 @@
 import { CategoryApi } from "@/admin/api/Category.api";
 import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
+import { DataTable, DataTableRowActions } from "@/admin/components/table";
+import type { Category } from "@/admin/types/Category.types";
 import ErrorState from "@/components/common/ErrorState";
 import PageLoader from "@/components/common/PageLoader";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +12,8 @@ import ToastService from "@/services/ToastService";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
 import { formatDate } from "@/utils/Time";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Pencil, Trash2 } from "lucide-react";
+import type { ColumnDef } from "@tanstack/react-table";
+import { Eye, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -48,10 +51,69 @@ const CategoryListing = () => {
         return <ErrorState message="Something went wrong while fetch categories" />;
     }
 
-    const handleEdit = (categoryId: string) => {
-        navigate(`/admin/categories/${categoryId}/edit`);
-    };
+    const CategoryColumns = (): ColumnDef<Category>[] => [
+        {
+            accessorKey: "name",
+            header: "Name",
+            cell: ({ row }) => <span className="font-medium">{row.original.name}</span>,
+        },
+        {
+            accessorKey: "imageUrl",
+            header: "Image",
+            cell: ({ row }) => {
+                return <img src={row.original.imageUrl} alt={row.original.name} loading="lazy" className="h-16 w-24 rounded-md border object-cover" />;
+            },
+        },
+        {
+            accessorKey: "active",
+            header: "Status",
+            cell: ({ row }) => <Badge variant={row.original.active ? "default" : "secondary"}>{row.original.active ? "Active" : "Inactive"}</Badge>,
+        },
 
+        {
+            accessorKey: "createdAt",
+            header: "Created",
+            cell: ({ row }) => formatDate(row.original.createdAt),
+        },
+
+        {
+            accessorKey: "updatedAt",
+            header: "Updated",
+            cell: ({ row }) => formatDate(row.original.updatedAt),
+        },
+
+        {
+            id: "actions",
+            header: "Actions",
+            enableSorting: false,
+            enableHiding: false,
+
+            cell: ({ row }) => {
+                const category = row.original;
+
+                return (
+                    <DataTableRowActions
+                        actions={[
+                            {
+                                label: "Edit",
+                                icon: Pencil,
+                                variant: "primary",
+                                onClick: () => navigate(`/admin/categories/${category.categoryId}/edit`),
+                            },
+
+                            {
+                                label: "Delete",
+                                icon: Trash2,
+                                variant: "danger",
+                                disabled: categoryIsPending,
+                                onClick: () => categoryDelete(category.categoryId),
+                            },
+                        ]}
+                    />
+                );
+            },
+        },
+    ];
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between">
@@ -64,98 +126,21 @@ const CategoryListing = () => {
             </CardHeader>
 
             <CardContent>
-                <div className="rounded-md border overflow-hidden">
-                    <Table>
-                        <TableHeader className="bg-background">
-                            <TableRow>
-                                <TableHead className="w-42">Image</TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead>Created</TableHead>
-                                <TableHead>Updated</TableHead>
-                                <TableHead className="text-right">Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-
-                        <TableBody>
-                            {data?.data.content.map(category => (
-                                <TableRow key={category.categoryId}>
-                                    <TableCell>
-                                        <img src={category.imageUrl} alt={category.name} loading="lazy" className="h-20 w-32 rounded-md border object-center" />
-                                    </TableCell>
-
-                                    <TableCell className="font-medium">{category.name}</TableCell>
-
-                                    <TableCell>
-                                        <Badge variant={category.active ? "default" : "secondary"}>{category.active ? "Active" : "Inactive"}</Badge>
-                                    </TableCell>
-
-                                    <TableCell>{formatDate(category.createdAt)}</TableCell>
-
-                                    <TableCell>{formatDate(category.updatedAt)}</TableCell>
-
-                                    <TableCell className="text-right">
-                                        <div className="flex justify-end gap-2">
-                                            <Button size="icon" variant="outline" onClick={() => handleEdit(category.categoryId)}>
-                                                <Pencil />
-                                            </Button>
-
-                                            <ButtonWithAlert
-                                                dialogTitle="Delete Category?"
-                                                dialogDesc={`Are you sure you want to delete "${category.name}"? This action cannot be undone.`}
-                                                dialogActionTitle="Delete"
-                                                dialogActionfn={() => categoryDelete(category.categoryId)}
-                                                aria-label={`Delete ${category.name}`}
-                                                disabled={categoryIsPending}
-                                            >
-                                                <Trash2 className="h-4 w-4" />
-                                            </ButtonWithAlert>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </div>
-
-                {/* Pagination */}
-                <div className="flex items-center justify-between pt-4">
-                    <p className="text-sm text-muted-foreground">
-                        Showing {data?.data.content.length ?? 0} of {data?.data.totalElements ?? 0} categories
-                    </p>
-
-                    <div className="flex items-center gap-2">
-                        <Button
-                            variant="outline"
-                            disabled={data?.data.first}
-                            onClick={() =>
-                                setPagination(prev => ({
-                                    ...prev,
-                                    page: (prev.page ?? 0) - 1,
-                                }))
-                            }
-                        >
-                            Previous
-                        </Button>
-
-                        <span className="text-sm">
-                            Page {(data?.data.page ?? 0) + 1} of {data?.data.totalPages ?? 0}
-                        </span>
-
-                        <Button
-                            variant="outline"
-                            disabled={data?.data.last}
-                            onClick={() =>
-                                setPagination(prev => ({
-                                    ...prev,
-                                    page: (prev.page ?? 0) + 1,
-                                }))
-                            }
-                        >
-                            Next
-                        </Button>
-                    </div>
-                </div>
+                <DataTable
+                    columns={CategoryColumns()}
+                    data={data?.data.content ?? []}
+                    loading={isLoading}
+                    page={data?.data.page ?? 0}
+                    size={data?.data.size ?? 10}
+                    totalElements={data?.data.totalElements ?? 0}
+                    totalPages={data?.data.totalPages ?? 0}
+                    onPageChange={page => {
+                        setPagination(prev => ({
+                            ...prev,
+                            page,
+                        }));
+                    }}
+                />
             </CardContent>
         </Card>
     );
