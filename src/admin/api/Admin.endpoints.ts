@@ -16,6 +16,7 @@ export const ADMIN_ENDPOINTS = {
     PRODUCTS: {
         GET_ALL: "/admin/products",
         CREATE: "/admin/products",
+        DELETE: (productId: string) => `/admin/products/${productId}`,
     },
 
     COUPON: {

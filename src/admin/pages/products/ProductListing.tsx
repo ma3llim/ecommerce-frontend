@@ -1,9 +1,11 @@
 import { ProductApi } from "@/admin/api/Product.api";
+import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
 import { DataTable, DataTableColumnHeader, DataTableRowActions } from "@/admin/components/table";
 import type { Product } from "@/admin/types/Product.types";
-import { Card } from "@/components/ui/card";
+import { queryClient } from "@/query/queryClient";
+import ToastService from "@/services/ToastService";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Eye, Package, Pencil, Power, Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -20,10 +22,6 @@ const ProductListing = () => {
         queryKey: ["products", pagination],
         queryFn: () => ProductApi.getAllProducts(pagination),
     });
-
-    if (isError) {
-        return <div>{error.message}</div>;
-    }
 
     const products = data?.data.content ?? [];
 
@@ -80,31 +78,44 @@ const ProductListing = () => {
                                 label: "View",
                                 icon: Eye,
                                 variant: "info",
+                                disabled: productIsPending,
                                 onClick: () => navigate(`/admin/products/view-product/${product.id}`),
                             },
                             {
                                 label: "Edit",
                                 icon: Pencil,
                                 variant: "primary",
+                                disabled: productIsPending,
                                 onClick: () => navigate(`/admin/products/edit-product/${product.id}`),
                             },
                             {
                                 label: "Variants",
                                 icon: Package,
                                 variant: "success",
+                                disabled: productIsPending,
                                 onClick: () => handleVariants(product.id),
                             },
                             {
                                 label: product.published ? "Unpublish" : "Publish",
                                 icon: Power,
                                 variant: "warning",
+                                disabled: productIsPending,
                                 onClick: () => handlePublish(product.id),
                             },
                             {
                                 label: "Delete",
-                                icon: Trash2,
-                                variant: "danger",
-                                onClick: () => handleDelete(product.id),
+                                custom: (
+                                    <ButtonWithAlert
+                                        dialogTitle="Delete Product?"
+                                        dialogDesc={`Are you sure you want to delete "${product.name}"? This action cannot be undone.`}
+                                        dialogActionTitle="Delete"
+                                        dialogActionfn={() => productDelete(product.id)}
+                                        aria-label={`Delete ${product.name}`}
+                                        disabled={productIsPending}
+                                    >
+                                        <Trash2 className="size-4" /> Delete
+                                    </ButtonWithAlert>
+                                ),
                             },
                         ]}
                     />
@@ -112,6 +123,18 @@ const ProductListing = () => {
             },
         },
     ];
+    const { mutate: productDelete, isPending: productIsPending } = useMutation({
+        mutationFn: (categoryId: string) => ProductApi.deleteProduct(categoryId),
+        onSuccess: response => {
+            ToastService.success(response.message);
+            queryClient.invalidateQueries({
+                queryKey: ["products"],
+            });
+        },
+        onError: error => {
+            ToastService.error(error.message);
+        },
+    });
 
     const handleVariants = (productId: string) => {
         console.log("product ID" + productId);
@@ -119,9 +142,10 @@ const ProductListing = () => {
     const handlePublish = (productId: string) => {
         console.log("product ID" + productId);
     };
-    const handleDelete = (productId: string) => {
-        console.log("product ID" + productId);
-    };
+
+    if (isError) {
+        return <div>{error.message}</div>;
+    }
 
     return (
         <div className="space-y-6">
@@ -129,23 +153,21 @@ const ProductListing = () => {
                 <h1 className="text-2xl font-semibold text-">Products</h1>
                 <p className="text-muted-foreground">Manage your products.</p>
             </div>
-            <Card>
-                <DataTable
-                    columns={productColumns}
-                    data={products}
-                    page={data?.data.page ?? 0}
-                    loading={isLoading}
-                    size={data?.data.size ?? pagination.size}
-                    totalElements={data?.data.totalElements ?? 0}
-                    totalPages={data?.data.totalPages ?? 0}
-                    onPageChange={page =>
-                        setPagination(previous => ({
-                            ...previous,
-                            page,
-                        }))
-                    }
-                />
-            </Card>
+            <DataTable
+                columns={productColumns}
+                data={products}
+                page={data?.data.page ?? 0}
+                loading={isLoading}
+                size={data?.data.size ?? pagination.size}
+                totalElements={data?.data.totalElements ?? 0}
+                totalPages={data?.data.totalPages ?? 0}
+                onPageChange={page =>
+                    setPagination(previous => ({
+                        ...previous,
+                        page,
+                    }))
+                }
+            />
         </div>
     );
 };

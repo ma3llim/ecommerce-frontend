@@ -10,9 +10,14 @@ export const ProductApi = {
         const response = await axiosInstance.get<ApiResponse<PageResponse<Product>>>(ADMIN_ENDPOINTS.PRODUCTS.GET_ALL, { params });
         return response.data;
     },
+
     addProduct: async (data: AddProductRequest): Promise<AddProductResponse> => {
         const response = await axiosInstance.post<AddProductResponse>(ADMIN_ENDPOINTS.PRODUCTS.CREATE, data);
+        return response.data;
+    },
 
+    deleteProduct: async (productId: string) => {
+        const response = await axiosInstance.delete<ApiResponse<null>>(ADMIN_ENDPOINTS.PRODUCTS.DELETE(productId));
         return response.data;
     },
 };

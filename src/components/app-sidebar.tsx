@@ -11,7 +11,7 @@ const data = {
     navMain: [
         {
             title: "Manage Categories",
-            url: "",
+            url: "/admin/categories",
             icon: <ChartBarStacked />,
             items: [
                 {
@@ -26,12 +26,12 @@ const data = {
         },
         {
             title: "Manage Products",
-            url: "",
+            url: "/admin/products",
             icon: <Package />,
             items: [
                 {
                     title: "Add Product",
-                    url: "/admin/products/add-product",
+                    url: "/admin/products/add-listing",
                 },
                 {
                     title: "Product Listing",
