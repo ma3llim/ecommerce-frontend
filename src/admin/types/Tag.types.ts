@@ -13,3 +13,14 @@ export interface AddTagRequest {
 export interface UpdateTagRequest {
     name: string;
 }
+export interface TagOptionResponse {
+    tagId: string;
+    tagName: string;
+}
+
+export interface TagResponse {
+    productId: string;
+    productName: string;
+    tagId: string;
+    tagName: string;
+}

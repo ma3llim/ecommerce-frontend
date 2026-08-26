@@ -17,15 +17,20 @@ export const ADMIN_ENDPOINTS = {
     PRODUCTS: {
         GET_ALL: "/admin/products",
         CREATE: "/admin/products",
+        GET_OPTIONS: "/admin/products/options",
+        GET_PRODUCT_TAG: "/admin/products/product-tags/options",
         GET_BY_ID: (productId: string) => `/admin/products/${productId}`,
         UPDATE_PRODUCT_STATUS: (productId: string) => `admin/products/${productId}/status`,
         UPDATE_PRODUCT: (productId: string) => `/admin/products/${productId}`,
         DELETE: (productId: string) => `/admin/products/${productId}`,
+        ASSIGN_TAG_TO_PRODUCT: (productId: string, tagId: string) => `/admin/products/${productId}/tags/${tagId}`,
+        REMOVE_TAG_TO_PRODUCT: (productId: string, tagId: string) => `/admin/products/${productId}/tags/${tagId}`,
     },
 
     TAGS: {
         GET_ALL: "/admin/tags",
         CREATE: "/admin/tags",
+        GET_OPTIONS: "/admin/tags/options",
         GET_BY_ID: (tagId: string) => `/admin/tags/${tagId}`,
         UPDATE: (tagId: string) => `/admin/tags/${tagId}`,
         DELETE: (tagId: string) => `/admin/tags/${tagId}`,

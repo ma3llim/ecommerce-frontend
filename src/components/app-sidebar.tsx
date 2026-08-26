@@ -37,6 +37,10 @@ const data = {
                     title: "Product Listing",
                     url: "/admin/products/product-listing",
                 },
+                {
+                    title: "Manage Product Tags",
+                    url: "/admin/products/product-tags",
+                },
             ],
         },
         {

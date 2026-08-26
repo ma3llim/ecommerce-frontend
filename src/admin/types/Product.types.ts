@@ -59,3 +59,20 @@ export interface ProductDetail {
 export interface ProductVariant {
     id: string;
 }
+
+export interface ProductTag {
+    id: string;
+    productId: string;
+    tagId: string;
+    createdAt: string;
+}
+
+export interface AssignProductTagRequest {
+    productId: string;
+    tagId: string;
+}
+
+export interface ProductOptionResponse {
+    productId: string;
+    productName: string;
+}

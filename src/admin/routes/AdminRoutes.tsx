@@ -11,6 +11,7 @@ const EditCategory = lazy(() => import("@/admin/pages/categories/EditCategory"))
 const ProductListing = lazy(() => import("@/admin/pages/products/ProductListing"));
 const AddProduct = lazy(() => import("@/admin/pages/products/AddProduct"));
 const EditProduct = lazy(() => import("@/admin/pages/products/EditProduct"));
+const ManageProductTags = lazy(() => import("@/admin/pages/products/ManageProductTags"));
 const AddTag = lazy(() => import("@/admin/pages/tags/AddTag"));
 const EditTag = lazy(() => import("@/admin/pages/tags/EditTag"));
 const TagListing = lazy(() => import("@/admin/pages/tags/TagListing"));
@@ -85,12 +86,19 @@ const AdminRoutes = () => {
                             </Suspense>
                         }
                     />
-
                     <Route
                         path="edit-product/:productId"
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <EditProduct />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="product-tags"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <ManageProductTags />
                             </Suspense>
                         }
                     />

@@ -1,7 +1,7 @@
 import type { ApiResponse } from "@/types/common/ApiResponse.types";
 import type { PageResponse } from "@/types/common/PageResponse.types";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
-import type { AddTagRequest, Tag, UpdateTagRequest } from "../types/Tag.types";
+import type { AddTagRequest, Tag, TagOptionResponse, UpdateTagRequest } from "../types/Tag.types";
 import { axiosInstance } from "@/config/axios";
 import { ADMIN_ENDPOINTS } from "./Admin.endpoints";
 
@@ -30,6 +30,10 @@ export const TagApi = {
     },
     getTagById: async (tagId: string): Promise<ApiResponse<Tag>> => {
         const response = await axiosInstance.get(ADMIN_ENDPOINTS.TAGS.GET_BY_ID(tagId));
+        return response.data;
+    },
+    getTagOptions: async (params: PaginationRequest): Promise<ApiResponse<PageResponse<TagOptionResponse>>> => {
+        const response = await axiosInstance.get(ADMIN_ENDPOINTS.TAGS.GET_OPTIONS, { params });
         return response.data;
     },
 };
