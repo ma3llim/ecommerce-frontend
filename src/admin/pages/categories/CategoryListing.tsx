@@ -36,6 +36,9 @@ const CategoryListing = () => {
             queryClient.invalidateQueries({
                 queryKey: ["categoryList"],
             });
+            queryClient.invalidateQueries({
+                queryKey: ["products"],
+            });
         },
         onError: error => {
             ToastService.error(error.message);
