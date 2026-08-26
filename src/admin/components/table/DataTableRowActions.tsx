@@ -1,10 +1,12 @@
 import type { Row } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Eye, Pencil, Trash2 } from "lucide-react";
+import { AdminButton } from "@/components/common/AdminButton";
 
 interface DataTableRowAction<TData> {
     label: string;
     icon?: React.ReactNode;
+    variant?: "primary" | "info" | "accent" | "success" | "danger";
     onClick: (data: TData) => void;
 }
 
@@ -22,32 +24,31 @@ export function DataTableRowActions<TData>({ row, onView, onEdit, onDelete, acti
     return (
         <div className="flex flex-wrap items-center gap-2 max-w-32">
             {onView && (
-                <Button variant="outline" size="sm" onClick={() => onView(data)}>
-                    <Eye className="mr-2 h-4 w-4" />
+                <AdminButton variant="info" className="h-8 px-3" onClick={() => onView(data)}>
+                    <Eye className="mr-1 h-4 w-4" />
                     View
-                </Button>
+                </AdminButton>
             )}
 
             {onEdit && (
-                <Button variant="outline" size="sm" onClick={() => onEdit(data)}>
-                    <Pencil className="mr-2 h-4 w-4" />
+                <AdminButton variant="primary" className="h-8 px-3" onClick={() => onEdit(data)}>
+                    <Pencil className="mr-1 h-4 w-4" />
                     Edit
-                </Button>
+                </AdminButton>
             )}
 
             {actions.map(action => (
-                <Button key={action.label} variant="outline" size="sm" onClick={() => action.onClick(data)}>
+                <AdminButton key={action.label} variant={action.variant ?? "accent"} className="h-8 px-3" onClick={() => action.onClick(data)}>
                     {action.icon && <span className="mr-2">{action.icon}</span>}
-
                     {action.label}
-                </Button>
+                </AdminButton>
             ))}
 
             {onDelete && (
-                <Button variant="destructive" size="sm" onClick={() => onDelete(data)}>
+                <AdminButton variant="danger" className="h-8 px-3" onClick={() => onDelete(data)}>
                     <Trash2 className="mr-2 h-4 w-4" />
                     Delete
-                </Button>
+                </AdminButton>
             )}
         </div>
     );

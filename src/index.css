@@ -82,6 +82,17 @@
     --sidebar-accent-foreground: oklch(0.38 0.16 292);
     --sidebar-border: oklch(0.9 0.018 285);
     --sidebar-ring: oklch(0.58 0.235 292);
+
+    --admin-primary: #2563eb;
+    --admin-primary-foreground: #ffffff;
+    --admin-info: #06b6d4;
+    --admin-info-foreground: #ffffff;
+    --admin-accent: #7c3aed;
+    --admin-accent-foreground: #ffffff;
+    --admin-success: #16a34a;
+    --admin-success-foreground: #ffffff;
+    --admin-danger: #dc2626;
+    --admin-danger-foreground: #ffffff;
 }
 
 .dark {
@@ -150,4 +161,8 @@
         color 300ms ease,
         fill 300ms ease,
         stroke 300ms ease;
+}
+
+button {
+    cursor: pointer;
 }
