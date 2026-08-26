@@ -9,6 +9,7 @@ const AddCategory = lazy(() => import("@/admin/pages/categories/AddCategory"));
 const CategoryListing = lazy(() => import("@/admin/pages/categories/CategoryListing"));
 const EditCategory = lazy(() => import("@/admin/pages/categories/EditCategory"));
 const ProductListing = lazy(() => import("@/admin/pages/products/ProductListing"));
+const AddProduct = lazy(() => import("@/admin/pages/products/AddProduct"));
 
 const AdminRoutes = () => {
     return (
@@ -63,12 +64,12 @@ const AdminRoutes = () => {
                 </Route>
 
                 <Route path="products">
-                    <Route index element={<Navigate to="add-category" replace />} />
+                    <Route index element={<Navigate to="add-product" replace />} />
                     <Route
                         path="add-product"
                         element={
                             <Suspense fallback={<PageLoader />}>
-                                <AddCategory />
+                                <AddProduct />
                             </Suspense>
                         }
                     />

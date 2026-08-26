@@ -9,8 +9,8 @@ import { Input } from "@/components/ui/input";
 import FormError from "@/components/forms/FormError";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { addCategorySchema, type AddCategoryFormValues } from "@/validation/admin/categories/CategorySchema";
 import ToastService from "@/services/ToastService";
+import { addCategorySchema, type AddCategoryFormValues } from "../validation/categories/CategorySchema";
 
 const AddCategoryForm = () => {
     const queryClient = useQueryClient();

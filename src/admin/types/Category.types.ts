@@ -7,3 +7,8 @@ export interface Category {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface CategoryTitle {
+    id: string;
+    name: string;
+}

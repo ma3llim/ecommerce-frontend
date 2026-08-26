@@ -7,6 +7,7 @@ export const ADMIN_ENDPOINTS = {
 
     CATEGORY: {
         GET_ALL: "/admin/categories",
+        GET_CATEGORY_ALL: "/admin/categories/category-list",
         GET: (categoryId: string) => `/admin/categories/${categoryId}`,
         CREATE: "/admin/categories",
         UPDATE: (categoryId: string) => `/admin/categories/${categoryId}`,
@@ -14,6 +15,7 @@ export const ADMIN_ENDPOINTS = {
     },
     PRODUCTS: {
         GET_ALL: "/admin/products",
+        CREATE: "/admin/products",
     },
 
     COUPON: {

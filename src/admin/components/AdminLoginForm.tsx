@@ -1,7 +1,6 @@
 import FormInput from "@/components/forms/FormInput";
 import FormPassword from "@/components/forms/FormPassword";
 import { Button } from "@/components/ui/button";
-import { AdminLoginScheme, type AdminLoginFormValues } from "@/validation/admin/auth/AdminLoginSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -10,6 +9,7 @@ import ToastService from "@/services/ToastService";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAdmin } from "@/admin/store/slice/AdminAuth.slice";
+import { AdminLoginScheme, type AdminLoginFormValues } from "../validation/auth/AdminLoginSchema";
 
 const AdminLoginForm = () => {
     const {
