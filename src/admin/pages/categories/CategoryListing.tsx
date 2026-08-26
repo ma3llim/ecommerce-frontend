@@ -100,6 +100,7 @@ const CategoryListing = () => {
                                 label: "Edit",
                                 icon: Pencil,
                                 variant: "primary",
+                                disabled: categoryIsPending,
                                 onClick: () => navigate(`/admin/categories/${category.categoryId}/edit`),
                             },
                             {
