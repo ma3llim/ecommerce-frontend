@@ -1,12 +1,12 @@
 import type { Row } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import { AdminButton } from "@/components/common/AdminButton";
+import type { AdminButtonVariant } from "@/types/ButtonVariant.types";
 
 interface DataTableRowAction<TData> {
     label: string;
     icon?: React.ReactNode;
-    variant?: "primary" | "info" | "accent" | "success" | "danger";
+    variant?: AdminButtonVariant;
     onClick: (data: TData) => void;
 }
 
@@ -22,7 +22,7 @@ export function DataTableRowActions<TData>({ row, onView, onEdit, onDelete, acti
     const data = row.original;
 
     return (
-        <div className="flex flex-wrap items-center gap-2 max-w-32">
+        <div className="flex flex-wrap items-center gap-2 max-w-44">
             {onView && (
                 <AdminButton variant="info" className="h-8 px-3" onClick={() => onView(data)}>
                     <Eye className="mr-1 h-4 w-4" />
@@ -31,7 +31,7 @@ export function DataTableRowActions<TData>({ row, onView, onEdit, onDelete, acti
             )}
 
             {onEdit && (
-                <AdminButton variant="primary" className="h-8 px-3" onClick={() => onEdit(data)}>
+                <AdminButton variant="success" className="h-8 px-3" onClick={() => onEdit(data)}>
                     <Pencil className="mr-1 h-4 w-4" />
                     Edit
                 </AdminButton>

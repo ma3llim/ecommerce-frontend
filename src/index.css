@@ -93,6 +93,12 @@
     --admin-success-foreground: #ffffff;
     --admin-danger: #dc2626;
     --admin-danger-foreground: #ffffff;
+    --admin-warning: #d97706;
+    --admin-warning-foreground: #ffffff;
+    --admin-teal: #0f766e;
+    --admin-teal-foreground: #ffffff;
+    --admin-pink: #db2777;
+    --admin-pink-foreground: #ffffff;
 }
 
 .dark {

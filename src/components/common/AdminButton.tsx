@@ -1,7 +1,6 @@
 import type { ReactNode, ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
-
-type AdminButtonVariant = "primary" | "info" | "accent" | "success" | "danger";
+import type { AdminButtonVariant } from "@/types/ButtonVariant.types";
 
 interface AdminButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: AdminButtonVariant;
@@ -14,6 +13,9 @@ const variantStyles: Record<AdminButtonVariant, string> = {
     accent: "bg-[var(--admin-accent)] text-[var(--admin-accent-foreground)] hover:bg-[var(--admin-accent)]/90",
     success: "bg-[var(--admin-success)] text-[var(--admin-success-foreground)] hover:bg-[var(--admin-success)]/90",
     danger: "bg-[var(--admin-danger)] text-[var(--admin-danger-foreground)] hover:bg-[var(--admin-danger)]/90",
+    warning: "bg-[var(--admin-warning)] text-[var(--admin-warning-foreground)] hover:bg-[var(--admin-warning)]/90",
+    teal: "bg-[var(--admin-teal)] text-[var(--admin-teal-foreground)] hover:bg-[var(--admin-teal)]/90",
+    pink: "bg-[var(--admin-pink)] text-[var(--admin-pink-foreground)] hover:bg-[var(--admin-pink)]/90",
 };
 
 export function AdminButton({ variant = "primary", className, children, ...props }: AdminButtonProps) {

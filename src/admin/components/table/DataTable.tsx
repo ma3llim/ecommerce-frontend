@@ -81,8 +81,8 @@ export function DataTable<TData, TValue>({
 
                     <TableBody>
                         {loading ? (
-                            <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                            <TableRow className="hover:bg-transparent">
+                                <TableCell colSpan={columns.length} className="text-center">
                                     <PageLoader />
                                 </TableCell>
                             </TableRow>

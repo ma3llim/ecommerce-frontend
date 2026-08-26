@@ -64,12 +64,14 @@ const productColumns: ColumnDef<Product>[] = [
                 actions={[
                     {
                         label: "Manage Variants",
+                        variant: "accent",
                         onClick: product => {
                             console.log("Manage variants:", product);
                         },
                     },
                     {
                         label: "Manage Images",
+                        variant: "teal",
                         onClick: product => {
                             console.log("Manage images:", product);
                         },
@@ -87,7 +89,7 @@ const productColumns: ColumnDef<Product>[] = [
 const ProductListing = () => {
     const [pagination, setPagination] = useState<PaginationRequest>({
         page: 0,
-        size: 2,
+        size: 10,
     });
 
     const { data, isLoading, isError, error } = useQuery({
@@ -100,8 +102,6 @@ const ProductListing = () => {
     }
 
     const products = data?.data.content ?? [];
-    console.log(products);
-
     return (
         <div className="space-y-6">
             <div>
