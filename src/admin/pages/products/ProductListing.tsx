@@ -2,6 +2,7 @@ import { ProductApi } from "@/admin/api/Product.api";
 import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
 import { DataTable, DataTableColumnHeader, DataTableRowActions } from "@/admin/components/table";
 import type { Product } from "@/admin/types/Product.types";
+import { Badge } from "@/components/ui/badge";
 import { queryClient } from "@/query/queryClient";
 import ToastService from "@/services/ToastService";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
@@ -55,7 +56,7 @@ const ProductListing = () => {
             header: "Published",
             cell: ({ row }) => {
                 const published = row.getValue<boolean>("published");
-                return published ? "Published" : "Draft";
+                return <Badge variant={published ? "default" : "secondary"}>{published ? "Published" : "Draft"}</Badge>;
             },
         },
         {
@@ -78,29 +79,29 @@ const ProductListing = () => {
                                 label: "View",
                                 icon: Eye,
                                 variant: "info",
-                                disabled: productIsPending,
+                                disabled: productIsPending || isUpdatingStatus,
                                 onClick: () => navigate(`/admin/products/view-product/${product.id}`),
                             },
                             {
                                 label: "Edit",
                                 icon: Pencil,
                                 variant: "primary",
-                                disabled: productIsPending,
+                                disabled: productIsPending || isUpdatingStatus,
                                 onClick: () => navigate(`/admin/products/edit-product/${product.id}`),
                             },
                             {
                                 label: "Variants",
                                 icon: Package,
                                 variant: "success",
-                                disabled: productIsPending,
+                                disabled: productIsPending || isUpdatingStatus,
                                 onClick: () => handleVariants(product.id),
                             },
                             {
                                 label: product.published ? "Unpublish" : "Publish",
                                 icon: Power,
                                 variant: "warning",
-                                disabled: productIsPending,
-                                onClick: () => handlePublish(product.id),
+                                disabled: productIsPending || isUpdatingStatus,
+                                onClick: () => updateStatus({ productId: product.id, status: product.published ? "INACTIVE" : "ACTIVE" }),
                             },
                             {
                                 label: "Delete",
@@ -123,6 +124,7 @@ const ProductListing = () => {
             },
         },
     ];
+
     const { mutate: productDelete, isPending: productIsPending } = useMutation({
         mutationFn: (categoryId: string) => ProductApi.deleteProduct(categoryId),
         onSuccess: response => {
@@ -139,9 +141,27 @@ const ProductListing = () => {
     const handleVariants = (productId: string) => {
         console.log("product ID" + productId);
     };
-    const handlePublish = (productId: string) => {
-        console.log("product ID" + productId);
-    };
+
+    const { mutate: updateStatus, isPending: isUpdatingStatus } = useMutation({
+        mutationFn: ({ productId, status }: { productId: string; status: "ACTIVE" | "INACTIVE" }) =>
+            ProductApi.updateProductStatus(productId!, {
+                status,
+            }),
+
+        onSuccess: (response, variables) => {
+            queryClient.invalidateQueries({
+                queryKey: ["products"],
+            });
+            queryClient.invalidateQueries({
+                queryKey: ["product", variables.productId],
+            });
+            ToastService.success(response.message);
+        },
+
+        onError: error => {
+            ToastService.error(error.message);
+        },
+    });
 
     if (isError) {
         return <div>{error.message}</div>;

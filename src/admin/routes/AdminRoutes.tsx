@@ -10,6 +10,7 @@ const CategoryListing = lazy(() => import("@/admin/pages/categories/CategoryList
 const EditCategory = lazy(() => import("@/admin/pages/categories/EditCategory"));
 const ProductListing = lazy(() => import("@/admin/pages/products/ProductListing"));
 const AddProduct = lazy(() => import("@/admin/pages/products/AddProduct"));
+const EditProduct = lazy(() => import("@/admin/pages/products/EditProduct"));
 
 const AdminRoutes = () => {
     return (
@@ -81,15 +82,15 @@ const AdminRoutes = () => {
                             </Suspense>
                         }
                     />
-                    {/* 
+
                     <Route
-                        path=":categoryId/edit"
+                        path="edit-product/:productId"
                         element={
                             <Suspense fallback={<PageLoader />}>
-                                <EditCategory />
+                                <EditProduct />
                             </Suspense>
                         }
-                    /> */}
+                    />
                 </Route>
             </Route>
         </Route>

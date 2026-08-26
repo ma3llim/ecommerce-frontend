@@ -1,4 +1,5 @@
 import { CategoryApi } from "@/admin/api/Category.api";
+import { updateCategorySchema, type UpdateCategoryFormValues } from "@/admin/validation/categories/CategorySchema";
 import ErrorState from "@/components/common/ErrorState";
 import PageLoader from "@/components/common/PageLoader";
 import FormError from "@/components/forms/FormError";
@@ -8,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import ToastService from "@/services/ToastService";
-import { updateCategorySchema, type UpdateCategoryFormValues } from "@/validation/admin/categories/CategorySchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";

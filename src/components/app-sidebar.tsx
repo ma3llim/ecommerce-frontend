@@ -31,7 +31,7 @@ const data = {
             items: [
                 {
                     title: "Add Product",
-                    url: "/admin/products/add-listing",
+                    url: "/admin/products/add-product",
                 },
                 {
                     title: "Product Listing",
