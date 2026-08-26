@@ -12,6 +12,9 @@ export const ADMIN_ENDPOINTS = {
         UPDATE: (categoryId: string) => `/admin/categories/${categoryId}`,
         DELETE: (categoryId: string) => `/admin/categories/${categoryId}`,
     },
+    PRODUCTS: {
+        GET_ALL: "/admin/products",
+    },
 
     COUPON: {
         GET_ALL: "/admin/coupons",

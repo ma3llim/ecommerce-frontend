@@ -2,7 +2,7 @@ import { LoaderCircle } from "lucide-react";
 
 const PageLoader = () => {
     return (
-        <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="flex items-center justify-center bg-background">
             <LoaderCircle className="size-8 animate-spin text-primary" aria-label="Loading" />
         </div>
     );

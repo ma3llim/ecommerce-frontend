@@ -4,13 +4,13 @@ import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
-import { BotIcon, BookOpenIcon, Settings2Icon, HomeIcon, LayoutDashboardIcon, ChartBarStacked } from "lucide-react";
+import { BookOpenIcon, Settings2Icon, HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package } from "lucide-react";
 
 // This is sample data.
 const data = {
     navMain: [
         {
-            title: "Manage Category",
+            title: "Manage Categories",
             url: "/admin/categories",
             icon: <ChartBarStacked />,
             items: [
@@ -25,13 +25,13 @@ const data = {
             ],
         },
         {
-            title: "Models",
+            title: "Manage Products",
             url: "#",
-            icon: <BotIcon />,
+            icon: <Package />,
             items: [
                 {
-                    title: "Genesis",
-                    url: "#",
+                    title: "Product Listing",
+                    url: "/admin/products/product-listing",
                 },
                 {
                     title: "Explorer",
