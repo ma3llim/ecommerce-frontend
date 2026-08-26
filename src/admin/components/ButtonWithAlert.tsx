@@ -1,3 +1,4 @@
+import { AdminButton } from "@/components/common/AdminButton";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -9,7 +10,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import type { AdminButtonVariant } from "@/types/ButtonVariant.types";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 interface ButtonWithAlertProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -18,6 +19,7 @@ interface ButtonWithAlertProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     dialogDesc?: string;
     dialogCancelTitle?: string;
     dialogActionTitle?: string;
+    buttonVariant?: AdminButtonVariant;
     dialogActionfn: () => void;
 }
 
@@ -34,7 +36,9 @@ const ButtonWithAlert = ({
     return (
         <AlertDialog>
             <AlertDialogTrigger>
-                <Button {...props}>{children}</Button>
+                <AdminButton variant="danger" {...props}>
+                    {children}
+                </AdminButton>
             </AlertDialogTrigger>
 
             <AlertDialogContent>

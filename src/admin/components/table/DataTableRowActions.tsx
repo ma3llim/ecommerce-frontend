@@ -1,15 +1,17 @@
 import { AdminButton } from "@/components/common/AdminButton";
 import type { AdminButtonSize, AdminButtonVariant } from "@/types/ButtonVariant.types";
 import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 export interface DataTableRowAction {
     label: string;
     icon?: LucideIcon;
     variant?: AdminButtonVariant;
     size?: AdminButtonSize;
-    onClick: () => void;
+    onClick?: () => void;
     disabled?: boolean;
     className?: string;
+    custom?: ReactNode;
 }
 
 interface DataTableRowActionsProps {
@@ -20,6 +22,9 @@ export function DataTableRowActions({ actions = [] }: DataTableRowActionsProps) 
     return (
         <div className="flex flex-wrap items-center gap-2">
             {actions.map((action, index) => {
+                if (action.custom) {
+                    return <div key={`${action.label}-${index}`}>{action.custom}</div>;
+                }
                 const Icon = action.icon;
 
                 return (

@@ -7,13 +7,12 @@ import PageLoader from "@/components/common/PageLoader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import ToastService from "@/services/ToastService";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
 import { formatDate } from "@/utils/Time";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Eye, Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -100,13 +99,20 @@ const CategoryListing = () => {
                                 variant: "primary",
                                 onClick: () => navigate(`/admin/categories/${category.categoryId}/edit`),
                             },
-
                             {
                                 label: "Delete",
-                                icon: Trash2,
-                                variant: "danger",
-                                disabled: categoryIsPending,
-                                onClick: () => categoryDelete(category.categoryId),
+                                custom: (
+                                    <ButtonWithAlert
+                                        dialogTitle="Delete Category?"
+                                        dialogDesc={`Are you sure you want to delete "${category.name}"? This action cannot be undone.`}
+                                        dialogActionTitle="Delete"
+                                        dialogActionfn={() => categoryDelete(category.categoryId)}
+                                        aria-label={`Delete ${category.name}`}
+                                        disabled={categoryIsPending}
+                                    >
+                                        <Trash2 className="size-4" /> Delete
+                                    </ButtonWithAlert>
+                                ),
                             },
                         ]}
                     />

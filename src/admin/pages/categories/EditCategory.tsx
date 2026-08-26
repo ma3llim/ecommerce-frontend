@@ -57,16 +57,6 @@ const EditCategory = () => {
         }
     }, [data, reset]);
 
-    if (isLoading) {
-        return <PageLoader />;
-    }
-
-    if (isError) {
-        return <ErrorState message={error.message} />;
-    }
-
-    const category = data?.data;
-
     const { mutate: updateCategory, isPending } = useMutation({
         mutationFn: (values: UpdateCategoryFormValues) => CategoryApi.updateCategory(categoryId!, values),
         onSuccess: response => {
@@ -88,6 +78,15 @@ const EditCategory = () => {
         },
     });
 
+    if (isLoading) {
+        return <PageLoader />;
+    }
+
+    if (isError) {
+        return <ErrorState message={error.message} />;
+    }
+
+    const category = data?.data;
     return (
         <Card>
             <CardHeader>
