@@ -33,9 +33,10 @@ const AdminRoutes = () => {
                         </Suspense>
                     }
                 />
+
                 <Route path="categories">
+                    <Route index element={<Navigate to="add-category" replace />} />
                     <Route
-                        index
                         path="add-category"
                         element={
                             <Suspense fallback={<PageLoader />}>
@@ -60,7 +61,17 @@ const AdminRoutes = () => {
                         }
                     />
                 </Route>
+
                 <Route path="products">
+                    <Route index element={<Navigate to="add-category" replace />} />
+                    <Route
+                        path="add-product"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <AddCategory />
+                            </Suspense>
+                        }
+                    />
                     <Route
                         path="product-listing"
                         element={
@@ -70,15 +81,6 @@ const AdminRoutes = () => {
                         }
                     />
                     {/* 
-                    <Route
-                        index
-                        path="add-category"
-                        element={
-                            <Suspense fallback={<PageLoader />}>
-                                <AddCategory />
-                            </Suspense>
-                        }
-                    />
                     <Route
                         path=":categoryId/edit"
                         element={
