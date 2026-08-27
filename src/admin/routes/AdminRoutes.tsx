@@ -27,6 +27,10 @@ const UserDetailsPage = lazy(() => import("@/admin/pages/users/UserDetailsPage")
 const UsersListingPage = lazy(() => import("@/admin/pages/users/UsersListingPage"));
 const ShipmentListing = lazy(() => import("@/admin/pages/shipment/ShipmentListing"));
 const ShipmentDetails = lazy(() => import("@/admin/pages/shipment/ShipmentDetails"));
+const CouponListing = lazy(() => import("@/admin/pages/coupon/CouponListing"));
+const AddCoupon = lazy(() => import("@/admin/pages/coupon/AddCoupon"));
+const EditCoupon = lazy(() => import("@/admin/pages/coupon/EditCoupon"));
+const ViewCoupon = lazy(() => import("@/admin/pages/coupon/ViewCoupon"));
 
 const AdminRoutes = () => {
     return (
@@ -243,6 +247,42 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <ShipmentDetails />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+
+                <Route path="coupons">
+                    <Route index element={<Navigate to="listing" replace />} />
+                    <Route
+                        path="listing"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <CouponListing />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="add"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <AddCoupon />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":couponId/edit"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <EditCoupon />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":codeId"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <ViewCoupon />
                             </Suspense>
                         }
                     />

@@ -4,7 +4,7 @@ import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
-import { HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags, Users, Truck } from "lucide-react";
+import { HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags, Users, Truck, Ticket } from "lucide-react";
 
 // This is sample data.
 const data = {
@@ -77,6 +77,21 @@ const data = {
                 {
                     title: "Shipment Listing",
                     url: "/admin/shipments/listing",
+                },
+            ],
+        },
+        {
+            title: "Manage Coupons",
+            url: "#",
+            icon: <Ticket />,
+            items: [
+                {
+                    title: "Coupon Listing",
+                    url: "/admin/coupons/listing",
+                },
+                {
+                    title: "Add Coupon",
+                    url: "/admin/coupons/add",
                 },
             ],
         },

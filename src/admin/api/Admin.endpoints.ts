@@ -78,6 +78,6 @@ export const ADMIN_ENDPOINTS = {
         CREATE: "/admin/coupons",
         UPDATE: (couponId: string) => `/admin/coupons/${couponId}`,
         DELETE: (couponId: string) => `/admin/coupons/${couponId}`,
-        UPDATE_STATUS: (couponId: string) => `/admin/coupons/${couponId}`,
+        UPDATE_STATUS: (couponId: string) => `/admin/coupons/${couponId}/status`,
     },
 } as const;
