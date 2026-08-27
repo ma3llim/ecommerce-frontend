@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Star, Trash2, Upload, ArrowUp, ArrowDown, RefreshCw } from "lucide-react";
+import { Star, Trash2, Upload, ArrowUp, ArrowDown } from "lucide-react";
 import { ProductApi } from "@/admin/api/Product.api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,7 +24,7 @@ const VariantImageManager = () => {
     });
 
     const variant = data?.data?.find(item => item.id === variantId);
-    const images = variant?.images ?? [];
+    const images = [...(variant?.images ?? [])].sort((a, b) => a.displayOrder - b.displayOrder);
 
     const { mutate: uploadImages, isPending: isUploading } = useMutation({
         mutationFn: () => ProductApi.uploadVariantImages(productId!, variantId!, selectedFiles),
@@ -225,11 +225,11 @@ const VariantImageManager = () => {
                             No images uploaded for this variant.
                         </div>
                     ) : (
-                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid grid-cols-2 gap-6">
                             {images.map((image, index) => (
                                 <div key={image.id} className="overflow-hidden rounded-lg border">
                                     {/* Image */}
-                                    <div className="aspect-square overflow-hidden bg-muted">
+                                    <div className="h-48 overflow-hidden bg-muted">
                                         <img src={image.imageUrl} alt={`${variant.sku} image`} className="h-full w-full object-cover" />
                                     </div>
 
@@ -269,44 +269,60 @@ const VariantImageManager = () => {
                                             </Button>
                                         </div>
 
-                                        <div className="flex flex-wrap gap-2">
+                                        <div className="flex gap-2">
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                className="hidden"
+                                                id={`replace-image-${image.id}`}
+                                                onChange={event => {
+                                                    const file = event.target.files?.[0];
+
+                                                    if (!file) {
+                                                        return;
+                                                    }
+
+                                                    replaceImage({
+                                                        imageId: image.id,
+                                                        file,
+                                                    });
+
+                                                    event.target.value = "";
+                                                }}
+                                            />
+
                                             {!image.primary && (
                                                 <Button
                                                     type="button"
                                                     variant="outline"
                                                     size="sm"
-                                                    disabled={isProcessing}
-                                                    onClick={() => setPrimaryImage(image.id)}
+                                                    disabled={isSettingPrimary || isDeleting || isReplacing}
+                                                    onClick={() => document.getElementById(`replace-image-${image.id}`)?.click()}
                                                 >
                                                     <Star className="mr-1 size-4" />
-
-                                                    {isSettingPrimary ? "Setting..." : "Set Primary"}
+                                                    Set Primary
                                                 </Button>
                                             )}
 
-                                            <label>
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    className="hidden"
-                                                    disabled={isProcessing}
-                                                    onChange={event => handleReplaceImage(image.id, event)}
-                                                />
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="sm"
+                                                disabled={isReplacing || isDeleting || isSettingPrimary}
+                                                onClick={() => document.getElementById(`replace-image-${image.id}`)?.click()}
+                                            >
+                                                {isReplacing ? "Replacing..." : "Replace"}
+                                            </Button>
 
-                                                <Button type="button" variant="outline" size="sm" disabled={isProcessing}>
-                                                    <span>
-                                                        <RefreshCw className="mr-1 size-4" />
-
-                                                        {isReplacing && replacingImageId === image.id ? "Replacing..." : "Replace"}
-                                                    </span>
-                                                </Button>
-                                            </label>
-
-                                            {/* Delete */}
-                                            <Button type="button" variant="destructive" size="sm" disabled={isProcessing} onClick={() => deleteImage(image.id)}>
+                                            <Button
+                                                type="button"
+                                                variant="destructive"
+                                                size="sm"
+                                                disabled={isDeleting || isSettingPrimary || isReplacing}
+                                                onClick={() => deleteImage(image.id)}
+                                            >
                                                 <Trash2 className="mr-1 size-4" />
-
-                                                {isDeleting ? "Deleting..." : "Delete"}
+                                                Delete
                                             </Button>
                                         </div>
                                     </div>
