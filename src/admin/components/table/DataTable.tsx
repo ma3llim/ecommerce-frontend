@@ -18,6 +18,7 @@ interface DataTableProps<TData, TValue> {
     totalPages: number;
     onPageChange: (page: number) => void;
     onPageSizeChange?: (size: number) => void;
+    showPagination?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -30,6 +31,7 @@ export function DataTable<TData, TValue>({
     totalElements,
     totalPages,
     onPageChange,
+    showPagination = true,
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -91,7 +93,9 @@ export function DataTable<TData, TValue>({
                 </Table>
             </div>
 
-            <DataTablePagination table={table} page={page} size={size} totalElements={totalElements} totalPages={totalPages} onPageChange={onPageChange} />
+            {showPagination ? (
+                <DataTablePagination table={table} page={page} size={size} totalElements={totalElements} totalPages={totalPages} onPageChange={onPageChange} />
+            ) : null}
         </div>
     );
 }

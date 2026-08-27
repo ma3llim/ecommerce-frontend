@@ -8,7 +8,7 @@ import ToastService from "@/services/ToastService";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Eye, Package, Pencil, Power, Trash2 } from "lucide-react";
+import { Eye, MessageCircleQuestion, Package, Pencil, Power, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -102,6 +102,13 @@ const ProductListing = () => {
                                 variant: "warning",
                                 disabled: productIsPending || isUpdatingStatus,
                                 onClick: () => updateStatus({ productId: product.id, status: product.published ? "INACTIVE" : "ACTIVE" }),
+                            },
+                            {
+                                label: "FAQs",
+                                icon: MessageCircleQuestion,
+                                variant: "info",
+                                disabled: productIsPending || isUpdatingStatus,
+                                onClick: () => navigate(`/admin/products/${product.id}/faqs`),
                             },
                             {
                                 label: "Delete",

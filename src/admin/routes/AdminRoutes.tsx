@@ -19,6 +19,10 @@ const ManageProductVariants = lazy(() => import("@/admin/pages/products/ManagePr
 const AddProductVariant = lazy(() => import("@/admin/pages/products/AddProductVariant"));
 const EditProductVariant = lazy(() => import("@/admin/pages/products/EditProductVariant"));
 const VariantImageManager = lazy(() => import("@/admin/pages/products/VariantImageManager"));
+const ProductFaqsListing = lazy(() => import("@/admin/pages/fags/ProductFaqsListing"));
+const CreateProductFaq = lazy(() => import("@/admin/pages/fags/CreateProductFaq"));
+const EditProductFaq = lazy(() => import("@/admin/pages/fags/EditProductFaq"));
+const ViewProductFaq = lazy(() => import("@/admin/pages/fags/ViewProductFaq"));
 
 const AdminRoutes = () => {
     return (
@@ -135,6 +139,38 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <VariantImageManager />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":productId/faqs"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <ProductFaqsListing />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":productId/faqs/create"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <CreateProductFaq />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":productId/faqs/:faqId"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <ViewProductFaq />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":productId/faqs/:faqId/edit"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <EditProductFaq />
                             </Suspense>
                         }
                     />

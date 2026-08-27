@@ -20,6 +20,7 @@ import type {
     UpdateProductVariantRequest,
     VariantStatus,
 } from "../types/products/ProductVariant.types";
+import type { CreateProductFaqRequest, ProductFaqResponse, UpdateProductFaqRequest, UpdateProductFaqStatusRequest } from "../types/products/ProductFaq.types";
 
 export const ProductApi = {
     getAllProducts: async (params: PaginationRequest) => {
@@ -140,6 +141,30 @@ export const ProductApi = {
             ADMIN_ENDPOINTS.PRODUCTS.REORDER_VARIANT_IMAGES(productId, variantId),
             { imageIds }
         );
+        return response.data;
+    },
+    getProductFaqs: async (productId: string): Promise<ApiResponse<ProductFaqResponse[]>> => {
+        const response = await axiosInstance.get<ApiResponse<ProductFaqResponse[]>>(ADMIN_ENDPOINTS.FAQS.GET_FAQS(productId));
+        return response.data;
+    },
+    getProductFaq: async (productId: string, faqId: string): Promise<ApiResponse<ProductFaqResponse>> => {
+        const response = await axiosInstance.get<ApiResponse<ProductFaqResponse>>(ADMIN_ENDPOINTS.FAQS.GET_FAQ(productId, faqId));
+        return response.data;
+    },
+    createProductFaq: async (productId: string, data: CreateProductFaqRequest): Promise<ApiResponse<ProductFaqResponse>> => {
+        const response = await axiosInstance.post<ApiResponse<ProductFaqResponse>>(ADMIN_ENDPOINTS.FAQS.CREATE_FAQ(productId), data);
+        return response.data;
+    },
+    updateProductFaq: async (productId: string, faqId: string, data: UpdateProductFaqRequest): Promise<ApiResponse<ProductFaqResponse>> => {
+        const response = await axiosInstance.put<ApiResponse<ProductFaqResponse>>(ADMIN_ENDPOINTS.FAQS.UPDATE_FAQ(productId, faqId), data);
+        return response.data;
+    },
+    deleteProductFaq: async (productId: string, faqId: string): Promise<ApiResponse<null>> => {
+        const response = await axiosInstance.delete<ApiResponse<null>>(ADMIN_ENDPOINTS.FAQS.DELETE_FAQ(productId, faqId));
+        return response.data;
+    },
+    updateProductFaqStatus: async (productId: string, faqId: string, data: UpdateProductFaqStatusRequest): Promise<ApiResponse<ProductFaqResponse>> => {
+        const response = await axiosInstance.patch<ApiResponse<ProductFaqResponse>>(ADMIN_ENDPOINTS.FAQS.UPDATE_FAQ_STATUS(productId, faqId), data);
         return response.data;
     },
 };

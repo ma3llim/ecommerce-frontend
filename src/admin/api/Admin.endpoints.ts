@@ -41,6 +41,15 @@ export const ADMIN_ENDPOINTS = {
         REORDER_VARIANT_IMAGES: (productId: string, variantId: string) => `/admin/products/${productId}/variants/${variantId}/images/reorder`,
     },
 
+    FAQS: {
+        GET_FAQS: (productId: string) => `/admin/products/${productId}/faqs`,
+        GET_FAQ: (productId: string, faqId: string) => `/admin/products/${productId}/faqs/${faqId}`,
+        CREATE_FAQ: (productId: string) => `/admin/products/${productId}/faqs`,
+        UPDATE_FAQ: (productId: string, faqId: string) => `/admin/products/${productId}/faqs/${faqId}`,
+        DELETE_FAQ: (productId: string, faqId: string) => `/admin/products/${productId}/faqs/${faqId}`,
+        UPDATE_FAQ_STATUS: (productId: string, faqId: string) => `/admin/products/${productId}/faqs/${faqId}/status`,
+    },
+
     TAGS: {
         GET_ALL: "/admin/tags",
         CREATE: "/admin/tags",
