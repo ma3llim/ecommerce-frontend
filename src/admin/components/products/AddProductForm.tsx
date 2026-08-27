@@ -1,6 +1,6 @@
 import { CategoryApi } from "@/admin/api/Category.api";
 import { ProductApi } from "@/admin/api/Product.api";
-import { addProductSchema, type AddProductFormValues } from "@/admin/types/products/ProductSchema";
+import { addProductSchema, type AddProductFormValues } from "@/admin/validation/products/ProductSchema";
 import FormError from "@/components/forms/FormError";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

@@ -1,7 +1,7 @@
 import { ProductApi } from "@/admin/api/Product.api";
 import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
 import { DataTable, DataTableColumnHeader, DataTableRowActions } from "@/admin/components/table";
-import type { Product } from "@/admin/types/Product.types";
+import type { Product } from "@/admin/types/products/Product.types";
 import { Badge } from "@/components/ui/badge";
 import { queryClient } from "@/query/queryClient";
 import ToastService from "@/services/ToastService";

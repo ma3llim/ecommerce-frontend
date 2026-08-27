@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import ToastService from "@/services/ToastService";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
-import type { TagResponse } from "@/admin/types/Tag.types";
+import type { TagResponse } from "@/admin/types/products/Tag.types";
 import { DataTable } from "@/admin/components/table";
 
 const ManageProductTags = () => {

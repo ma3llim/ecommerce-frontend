@@ -6,7 +6,7 @@ import { TagApi } from "@/admin/api/Tag.api";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
 import { Button } from "@/components/ui/button";
 import ToastService from "@/services/ToastService";
-import type { Tag } from "@/admin/types/Tag.types";
+import type { Tag } from "@/admin/types/products/Tag.types";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable, DataTableRowActions } from "@/admin/components/table";
 import ButtonWithAlert from "@/admin/components/ButtonWithAlert";

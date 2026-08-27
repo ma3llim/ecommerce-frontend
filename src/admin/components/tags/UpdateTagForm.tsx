@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import ToastService from "@/services/ToastService";
-import { updateTagSchema, type UpdateTagFormValues } from "@/admin/validation/tags/TagSchema";
+import { updateTagSchema, type UpdateTagFormValues } from "@/admin/validation/products/TagSchema";
 
 const UpdateTagForm = () => {
     const { tagId } = useParams<{ tagId: string }>();

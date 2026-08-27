@@ -10,9 +10,9 @@ import type {
     ProductOptionResponse,
     UpdateProductRequest,
     UpdateProductStatusRequest,
-} from "../types/Product.types";
+} from "../types/products/Product.types";
 import { ADMIN_ENDPOINTS } from "./Admin.endpoints";
-import type { TagResponse } from "../types/Tag.types";
+import type { TagResponse } from "../types/products/Tag.types";
 
 export const ProductApi = {
     getAllProducts: async (params: PaginationRequest) => {
