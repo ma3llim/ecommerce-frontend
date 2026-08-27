@@ -2,12 +2,15 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, Package, CreditCard, MapPin, Truck } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { OrderApi } from "@/admin/api/OrderApi";
 import type { OrderStatus } from "@/admin/types/Order.types";
 import PageLoader from "@/components/common/PageLoader";
-import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
+import ToastService from "@/services/ToastService";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { AdminButton } from "@/components/common/AdminButton";
 
 const getNextStatuses = (status: OrderStatus): OrderStatus[] => {
     switch (status) {
@@ -37,6 +40,7 @@ const getNextStatuses = (status: OrderStatus): OrderStatus[] => {
 
 const OrderDetailsPage = () => {
     const { orderId } = useParams<{ orderId: string }>();
+    const [selectedStatus, setSelectedStatus] = useState<OrderStatus | "">("");
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 
@@ -44,19 +48,6 @@ const OrderDetailsPage = () => {
         queryKey: ["order", orderId],
         queryFn: () => OrderApi.getOrder(orderId!),
         enabled: !!orderId,
-    });
-
-    const { mutate: cancelOrder, isPending: isCancelling } = useMutation({
-        mutationFn: () => OrderApi.cancelOrder(orderId!),
-
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: ["order", orderId],
-            });
-            queryClient.invalidateQueries({
-                queryKey: ["orders"],
-            });
-        },
     });
 
     const { mutate: updateOrderStatus, isPending: isUpdatingStatus } = useMutation({
@@ -72,6 +63,9 @@ const OrderDetailsPage = () => {
             queryClient.invalidateQueries({
                 queryKey: ["orders"],
             });
+            setSelectedStatus("");
+
+            ToastService.success("Order status updated successfully");
         },
     });
 
@@ -96,8 +90,19 @@ const OrderDetailsPage = () => {
         );
     }
 
-    const isProcessing = isCancelling || isUpdatingStatus;
+    const isProcessing = isUpdatingStatus;
+    const nextStatuses = getNextStatuses(order.orderStatus);
 
+    const handleStatusSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (!selectedStatus) {
+            return;
+        }
+
+        updateOrderStatus(selectedStatus);
+    };
+    const canCancel = order.orderStatus !== "CANCELLED" && order.orderStatus !== "DELIVERED" && order.orderStatus !== "RETURNED";
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
@@ -139,42 +144,52 @@ const OrderDetailsPage = () => {
                     </div>
                 </CardContent>
             </Card>
+            {canCancel ? (
+                <form onSubmit={handleStatusSubmit}>
+                    <Card className="mt-4">
+                        <CardHeader>
+                            <CardTitle>Order Action</CardTitle>
+                        </CardHeader>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Order Actions</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex flex-wrap items-center gap-4">
-                        <Select
-                            value={order.orderStatus}
-                            disabled={isProcessing || order.orderStatus === "CANCELLED" || order.orderStatus === "DELIVERED"}
-                            onValueChange={value => updateOrderStatus(value as OrderStatus)}
-                        >
-                            <SelectTrigger className="w-52">
-                                <SelectValue placeholder="Update status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="PENDING">Pending</SelectItem>
-                                <SelectItem value="CONFIRMED">Confirmed</SelectItem>
-                                <SelectItem value="PROCESSING">Processing</SelectItem>
-                                <SelectItem value="SHIPPED">Shipped</SelectItem>
-                                <SelectItem value="DELIVERED">Delivered</SelectItem>
-                                <SelectItem value="CANCELLED">Cancelled</SelectItem>
-                            </SelectContent>
-                        </Select>
+                        <CardContent>
+                            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                <div className="space-y-2">
+                                    <Label htmlFor="order-status">
+                                        Order Status <span className="text-destructive">*</span>
+                                    </Label>
 
-                        <ButtonWithAlert
-                            dialogTitle="Cancel Order?"
-                            dialogDesc={`Are you sure you want to cancel order "${order.orderNumber}"? This action cannot be undone.`}
-                            dialogActionTitle="Cancel Order"
-                            dialogActionfn={() => cancelOrder()}
-                            aria-label={`Cancel ${order.orderNumber}`}
-                            disabled={isProcessing || order.orderStatus === "CANCELLED" || order.orderStatus === "DELIVERED"}
-                        />
-                    </div>
-                </CardContent>
-            </Card>
+                                    <Select
+                                        value={selectedStatus}
+                                        disabled={isProcessing || nextStatuses.length === 0}
+                                        onValueChange={value => setSelectedStatus(value as OrderStatus)}
+                                    >
+                                        <SelectTrigger id="order-status">
+                                            <SelectValue placeholder="Select an Order Status" />
+                                        </SelectTrigger>
+
+                                        <SelectContent>
+                                            <SelectItem>Select the status</SelectItem>
+                                            {nextStatuses.map(status => (
+                                                <SelectItem key={status} value={status}>
+                                                    {status.charAt(0) + status.slice(1).toLowerCase()}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                            </div>
+                        </CardContent>
+
+                        <CardFooter className="border-t">
+                            <AdminButton type="submit" disabled={isProcessing || !selectedStatus || nextStatuses.length === 0}>
+                                Update
+                            </AdminButton>
+                        </CardFooter>
+                    </Card>
+                </form>
+            ) : (
+                ""
+            )}
 
             <Card>
                 <CardHeader>
@@ -222,7 +237,7 @@ const OrderDetailsPage = () => {
                 </CardHeader>
 
                 <CardContent>
-                    <div className="ml-auto max-w-sm space-y-3">
+                    <div className="ml-auto space-y-3">
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">Subtotal</span>
 

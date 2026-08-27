@@ -76,6 +76,7 @@ const OrdersListingPage = () => {
             header: "Actions",
             cell: ({ row }) => {
                 const order = row.original;
+                const canCancel = order.orderStatus !== "CANCELLED" && order.orderStatus !== "DELIVERED" && order.orderStatus !== "RETURNED";
                 return (
                     <DataTableRowActions
                         actions={[
@@ -86,19 +87,24 @@ const OrdersListingPage = () => {
                                 disabled: isCancelling,
                                 onClick: () => navigate(`/admin/orders/order-details/${order.orderId}`),
                             },
-                            {
-                                label: "Cancel",
-                                custom: (
-                                    <ButtonWithAlert
-                                        dialogTitle="Cancel Order?"
-                                        dialogDesc={`Are you sure you want to cancel order "${order.orderNumber}"? This action cannot be undone.`}
-                                        dialogActionTitle="Cancel Order"
-                                        dialogActionfn={() => cancelOrder(order.orderId)}
-                                        aria-label={`Cancel ${order.orderNumber}`}
-                                        disabled={isCancelling || order.orderStatus === "CANCELLED" || order.orderStatus === "DELIVERED"}
-                                    />
-                                ),
-                            },
+                            ...(canCancel
+                                ? [
+                                      {
+                                          label: "Cancel",
+                                          custom: (
+                                              <ButtonWithAlert
+                                                  buttonTitle="Cancel"
+                                                  dialogTitle="Cancel Order?"
+                                                  dialogDesc={`Are you sure you want to cancel order "${order.orderNumber}"? This action cannot be undone.`}
+                                                  dialogActionTitle="Cancel Order"
+                                                  dialogActionfn={() => cancelOrder(order.orderId)}
+                                                  aria-label={`Cancel ${order.orderNumber}`}
+                                                  disabled={isCancelling || order.orderStatus === "CANCELLED" || order.orderStatus === "DELIVERED"}
+                                              />
+                                          ),
+                                      },
+                                  ]
+                                : []),
                         ]}
                     />
                 );
