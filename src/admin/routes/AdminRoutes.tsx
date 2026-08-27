@@ -31,6 +31,8 @@ const CouponListing = lazy(() => import("@/admin/pages/coupon/CouponListing"));
 const AddCoupon = lazy(() => import("@/admin/pages/coupon/AddCoupon"));
 const EditCoupon = lazy(() => import("@/admin/pages/coupon/EditCoupon"));
 const ViewCoupon = lazy(() => import("@/admin/pages/coupon/ViewCoupon"));
+const OrdersListingPage = lazy(() => import("@/admin/pages/orders/OrdersListingPage"));
+const OrderDetailsPage = lazy(() => import("@/admin/pages/orders/OrderDetailsPage"));
 
 const AdminRoutes = () => {
     return (
@@ -283,6 +285,27 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <ViewCoupon />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+
+                <Route path="orders">
+                    <Route index element={<Navigate to="order-listing" replace />} />
+
+                    <Route
+                        path="order-listing"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <OrdersListingPage />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="order-details/:orderId"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <OrderDetailsPage />
                             </Suspense>
                         }
                     />

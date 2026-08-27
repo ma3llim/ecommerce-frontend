@@ -80,4 +80,11 @@ export const ADMIN_ENDPOINTS = {
         DELETE: (couponId: string) => `/admin/coupons/${couponId}`,
         UPDATE_STATUS: (couponId: string) => `/admin/coupons/${couponId}/status`,
     },
+
+    ORDER: {
+        GET_ALL: "/admin/orders",
+        GET_BY_ID: (orderId: string) => `/admin/orders/${orderId}`,
+        CANCEL: (orderId: string) => `/admin/orders/${orderId}/cancel`,
+        UPDATE_STATUS: (orderId: string) => `/admin/orders/${orderId}/status`,
+    },
 } as const;
