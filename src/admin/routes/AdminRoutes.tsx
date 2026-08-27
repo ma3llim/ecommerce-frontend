@@ -25,6 +25,8 @@ const EditProductFaq = lazy(() => import("@/admin/pages/fags/EditProductFaq"));
 const ViewProductFaq = lazy(() => import("@/admin/pages/fags/ViewProductFaq"));
 const UserDetailsPage = lazy(() => import("@/admin/pages/users/UserDetailsPage"));
 const UsersListingPage = lazy(() => import("@/admin/pages/users/UsersListingPage"));
+const ShipmentListing = lazy(() => import("@/admin/pages/shipment/ShipmentListing"));
+const ShipmentDetails = lazy(() => import("@/admin/pages/shipment/ShipmentDetails"));
 
 const AdminRoutes = () => {
     return (
@@ -221,6 +223,26 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <UserDetailsPage />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+
+                <Route path="shipments">
+                    <Route index element={<Navigate to="listing" replace />} />
+                    <Route
+                        path="listing"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <ShipmentListing />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":shipmentId"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <ShipmentDetails />
                             </Suspense>
                         }
                     />

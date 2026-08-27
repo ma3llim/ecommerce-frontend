@@ -4,7 +4,7 @@ import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
-import { Settings2Icon, HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags, Users } from "lucide-react";
+import { HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags, Users, Truck } from "lucide-react";
 
 // This is sample data.
 const data = {
@@ -70,25 +70,13 @@ const data = {
             ],
         },
         {
-            title: "Settings",
+            title: "Manage Shipment",
             url: "#",
-            icon: <Settings2Icon />,
+            icon: <Truck />,
             items: [
                 {
-                    title: "General",
-                    url: "#",
-                },
-                {
-                    title: "Team",
-                    url: "#",
-                },
-                {
-                    title: "Billing",
-                    url: "#",
-                },
-                {
-                    title: "Limits",
-                    url: "#",
+                    title: "Shipment Listing",
+                    url: "/admin/shipments/listing",
                 },
             ],
         },
