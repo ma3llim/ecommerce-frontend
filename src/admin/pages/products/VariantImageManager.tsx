@@ -1,13 +1,14 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Star, Trash2, Upload, ArrowUp, ArrowDown } from "lucide-react";
 import { ProductApi } from "@/admin/api/Product.api";
+import SortableImage from "@/admin/components/products/SortableImage";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ToastService from "@/services/ToastService";
-import PageLoader from "@/components/common/PageLoader";
-import ErrorState from "@/components/common/ErrorState";
+import { closestCenter, DndContext, type DragEndEvent } from "@dnd-kit/core";
+import { arrayMove, rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Upload } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const VariantImageManager = () => {
     const { productId, variantId } = useParams<{ productId: string; variantId: string }>();
@@ -15,20 +16,18 @@ const VariantImageManager = () => {
     const queryClient = useQueryClient();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-    const [replacingImageId, setReplacingImageId] = useState<string | null>(null);
 
-    const { data, isLoading, error } = useQuery({
-        queryKey: ["productVariants", productId, variantId],
+    const { data, isLoading } = useQuery({
+        queryKey: ["productVariants", productId],
         queryFn: () => ProductApi.getProductVariants(productId!),
         enabled: !!productId,
     });
 
     const variant = data?.data?.find(item => item.id === variantId);
-    const images = [...(variant?.images ?? [])].sort((a, b) => a.displayOrder - b.displayOrder);
+    const [images, setImages] = useState(() => [...(variant?.images ?? [])].sort((a, b) => a.displayOrder - b.displayOrder));
 
     const { mutate: uploadImages, isPending: isUploading } = useMutation({
         mutationFn: () => ProductApi.uploadVariantImages(productId!, variantId!, selectedFiles),
-
         onSuccess: response => {
             queryClient.invalidateQueries({
                 queryKey: ["productVariants", productId],
@@ -87,12 +86,10 @@ const VariantImageManager = () => {
             });
 
             ToastService.success(response.message);
-
-            setReplacingImageId(null);
         },
+
         onError: error => {
             ToastService.error(error.message);
-            setReplacingImageId(null);
         },
     });
 
@@ -109,10 +106,12 @@ const VariantImageManager = () => {
 
         onError: error => {
             ToastService.error(error.message);
+
+            queryClient.invalidateQueries({
+                queryKey: ["productVariants", productId],
+            });
         },
     });
-
-    const isProcessing = isUploading || isDeleting || isSettingPrimary || isReplacing || isReordering;
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(event.target.files ?? []);
@@ -121,74 +120,62 @@ const VariantImageManager = () => {
     };
 
     const handleUpload = () => {
-        if (selectedFiles.length === 0 || isProcessing) {
+        if (selectedFiles.length === 0 || isUploading) {
             return;
         }
+
         uploadImages();
     };
 
-    const handleReplaceImage = (imageId: string, event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
+    const handleDragEnd = (event: DragEndEvent) => {
+        const { active, over } = event;
 
-        if (!file || isProcessing) {
+        if (!over || active.id === over.id || isReordering) {
             return;
         }
 
-        setReplacingImageId(imageId);
+        const oldIndex = images.findIndex(image => image.id === active.id);
 
-        replaceImage({
-            imageId,
-            file,
-        });
+        const newIndex = images.findIndex(image => image.id === over.id);
 
-        event.target.value = "";
-    };
-
-    const handleMoveUp = (index: number) => {
-        if (index === 0 || isProcessing) {
+        if (oldIndex === -1 || newIndex === -1) {
             return;
         }
 
-        const imageIds = images.map(image => image.id);
-        [imageIds[index - 1], imageIds[index]] = [imageIds[index], imageIds[index - 1]];
+        const reorderedImages = arrayMove(images, oldIndex, newIndex);
+
+        setImages(reorderedImages);
+
+        const imageIds = reorderedImages.map(image => image.id);
+
         reorderImages(imageIds);
     };
 
-    const handleMoveDown = (index: number) => {
-        if (index === images.length - 1 || isProcessing) {
-            return;
-        }
-        const imageIds = images.map(image => image.id);
-        [imageIds[index], imageIds[index + 1]] = [imageIds[index + 1], imageIds[index]];
-        reorderImages(imageIds);
-    };
+    useEffect(() => {
+        setImages([...(variant?.images ?? [])].sort((a, b) => a.displayOrder - b.displayOrder));
+    }, [variant?.images]);
+    const isProcessing = isUploading || isDeleting || isSettingPrimary || isReplacing || isReordering;
 
     if (isLoading) {
-        return <PageLoader />;
-    }
-
-    if (error) {
-        return <ErrorState message={error.message} />;
+        return <div className="p-6 text-sm text-muted-foreground">Loading images...</div>;
     }
 
     if (!variant) {
-        return <ErrorState message="Variant not found." />;
+        return <div className="p-6 text-sm text-destructive">Variant not found.</div>;
     }
 
     return (
         <div className="mx-auto w-full max-w-5xl">
             <div className="mb-6">
                 <h1 className="text-2xl font-semibold tracking-tight">Manage Variant Images</h1>
-                <p className="text-sm text-muted-foreground">
-                    Manage images for variant <span className="font-medium">{variant.sku}</span>.
-                </p>
+
+                <p className="text-sm text-muted-foreground">Manage images for variant {variant.sku}.</p>
             </div>
 
             <Card className="mb-6">
                 <CardHeader>
                     <CardTitle>Upload Images</CardTitle>
                 </CardHeader>
-
                 <CardContent className="space-y-4">
                     <input
                         ref={fileInputRef}
@@ -199,6 +186,7 @@ const VariantImageManager = () => {
                         onChange={handleFileChange}
                         className="block w-full text-sm"
                     />
+
                     {selectedFiles.length > 0 && (
                         <p className="text-sm text-muted-foreground">
                             {selectedFiles.length} image
@@ -217,6 +205,10 @@ const VariantImageManager = () => {
             <Card>
                 <CardHeader>
                     <CardTitle>Variant Images ({images.length})</CardTitle>
+
+                    {images.length > 1 && <p className="text-sm text-muted-foreground">Drag and drop images to change their order.</p>}
+
+                    {isReordering && <p className="text-sm text-muted-foreground">Saving image order...</p>}
                 </CardHeader>
 
                 <CardContent>
@@ -225,110 +217,32 @@ const VariantImageManager = () => {
                             No images uploaded for this variant.
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 gap-6">
-                            {images.map((image, index) => (
-                                <div key={image.id} className="overflow-hidden rounded-lg border">
-                                    {/* Image */}
-                                    <div className="h-48 overflow-hidden bg-muted">
-                                        <img src={image.imageUrl} alt={`${variant.sku} image`} className="h-full w-full object-cover" />
-                                    </div>
-
-                                    <div className="space-y-3 p-4">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-sm font-medium">Display Order: {image.displayOrder}</span>
-
-                                            {image.primary && (
-                                                <span className="inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium">
-                                                    <Star className="size-3" />
-                                                    Primary
-                                                </span>
-                                            )}
-                                        </div>
-
-                                        <div className="flex gap-2">
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                                size="sm"
-                                                disabled={index === 0 || isProcessing}
-                                                onClick={() => handleMoveUp(index)}
-                                            >
-                                                <ArrowUp className="mr-1 size-4" />
-                                                Up
-                                            </Button>
-
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                                size="sm"
-                                                disabled={index === images.length - 1 || isProcessing}
-                                                onClick={() => handleMoveDown(index)}
-                                            >
-                                                <ArrowDown className="mr-1 size-4" />
-                                                Down
-                                            </Button>
-                                        </div>
-
-                                        <div className="flex gap-2">
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                className="hidden"
-                                                id={`replace-image-${image.id}`}
-                                                onChange={event => {
-                                                    const file = event.target.files?.[0];
-
-                                                    if (!file) {
-                                                        return;
-                                                    }
-
-                                                    replaceImage({
-                                                        imageId: image.id,
-                                                        file,
-                                                    });
-
-                                                    event.target.value = "";
-                                                }}
-                                            />
-
-                                            {!image.primary && (
-                                                <Button
-                                                    type="button"
-                                                    variant="outline"
-                                                    size="sm"
-                                                    disabled={isSettingPrimary || isDeleting || isReplacing}
-                                                    onClick={() => document.getElementById(`replace-image-${image.id}`)?.click()}
-                                                >
-                                                    <Star className="mr-1 size-4" />
-                                                    Set Primary
-                                                </Button>
-                                            )}
-
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                                size="sm"
-                                                disabled={isReplacing || isDeleting || isSettingPrimary}
-                                                onClick={() => document.getElementById(`replace-image-${image.id}`)?.click()}
-                                            >
-                                                {isReplacing ? "Replacing..." : "Replace"}
-                                            </Button>
-
-                                            <Button
-                                                type="button"
-                                                variant="destructive"
-                                                size="sm"
-                                                disabled={isDeleting || isSettingPrimary || isReplacing}
-                                                onClick={() => deleteImage(image.id)}
-                                            >
-                                                <Trash2 className="mr-1 size-4" />
-                                                Delete
-                                            </Button>
-                                        </div>
-                                    </div>
+                        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                            <SortableContext items={images.map(image => image.id)} strategy={rectSortingStrategy}>
+                                <div className="grid grid-cols-2 gap-6">
+                                    {images.map((image, index) => (
+                                        <SortableImage
+                                            key={image.id}
+                                            image={image}
+                                            order={index + 1}
+                                            sku={variant.sku}
+                                            isProcessing={isProcessing}
+                                            isSettingPrimary={isSettingPrimary}
+                                            isDeleting={isDeleting}
+                                            isReplacing={isReplacing}
+                                            onSetPrimary={setPrimaryImage}
+                                            onDelete={deleteImage}
+                                            onReplace={(imageId, file) =>
+                                                replaceImage({
+                                                    imageId,
+                                                    file,
+                                                })
+                                            }
+                                        />
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
+                            </SortableContext>
+                        </DndContext>
                     )}
                 </CardContent>
             </Card>

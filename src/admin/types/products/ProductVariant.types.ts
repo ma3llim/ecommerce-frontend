@@ -56,3 +56,21 @@ export interface ProductVariantResponse {
     active: boolean;
     images: ProductVariantImageResponse[];
 }
+
+export type SortableImageProps = {
+    image: {
+        id: string;
+        imageUrl: string;
+        displayOrder: number;
+        primary: boolean;
+    };
+    order: number;
+    sku: string;
+    isProcessing: boolean;
+    isSettingPrimary: boolean;
+    isDeleting: boolean;
+    isReplacing: boolean;
+    onSetPrimary: (imageId: string) => void;
+    onDelete: (imageId: string) => void;
+    onReplace: (imageId: string, file: File) => void;
+};
