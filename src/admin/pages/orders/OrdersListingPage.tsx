@@ -174,16 +174,16 @@ const OrdersListingPage = () => {
                                 <SelectItem value="ALL">All Order Status</SelectItem>
                                 <SelectItem value="PENDING">Pending</SelectItem>
                                 <SelectItem value="CONFIRMED">Confirmed</SelectItem>
-                                <SelectItem value="PROCESSING">Processing</SelectItem>
                                 <SelectItem value="SHIPPED">Shipped</SelectItem>
                                 <SelectItem value="DELIVERED">Delivered</SelectItem>
                                 <SelectItem value="CANCELLED">Cancelled</SelectItem>
                             </SelectContent>
                         </Select>
                         <Select
-                            value={paymentStatus || "All Order Status"}
+                            value={paymentStatus || "ALL"}
                             onValueChange={value => {
                                 setPaymentStatus(value === "ALL" ? "" : (value as PaymentStatus));
+
                                 setPagination(prev => ({
                                     ...prev,
                                     page: 0,
@@ -193,13 +193,14 @@ const OrdersListingPage = () => {
                             <SelectTrigger>
                                 <SelectValue placeholder="Payment Status" />
                             </SelectTrigger>
+
                             <SelectContent>
                                 <SelectItem value="ALL">All Payment Status</SelectItem>
                                 <SelectItem value="PENDING">Pending</SelectItem>
-                                <SelectItem value="PAID">Paid</SelectItem>
+                                <SelectItem value="SUCCESS">Success</SelectItem>
+                                <SelectItem value="CAPTURED">Captured</SelectItem>
                                 <SelectItem value="FAILED">Failed</SelectItem>
                                 <SelectItem value="REFUNDED">Refunded</SelectItem>
-                                <SelectItem value="CANCELLED">Cancelled</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

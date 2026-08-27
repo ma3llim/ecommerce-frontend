@@ -87,4 +87,9 @@ export const ADMIN_ENDPOINTS = {
         CANCEL: (orderId: string) => `/admin/orders/${orderId}/cancel`,
         UPDATE_STATUS: (orderId: string) => `/admin/orders/${orderId}/status`,
     },
+
+    PAYMENT: {
+        GET_ALL: "/api/v1/admin/payments",
+        GET_BY_ID: (paymentId: string) => `/api/v1/admin/payments/${paymentId}`,
+    },
 } as const;

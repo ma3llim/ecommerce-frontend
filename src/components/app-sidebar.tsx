@@ -4,7 +4,7 @@ import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
-import { HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags, Users, Truck, Ticket, ShoppingCart } from "lucide-react";
+import { HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags, Users, Truck, Ticket, ShoppingCart, CreditCard } from "lucide-react";
 
 // This is sample data.
 const data = {
@@ -99,6 +99,17 @@ const data = {
             title: "Manage Orders",
             url: "#",
             icon: <ShoppingCart />,
+            items: [
+                {
+                    title: "Order Listing",
+                    url: "/admin/orders/order-listing",
+                },
+            ],
+        },
+        {
+            title: "Manage Orders",
+            icon: <CreditCard />,
+            url: "#",
             items: [
                 {
                     title: "Order Listing",

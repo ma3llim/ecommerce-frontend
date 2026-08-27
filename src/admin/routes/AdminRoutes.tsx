@@ -33,6 +33,8 @@ const EditCoupon = lazy(() => import("@/admin/pages/coupon/EditCoupon"));
 const ViewCoupon = lazy(() => import("@/admin/pages/coupon/ViewCoupon"));
 const OrdersListingPage = lazy(() => import("@/admin/pages/orders/OrdersListingPage"));
 const OrderDetailsPage = lazy(() => import("@/admin/pages/orders/OrderDetailsPage"));
+const PaymentsListingPage = lazy(() => import("@/admin/pages/payments/PaymentsListingPage"));
+const PaymentDetailsPage = lazy(() => import("@/admin/pages/payments/PaymentDetailsPage"));
 
 const AdminRoutes = () => {
     return (
@@ -306,6 +308,26 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <OrderDetailsPage />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+
+                <Route path="payments">
+                    <Route index element={<Navigate to="payment-listing" replace />} />
+                    <Route
+                        path="payment-listing"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <PaymentsListingPage />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="payment-details/:paymentId"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <PaymentDetailsPage />
                             </Suspense>
                         }
                     />
