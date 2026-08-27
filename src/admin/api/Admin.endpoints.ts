@@ -25,6 +25,20 @@ export const ADMIN_ENDPOINTS = {
         DELETE: (productId: string) => `/admin/products/${productId}`,
         ASSIGN_TAG_TO_PRODUCT: (productId: string, tagId: string) => `/admin/products/${productId}/tags/${tagId}`,
         REMOVE_TAG_TO_PRODUCT: (productId: string, tagId: string) => `/admin/products/${productId}/tags/${tagId}`,
+        GET_VARIANT: (productId: string, variantId: string) => `/admin/products/${productId}/variants/${variantId}`,
+        GET_VARIANTS: (productId: string) => `/admin/products/${productId}/variants`,
+        CREATE_VARIANT: (productId: string) => `/admin/products/${productId}/variants`,
+        UPDATE_VARIANT: (productId: string, variantId: string) => `/admin/products/${productId}/variants/${variantId}`,
+        DELETE_VARIANT: (productId: string, variantId: string) => `/admin/products/${productId}/variants/${variantId}`,
+        UPDATE_VARIANT_STATUS: (productId: string, variantId: string) => `/admin/products/${productId}/variants/${variantId}/status`,
+        UPLOAD_VARIANT_IMAGES: (productId: string, variantId: string) => `/admin/products/${productId}/variants/${variantId}/images`,
+        DELETE_VARIANT_IMAGE: (productId: string, variantId: string, imageVariantId: string) =>
+            `/admin/products/${productId}/variants/${variantId}/images/${imageVariantId}`,
+        REPLACE_VARIANT_IMAGE: (productId: string, variantId: string, variantImageId: string) =>
+            `/admin/products/${productId}/variants/${variantId}/images/${variantImageId}`,
+        SET_VARIANT_IMAGE_PRIMARY: (productId: string, variantId: string, variantImageId: string) =>
+            `/admin/products/${productId}/variants/${variantId}/images/${variantImageId}/primary`,
+        REORDER_VARIANT_IMAGES: (productId: string, variantId: string) => `/admin/products/${productId}/variants/${variantId}/images/reorder`,
     },
 
     TAGS: {

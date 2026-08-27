@@ -15,6 +15,10 @@ const ManageProductTags = lazy(() => import("@/admin/pages/products/ManageProduc
 const AddTag = lazy(() => import("@/admin/pages/tags/AddTag"));
 const EditTag = lazy(() => import("@/admin/pages/tags/EditTag"));
 const TagListing = lazy(() => import("@/admin/pages/tags/TagListing"));
+const ManageProductVariants = lazy(() => import("@/admin/pages/products/ManageProductVariants"));
+const AddProductVariant = lazy(() => import("@/admin/pages/products/AddProductVariant"));
+const EditProductVariant = lazy(() => import("@/admin/pages/products/EditProductVariant"));
+const VariantImageManager = lazy(() => import("@/admin/pages/products/VariantImageManager"));
 
 const AdminRoutes = () => {
     return (
@@ -99,6 +103,38 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <ManageProductTags />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":productId/variants"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <ManageProductVariants />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":productId/variants/add"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <AddProductVariant />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":productId/variants/:variantId/edit"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <EditProductVariant />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path=":productId/variants/:variantId/images"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <VariantImageManager />
                             </Suspense>
                         }
                     />

@@ -11,10 +11,13 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import type { AdminButtonVariant } from "@/types/ButtonVariant.types";
+import { Trash2, type LucideIcon } from "lucide-react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 interface ButtonWithAlertProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children?: ReactNode;
+    buttonIcon?: LucideIcon;
+    buttonTitle?: string;
     dialogTitle: string;
     dialogDesc?: string;
     dialogCancelTitle?: string;
@@ -25,6 +28,8 @@ interface ButtonWithAlertProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const ButtonWithAlert = ({
     children,
+    buttonIcon: ButtonIcon = Trash2,
+    buttonTitle = "Delete",
     dialogTitle,
     dialogDesc,
     dialogCancelTitle = "Cancel",
@@ -36,8 +41,9 @@ const ButtonWithAlert = ({
     return (
         <AlertDialog>
             <AlertDialogTrigger>
-                <AdminButton variant="danger" {...props}>
-                    {children}
+                <AdminButton disabled={disabled} variant="danger" {...props}>
+                    <Trash2 className="size-4" />
+                    {buttonTitle}
                 </AdminButton>
             </AlertDialogTrigger>
 

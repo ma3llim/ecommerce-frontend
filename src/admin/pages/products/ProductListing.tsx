@@ -94,7 +94,7 @@ const ProductListing = () => {
                                 icon: Package,
                                 variant: "success",
                                 disabled: productIsPending || isUpdatingStatus,
-                                onClick: () => handleVariants(product.id),
+                                onClick: () => navigate(`/admin/products/${product.id}/variants`),
                             },
                             {
                                 label: product.published ? "Unpublish" : "Publish",
@@ -137,10 +137,6 @@ const ProductListing = () => {
             ToastService.error(error.message);
         },
     });
-
-    const handleVariants = (productId: string) => {
-        console.log("product ID" + productId);
-    };
 
     const { mutate: updateStatus, isPending: isUpdatingStatus } = useMutation({
         mutationFn: ({ productId, status }: { productId: string; status: "ACTIVE" | "INACTIVE" }) =>
