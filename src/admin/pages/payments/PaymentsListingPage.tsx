@@ -11,6 +11,7 @@ import { DataTable, DataTableRowActions } from "@/admin/components/table";
 import type { ColumnDef } from "@tanstack/react-table";
 const paymentStatuses: PaymentStatus[] = ["PENDING", "SUCCESS", "CAPTURED", "FAILED", "REFUNDED"];
 const paymentMethods: PaymentMethod[] = ["COD"];
+
 const PaymentsListingPage = () => {
     const navigate = useNavigate();
     const [search, setSearch] = useState("");
@@ -142,8 +143,7 @@ const PaymentsListingPage = () => {
                             if (value === null) {
                                 return;
                             }
-
-                            setPaymentStatus(value === "ALL" ? "" : (value as PaymentStatus));
+                            setPaymentMethod(value === "ALL" ? "" : (value as PaymentMethod));
                             setPage(0);
                         }}
                     >
@@ -173,7 +173,7 @@ const PaymentsListingPage = () => {
                 totalElements={data?.data?.totalElements ?? 0}
                 totalPages={data?.data?.totalPages ?? 0}
                 onPageChange={newPage => {
-                    page: newPage;
+                    setPage(newPage);
                 }}
             />
         </div>
