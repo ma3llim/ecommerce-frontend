@@ -10,6 +10,7 @@ import ToastService from "@/services/ToastService";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
 import type { TagResponse } from "@/admin/types/products/Tag.types";
 import { DataTable } from "@/admin/components/table";
+import { Helmet } from "react-helmet-async";
 
 const ManageProductTags = () => {
     const queryClient = useQueryClient();
@@ -131,89 +132,96 @@ const ManageProductTags = () => {
     ];
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="text-2xl font-semibold tracking-tight">Manage Product Tags</h1>
+        <>
+            <Helmet>
+                <title>Manage Product Tags | Admin</title>
+                <meta name="description" content="Manage tags associated with ecommerce products and organize products using relevant tags." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="space-y-6">
+                <div>
+                    <h1 className="text-2xl font-semibold tracking-tight">Manage Product Tags</h1>
 
-                <p className="text-sm text-muted-foreground">Assign and remove tags from products.</p>
+                    <p className="text-sm text-muted-foreground">Assign and remove tags from products.</p>
+                </div>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Assign Tag to Product</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid gap-6 md:grid-cols-[1fr_1fr_auto] md:items-end">
+                            <div className="space-y-2">
+                                <Label htmlFor="productId">Product</Label>
+                                <select
+                                    id="productId"
+                                    value={productId}
+                                    disabled={isProductOptionsLoading || isProcessing}
+                                    onChange={event => {
+                                        setProductId(event.target.value);
+                                    }}
+                                    className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    <option value="">{isProductOptionsLoading ? "Loading products..." : "Select product"}</option>
+                                    {products.map(product => (
+                                        <option key={product.productId} value={product.productId}>
+                                            {product.productName}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="tagId">Tag</Label>
+                                <select
+                                    id="tagId"
+                                    value={tagId}
+                                    disabled={isTagOptionsLoading || isProcessing}
+                                    onChange={event => {
+                                        setTagId(event.target.value);
+                                    }}
+                                    className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    <option value="">{isTagOptionsLoading ? "Loading tags..." : "Select tag"}</option>
+                                    {tags.map(tag => (
+                                        <option key={tag.tagId} value={tag.tagId}>
+                                            {tag.tagName}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <Button type="button" disabled={!productId || !tagId || isProcessing} onClick={handleAssignTag}>
+                                {isAssigning ? "Assigning..." : "Assign Tag"}
+                            </Button>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Product Tag Assignments</CardTitle>
+                    </CardHeader>
+
+                    <CardContent>
+                        <DataTable
+                            columns={columns}
+                            data={assignments}
+                            page={assignmentResponse?.data.page ?? 0}
+                            loading={isAssignmentsLoading}
+                            size={assignmentResponse?.data.size ?? assignmentPagination.size}
+                            totalElements={assignmentResponse?.data.totalElements ?? 0}
+                            totalPages={assignmentResponse?.data.totalPages ?? 0}
+                            onPageChange={page =>
+                                setAssignmentPagination(previous => ({
+                                    ...previous,
+                                    page,
+                                }))
+                            }
+                        />
+                    </CardContent>
+                </Card>
             </div>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Assign Tag to Product</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="grid gap-6 md:grid-cols-[1fr_1fr_auto] md:items-end">
-                        <div className="space-y-2">
-                            <Label htmlFor="productId">Product</Label>
-                            <select
-                                id="productId"
-                                value={productId}
-                                disabled={isProductOptionsLoading || isProcessing}
-                                onChange={event => {
-                                    setProductId(event.target.value);
-                                }}
-                                className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                            >
-                                <option value="">{isProductOptionsLoading ? "Loading products..." : "Select product"}</option>
-                                {products.map(product => (
-                                    <option key={product.productId} value={product.productId}>
-                                        {product.productName}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="tagId">Tag</Label>
-                            <select
-                                id="tagId"
-                                value={tagId}
-                                disabled={isTagOptionsLoading || isProcessing}
-                                onChange={event => {
-                                    setTagId(event.target.value);
-                                }}
-                                className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                            >
-                                <option value="">{isTagOptionsLoading ? "Loading tags..." : "Select tag"}</option>
-                                {tags.map(tag => (
-                                    <option key={tag.tagId} value={tag.tagId}>
-                                        {tag.tagName}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <Button type="button" disabled={!productId || !tagId || isProcessing} onClick={handleAssignTag}>
-                            {isAssigning ? "Assigning..." : "Assign Tag"}
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Product Tag Assignments</CardTitle>
-                </CardHeader>
-
-                <CardContent>
-                    <DataTable
-                        columns={columns}
-                        data={assignments}
-                        page={assignmentResponse?.data.page ?? 0}
-                        loading={isAssignmentsLoading}
-                        size={assignmentResponse?.data.size ?? assignmentPagination.size}
-                        totalElements={assignmentResponse?.data.totalElements ?? 0}
-                        totalPages={assignmentResponse?.data.totalPages ?? 0}
-                        onPageChange={page =>
-                            setAssignmentPagination(previous => ({
-                                ...previous,
-                                page,
-                            }))
-                        }
-                    />
-                </CardContent>
-            </Card>
-        </div>
+        </>
     );
 };
 

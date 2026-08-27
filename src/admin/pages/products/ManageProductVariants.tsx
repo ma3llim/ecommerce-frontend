@@ -9,6 +9,7 @@ import ToastService from "@/services/ToastService";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable, DataTableRowActions } from "@/admin/components/table";
 import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
+import { Helmet } from "react-helmet-async";
 
 const ManageProductVariants = () => {
     const { productId } = useParams<{ productId: string }>();
@@ -165,43 +166,50 @@ const ManageProductVariants = () => {
     ];
 
     return (
-        <div className="mx-auto w-full">
-            <div className="mb-6 flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-semibold tracking-tight">Manage Variants</h1>
-                    <p className="text-sm text-muted-foreground">Manage variants, stock, pricing, and images for this product.</p>
+        <>
+            <Helmet>
+                <title>Manage Product Variants | Admin</title>
+                <meta name="description" content="View and manage all variants associated with an ecommerce product." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="mx-auto w-full">
+                <div className="mb-6 flex items-center justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight">Manage Variants</h1>
+                        <p className="text-sm text-muted-foreground">Manage variants, stock, pricing, and images for this product.</p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <Button type="button" variant="outline" onClick={() => navigate("/admin/products/product-listing")}>
+                            Back to Products
+                        </Button>
+                        <Button type="button" onClick={() => navigate(`/admin/products/${productId}/variants/add`)}>
+                            <Plus className="mr-2 size-4" />
+                            Add Variant
+                        </Button>
+                    </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                    <Button type="button" variant="outline" onClick={() => navigate("/admin/products/product-listing")}>
-                        Back to Products
-                    </Button>
-                    <Button type="button" onClick={() => navigate(`/admin/products/${productId}/variants/add`)}>
-                        <Plus className="mr-2 size-4" />
-                        Add Variant
-                    </Button>
-                </div>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Product Variants</CardTitle>
+                    </CardHeader>
+
+                    <CardContent>
+                        <DataTable
+                            columns={variantColumns}
+                            data={variants}
+                            loading={isLoading}
+                            page={0}
+                            size={variants.length}
+                            totalElements={variants.length}
+                            totalPages={1}
+                            onPageChange={() => {}}
+                        />
+                    </CardContent>
+                </Card>
             </div>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Product Variants</CardTitle>
-                </CardHeader>
-
-                <CardContent>
-                    <DataTable
-                        columns={variantColumns}
-                        data={variants}
-                        loading={isLoading}
-                        page={0}
-                        size={variants.length}
-                        totalElements={variants.length}
-                        totalPages={1}
-                        onPageChange={() => {}}
-                    />
-                </CardContent>
-            </Card>
-        </div>
+        </>
     );
 };
 

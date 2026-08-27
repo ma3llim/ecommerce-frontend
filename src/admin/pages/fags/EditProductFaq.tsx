@@ -5,6 +5,7 @@ import { ProductApi } from "@/admin/api/Product.api";
 import PageLoader from "@/components/common/PageLoader";
 import ErrorState from "@/components/common/ErrorState";
 import ProductFaqForm from "@/admin/components/faqs/ProductFaqForm";
+import { Helmet } from "react-helmet-async";
 
 const EditProductFaqPage = () => {
     const { productId, faqId } = useParams<{ productId: string; faqId: string }>();
@@ -28,14 +29,21 @@ const EditProductFaqPage = () => {
     }
 
     return (
-        <div className="mx-auto w-full">
-            <div className="mb-6">
-                <h1 className="text-2xl font-semibold tracking-tight">Edit Product FAQ</h1>
-                <p className="text-sm text-muted-foreground">Update the question and answer.</p>
-            </div>
+        <>
+            <Helmet>
+                <title>Edit FAQ | ecommerce</title>
+                <meta name="description" content="Update a product frequently asked question and its answer." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="mx-auto w-full">
+                <div className="mb-6">
+                    <h1 className="text-2xl font-semibold tracking-tight">Edit Product FAQ</h1>
+                    <p className="text-sm text-muted-foreground">Update the question and answer.</p>
+                </div>
 
-            <ProductFaqForm mode="edit" faq={data.data} />
-        </div>
+                <ProductFaqForm mode="edit" faq={data.data} />
+            </div>
+        </>
     );
 };
 

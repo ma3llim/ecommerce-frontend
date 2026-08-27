@@ -10,6 +10,7 @@ import ToastService from "@/services/ToastService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Plus, Power } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ProductFaqsListing = () => {
@@ -142,34 +143,41 @@ const ProductFaqsListing = () => {
     ];
 
     return (
-        <div className="mx-auto w-full">
-            <div className="mb-6 flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-semibold tracking-tight">Product FAQs</h1>
-                    <p className="text-sm text-muted-foreground">Manage frequently asked questions for this product.</p>
+        <>
+            <Helmet>
+                <title>FAQs | ecommerce</title>
+                <meta name="description" content="Manage frequently asked questions for ecommerce products." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="mx-auto w-full">
+                <div className="mb-6 flex items-center justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight">Product FAQs</h1>
+                        <p className="text-sm text-muted-foreground">Manage frequently asked questions for this product.</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Button type="button" variant="outline" onClick={() => navigate("/admin/products/product-listing")}>
+                            Back to Products
+                        </Button>
+                        <Button type="button" onClick={() => navigate(`/admin/products/${productId}/faqs/create`)}>
+                            <Plus className="mr-2 size-4" />
+                            Add FAQ
+                        </Button>
+                    </div>
                 </div>
-                <div className="flex items-center gap-2">
-                    <Button type="button" variant="outline" onClick={() => navigate("/admin/products/product-listing")}>
-                        Back to Products
-                    </Button>
-                    <Button type="button" onClick={() => navigate(`/admin/products/${productId}/faqs/create`)}>
-                        <Plus className="mr-2 size-4" />
-                        Add FAQ
-                    </Button>
-                </div>
+                <DataTable
+                    columns={columns}
+                    data={data?.data ?? []}
+                    loading={isLoading}
+                    page={0}
+                    size={data?.data?.length ?? 0}
+                    totalElements={data?.data?.length ?? 0}
+                    totalPages={1}
+                    onPageChange={() => {}}
+                    showPagination={false}
+                />
             </div>
-            <DataTable
-                columns={columns}
-                data={data?.data ?? []}
-                loading={isLoading}
-                page={0}
-                size={data?.data?.length ?? 0}
-                totalElements={data?.data?.length ?? 0}
-                totalPages={1}
-                onPageChange={() => {}}
-                showPagination={false}
-            />
-        </div>
+        </>
     );
 };
 

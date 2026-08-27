@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import PageLoader from "@/components/common/PageLoader";
 import { CouponApi } from "@/admin/api/Coupon.api";
 import type { CouponCreateRequest, CouponUpdateRequest } from "@/admin/types/Coupon.types";
+import { Helmet } from "react-helmet-async";
 
 const EditCoupon = () => {
     const { couponId } = useParams<{ couponId: string }>();
@@ -51,21 +52,28 @@ const EditCoupon = () => {
     };
 
     return (
-        <div className="mx-auto w-full">
-            <div className="mb-6 flex items-center gap-3">
-                <Button type="button" variant="ghost" size="icon" onClick={() => navigate("/admin/coupons")}>
-                    <ArrowLeft className="size-4" />
-                </Button>
+        <>
+            <Helmet>
+                <title>Edit Coupon | ecommerce</title>
+                <meta name="description" content="Update coupon information, validity, discount, and usage settings." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="mx-auto w-full">
+                <div className="mb-6 flex items-center gap-3">
+                    <Button type="button" variant="ghost" size="icon" onClick={() => navigate("/admin/coupons")}>
+                        <ArrowLeft className="size-4" />
+                    </Button>
 
-                <div>
-                    <h1 className="text-2xl font-semibold tracking-tight">Edit Coupon</h1>
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight">Edit Coupon</h1>
 
-                    <p className="text-sm text-muted-foreground">Update coupon configuration.</p>
+                        <p className="text-sm text-muted-foreground">Update coupon configuration.</p>
+                    </div>
                 </div>
-            </div>
 
-            <CouponForm initialData={coupon} isPending={isPending} onSubmit={handleSubmit} onCancel={() => navigate("/admin/coupons")} />
-        </div>
+                <CouponForm initialData={coupon} isPending={isPending} onSubmit={handleSubmit} onCancel={() => navigate("/admin/coupons")} />
+            </div>
+        </>
     );
 };
 

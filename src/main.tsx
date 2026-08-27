@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { persistor, ReduxStore } from "./store/store.ts";
 import { PersistGate } from "redux-persist/integration/react";
 import PageLoader from "./components/common/PageLoader.tsx";
+import { HelmetProvider } from "react-helmet-async";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -15,7 +16,9 @@ createRoot(document.getElementById("root")!).render(
             <QueryProvider>
                 <Provider store={ReduxStore}>
                     <PersistGate loading={<PageLoader />} persistor={persistor}>
-                        <App />
+                        <HelmetProvider>
+                            <App />
+                        </HelmetProvider>
                     </PersistGate>
                 </Provider>
             </QueryProvider>

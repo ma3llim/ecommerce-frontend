@@ -89,7 +89,7 @@ export const ADMIN_ENDPOINTS = {
     },
 
     PAYMENT: {
-        GET_ALL: "/api/v1/admin/payments",
-        GET_BY_ID: (paymentId: string) => `/api/v1/admin/payments/${paymentId}`,
+        GET_ALL: "/admin/payments",
+        GET_BY_ID: (paymentId: string) => `/admin/payments/${paymentId}`,
     },
 } as const;

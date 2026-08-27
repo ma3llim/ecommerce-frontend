@@ -14,6 +14,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 const CategoryListing = () => {
@@ -125,34 +126,41 @@ const CategoryListing = () => {
         },
     ];
     return (
-        <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                    <CardTitle>Categories</CardTitle>
-                    <CardDescription>Manage your product categories.</CardDescription>
-                </div>
+        <>
+            <Helmet>
+                <title>Categories | ecommerce</title>
+                <meta name="description" content="Manage ecommerce product categories from the admin panel." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                    <div>
+                        <CardTitle>Categories</CardTitle>
+                        <CardDescription>Manage your product categories.</CardDescription>
+                    </div>
 
-                <Button onClick={() => navigate("/admin/categories/add-category")}>Add Category</Button>
-            </CardHeader>
+                    <Button onClick={() => navigate("/admin/categories/add-category")}>Add Category</Button>
+                </CardHeader>
 
-            <CardContent>
-                <DataTable
-                    columns={CategoryColumns()}
-                    data={data?.data.content ?? []}
-                    loading={isLoading}
-                    page={data?.data.page ?? 0}
-                    size={data?.data.size ?? 10}
-                    totalElements={data?.data.totalElements ?? 0}
-                    totalPages={data?.data.totalPages ?? 0}
-                    onPageChange={page => {
-                        setPagination(prev => ({
-                            ...prev,
-                            page,
-                        }));
-                    }}
-                />
-            </CardContent>
-        </Card>
+                <CardContent>
+                    <DataTable
+                        columns={CategoryColumns()}
+                        data={data?.data.content ?? []}
+                        loading={isLoading}
+                        page={data?.data.page ?? 0}
+                        size={data?.data.size ?? 10}
+                        totalElements={data?.data.totalElements ?? 0}
+                        totalPages={data?.data.totalPages ?? 0}
+                        onPageChange={page => {
+                            setPagination(prev => ({
+                                ...prev,
+                                page,
+                            }));
+                        }}
+                    />
+                </CardContent>
+            </Card>
+        </>
     );
 };
 

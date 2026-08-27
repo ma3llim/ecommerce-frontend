@@ -8,6 +8,7 @@ import { arrayMove, rectSortingStrategy, SortableContext } from "@dnd-kit/sortab
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Upload } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 
 const VariantImageManager = () => {
@@ -165,94 +166,101 @@ const VariantImageManager = () => {
     }
 
     return (
-        <div className="mx-auto w-full max-w-5xl">
-            <div className="mb-6">
-                <h1 className="text-2xl font-semibold tracking-tight">Manage Variant Images</h1>
+        <>
+            <Helmet>
+                <title>Manage Variant Images | Admin</title>
+                <meta name="description" content="Manage images associated with product variants, including adding, updating, and removing variant images." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="mx-auto w-full max-w-5xl">
+                <div className="mb-6">
+                    <h1 className="text-2xl font-semibold tracking-tight">Manage Variant Images</h1>
 
-                <p className="text-sm text-muted-foreground">Manage images for variant {variant.sku}.</p>
-            </div>
+                    <p className="text-sm text-muted-foreground">Manage images for variant {variant.sku}.</p>
+                </div>
 
-            <Card className="mb-6">
-                <CardHeader>
-                    <CardTitle>Upload Images</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <input
-                        ref={fileInputRef}
-                        type="file"
-                        multiple
-                        accept="image/*"
-                        disabled={isProcessing}
-                        onChange={handleFileChange}
-                        className="block w-full text-sm"
-                    />
+                <Card className="mb-6">
+                    <CardHeader>
+                        <CardTitle>Upload Images</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            multiple
+                            accept="image/*"
+                            disabled={isProcessing}
+                            onChange={handleFileChange}
+                            className="block w-full text-sm"
+                        />
 
-                    {selectedFiles.length > 0 && (
-                        <p className="text-sm text-muted-foreground">
-                            {selectedFiles.length} image
-                            {selectedFiles.length > 1 ? "s" : ""} selected.
-                        </p>
-                    )}
+                        {selectedFiles.length > 0 && (
+                            <p className="text-sm text-muted-foreground">
+                                {selectedFiles.length} image
+                                {selectedFiles.length > 1 ? "s" : ""} selected.
+                            </p>
+                        )}
 
-                    <Button type="button" disabled={selectedFiles.length === 0 || isProcessing} onClick={handleUpload}>
-                        <Upload className="mr-2 size-4" />
+                        <Button type="button" disabled={selectedFiles.length === 0 || isProcessing} onClick={handleUpload}>
+                            <Upload className="mr-2 size-4" />
 
-                        {isUploading ? "Uploading..." : "Upload Images"}
+                            {isUploading ? "Uploading..." : "Upload Images"}
+                        </Button>
+                    </CardContent>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Variant Images ({images.length})</CardTitle>
+
+                        {images.length > 1 && <p className="text-sm text-muted-foreground">Drag and drop images to change their order.</p>}
+
+                        {isReordering && <p className="text-sm text-muted-foreground">Saving image order...</p>}
+                    </CardHeader>
+
+                    <CardContent>
+                        {images.length === 0 ? (
+                            <div className="rounded-lg border border-dashed p-8 text-center text-sm text-muted-foreground">
+                                No images uploaded for this variant.
+                            </div>
+                        ) : (
+                            <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                                <SortableContext items={images.map(image => image.id)} strategy={rectSortingStrategy}>
+                                    <div className="grid grid-cols-2 gap-6">
+                                        {images.map((image, index) => (
+                                            <SortableImage
+                                                key={image.id}
+                                                image={image}
+                                                order={index + 1}
+                                                sku={variant.sku}
+                                                isProcessing={isProcessing}
+                                                isSettingPrimary={isSettingPrimary}
+                                                isDeleting={isDeleting}
+                                                isReplacing={isReplacing}
+                                                onSetPrimary={setPrimaryImage}
+                                                onDelete={deleteImage}
+                                                onReplace={(imageId, file) =>
+                                                    replaceImage({
+                                                        imageId,
+                                                        file,
+                                                    })
+                                                }
+                                            />
+                                        ))}
+                                    </div>
+                                </SortableContext>
+                            </DndContext>
+                        )}
+                    </CardContent>
+                </Card>
+
+                <div className="mt-6 flex justify-end">
+                    <Button type="button" variant="outline" disabled={isProcessing} onClick={() => navigate(`/admin/products/${productId}/variants`)}>
+                        Back to Variants
                     </Button>
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Variant Images ({images.length})</CardTitle>
-
-                    {images.length > 1 && <p className="text-sm text-muted-foreground">Drag and drop images to change their order.</p>}
-
-                    {isReordering && <p className="text-sm text-muted-foreground">Saving image order...</p>}
-                </CardHeader>
-
-                <CardContent>
-                    {images.length === 0 ? (
-                        <div className="rounded-lg border border-dashed p-8 text-center text-sm text-muted-foreground">
-                            No images uploaded for this variant.
-                        </div>
-                    ) : (
-                        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                            <SortableContext items={images.map(image => image.id)} strategy={rectSortingStrategy}>
-                                <div className="grid grid-cols-2 gap-6">
-                                    {images.map((image, index) => (
-                                        <SortableImage
-                                            key={image.id}
-                                            image={image}
-                                            order={index + 1}
-                                            sku={variant.sku}
-                                            isProcessing={isProcessing}
-                                            isSettingPrimary={isSettingPrimary}
-                                            isDeleting={isDeleting}
-                                            isReplacing={isReplacing}
-                                            onSetPrimary={setPrimaryImage}
-                                            onDelete={deleteImage}
-                                            onReplace={(imageId, file) =>
-                                                replaceImage({
-                                                    imageId,
-                                                    file,
-                                                })
-                                            }
-                                        />
-                                    ))}
-                                </div>
-                            </SortableContext>
-                        </DndContext>
-                    )}
-                </CardContent>
-            </Card>
-
-            <div className="mt-6 flex justify-end">
-                <Button type="button" variant="outline" disabled={isProcessing} onClick={() => navigate(`/admin/products/${productId}/variants`)}>
-                    Back to Variants
-                </Button>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

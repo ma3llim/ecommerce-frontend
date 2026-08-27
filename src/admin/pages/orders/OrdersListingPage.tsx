@@ -12,6 +12,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Eye } from "lucide-react";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 const OrdersListingPage = () => {
@@ -132,109 +133,116 @@ const OrdersListingPage = () => {
     };
 
     return (
-        <div>
-            <div className="mb-6">
-                <h1 className="text-2xl font-semibold tracking-tight">Manage Orders</h1>
-                <p className="text-sm text-muted-foreground">View and manage customer orders.</p>
-            </div>
+        <>
+            <Helmet>
+                <title>Orders | ecommerce</title>
+                <meta name="description" content="View and manage customer orders from the ecommerce admin panel." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div>
+                <div className="mb-6">
+                    <h1 className="text-2xl font-semibold tracking-tight">Manage Orders</h1>
+                    <p className="text-sm text-muted-foreground">View and manage customer orders.</p>
+                </div>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Orders</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="mb-6 grid gap-4 md:grid-cols-4">
-                        <div className="space-y-2 md:col-span-2">
-                            <Input
-                                placeholder="Search by order number..."
-                                value={searchInput}
-                                onChange={event => setSearchInput(event.target.value)}
-                                onKeyDown={event => {
-                                    if (event.key === "Enter") {
-                                        handleSearch();
-                                    }
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Orders</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="mb-6 grid gap-4 md:grid-cols-4">
+                            <div className="space-y-2 md:col-span-2">
+                                <Input
+                                    placeholder="Search by order number..."
+                                    value={searchInput}
+                                    onChange={event => setSearchInput(event.target.value)}
+                                    onKeyDown={event => {
+                                        if (event.key === "Enter") {
+                                            handleSearch();
+                                        }
+                                    }}
+                                />
+                            </div>
+
+                            <Select
+                                value={orderStatus || "All Order Status"}
+                                onValueChange={value => {
+                                    setOrderStatus(value === "ALL" ? "" : (value as OrderStatus));
+                                    setPagination(prev => ({
+                                        ...prev,
+                                        page: 0,
+                                    }));
                                 }}
-                            />
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Order Status" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="ALL">All Order Status</SelectItem>
+                                    <SelectItem value="PENDING">Pending</SelectItem>
+                                    <SelectItem value="CONFIRMED">Confirmed</SelectItem>
+                                    <SelectItem value="SHIPPED">Shipped</SelectItem>
+                                    <SelectItem value="DELIVERED">Delivered</SelectItem>
+                                    <SelectItem value="CANCELLED">Cancelled</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            <Select
+                                value={paymentStatus || "ALL"}
+                                onValueChange={value => {
+                                    setPaymentStatus(value === "ALL" ? "" : (value as PaymentStatus));
+
+                                    setPagination(prev => ({
+                                        ...prev,
+                                        page: 0,
+                                    }));
+                                }}
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Payment Status" />
+                                </SelectTrigger>
+
+                                <SelectContent>
+                                    <SelectItem value="ALL">All Payment Status</SelectItem>
+                                    <SelectItem value="PENDING">Pending</SelectItem>
+                                    <SelectItem value="SUCCESS">Success</SelectItem>
+                                    <SelectItem value="CAPTURED">Captured</SelectItem>
+                                    <SelectItem value="FAILED">Failed</SelectItem>
+                                    <SelectItem value="REFUNDED">Refunded</SelectItem>
+                                </SelectContent>
+                            </Select>
                         </div>
 
-                        <Select
-                            value={orderStatus || "All Order Status"}
-                            onValueChange={value => {
-                                setOrderStatus(value === "ALL" ? "" : (value as OrderStatus));
+                        <div className="mb-4 flex gap-2">
+                            <Button type="button" onClick={handleSearch}>
+                                Search
+                            </Button>
+
+                            <Button type="button" variant="outline" onClick={handleClearFilters}>
+                                Clear
+                            </Button>
+                        </div>
+
+                        {error && <FormError message="Failed to load orders." />}
+
+                        <DataTable
+                            columns={columns}
+                            data={data?.data?.content ?? []}
+                            loading={isLoading}
+                            page={data?.data?.page ?? pagination.page}
+                            size={data?.data?.size ?? pagination.size}
+                            totalElements={data?.data?.totalElements ?? 0}
+                            totalPages={data?.data?.totalPages ?? 0}
+                            onPageChange={newPage => {
                                 setPagination(prev => ({
                                     ...prev,
-                                    page: 0,
+                                    page: newPage,
                                 }));
                             }}
-                        >
-                            <SelectTrigger>
-                                <SelectValue placeholder="Order Status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="ALL">All Order Status</SelectItem>
-                                <SelectItem value="PENDING">Pending</SelectItem>
-                                <SelectItem value="CONFIRMED">Confirmed</SelectItem>
-                                <SelectItem value="SHIPPED">Shipped</SelectItem>
-                                <SelectItem value="DELIVERED">Delivered</SelectItem>
-                                <SelectItem value="CANCELLED">Cancelled</SelectItem>
-                            </SelectContent>
-                        </Select>
-                        <Select
-                            value={paymentStatus || "ALL"}
-                            onValueChange={value => {
-                                setPaymentStatus(value === "ALL" ? "" : (value as PaymentStatus));
-
-                                setPagination(prev => ({
-                                    ...prev,
-                                    page: 0,
-                                }));
-                            }}
-                        >
-                            <SelectTrigger>
-                                <SelectValue placeholder="Payment Status" />
-                            </SelectTrigger>
-
-                            <SelectContent>
-                                <SelectItem value="ALL">All Payment Status</SelectItem>
-                                <SelectItem value="PENDING">Pending</SelectItem>
-                                <SelectItem value="SUCCESS">Success</SelectItem>
-                                <SelectItem value="CAPTURED">Captured</SelectItem>
-                                <SelectItem value="FAILED">Failed</SelectItem>
-                                <SelectItem value="REFUNDED">Refunded</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    <div className="mb-4 flex gap-2">
-                        <Button type="button" onClick={handleSearch}>
-                            Search
-                        </Button>
-
-                        <Button type="button" variant="outline" onClick={handleClearFilters}>
-                            Clear
-                        </Button>
-                    </div>
-
-                    {error && <FormError message="Failed to load orders." />}
-
-                    <DataTable
-                        columns={columns}
-                        data={data?.data?.content ?? []}
-                        loading={isLoading}
-                        page={data?.data?.page ?? pagination.page}
-                        size={data?.data?.size ?? pagination.size}
-                        totalElements={data?.data?.totalElements ?? 0}
-                        totalPages={data?.data?.totalPages ?? 0}
-                        onPageChange={newPage => {
-                            setPagination(prev => ({
-                                ...prev,
-                                page: newPage,
-                            }));
-                        }}
-                    />
-                </CardContent>
-            </Card>
-        </div>
+                        />
+                    </CardContent>
+                </Card>
+            </div>
+        </>
     );
 };
 

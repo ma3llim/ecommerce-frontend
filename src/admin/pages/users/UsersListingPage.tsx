@@ -10,6 +10,7 @@ import PageLoader from "@/components/common/PageLoader";
 import ErrorState from "@/components/common/ErrorState";
 import { DataTable, DataTableRowActions } from "@/admin/components/table";
 import ToastService from "@/services/ToastService";
+import { Helmet } from "react-helmet-async";
 
 const UsersListingPage = () => {
     const navigate = useNavigate();
@@ -134,68 +135,75 @@ const UsersListingPage = () => {
     }
 
     return (
-        <div className="mx-auto w-full">
-            <div className="mb-6">
-                <h1 className="text-2xl font-semibold tracking-tight">Users</h1>
+        <>
+            <Helmet>
+                <title>User Listing | Admin</title>
+                <meta name="description" content="View and manage customer accounts, user information, and account status in the ecommerce admin panel." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="mx-auto w-full">
+                <div className="mb-6">
+                    <h1 className="text-2xl font-semibold tracking-tight">Users</h1>
 
-                <p className="text-sm text-muted-foreground">Manage registered users and their account status.</p>
-            </div>
+                    <p className="text-sm text-muted-foreground">Manage registered users and their account status.</p>
+                </div>
 
-            <div className="mb-4 flex items-center gap-3">
-                <input
-                    type="text"
-                    placeholder="Search users..."
-                    value={search}
-                    onChange={event => {
-                        setSearch(event.target.value);
+                <div className="mb-4 flex items-center gap-3">
+                    <input
+                        type="text"
+                        placeholder="Search users..."
+                        value={search}
+                        onChange={event => {
+                            setSearch(event.target.value);
 
+                            setPagination(previous => ({
+                                ...previous,
+                                page: 0,
+                            }));
+                        }}
+                        className="h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    />
+
+                    <select
+                        value={accountStatus ?? ""}
+                        onChange={event => {
+                            const value = event.target.value as AccountStatus | "";
+
+                            setAccountStatus(value === "" ? undefined : value);
+
+                            setPagination(previous => ({
+                                ...previous,
+                                page: 0,
+                            }));
+                        }}
+                        className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+                    >
+                        <option value="">All Statuses</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="ACTIVE">Active</option>
+                        <option value="LOCKED">Locked</option>
+                        <option value="DISABLED">Disabled</option>
+                    </select>
+                </div>
+
+                <DataTable
+                    columns={columns}
+                    data={users}
+                    loading={isLoading}
+                    page={data?.data?.page ?? pagination.page}
+                    size={data?.data?.size ?? pagination.size}
+                    totalElements={data?.data?.totalElements ?? 0}
+                    totalPages={data?.data?.totalPages ?? 0}
+                    onPageChange={page =>
                         setPagination(previous => ({
                             ...previous,
-                            page: 0,
-                        }));
-                    }}
-                    className="h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            page,
+                        }))
+                    }
+                    showPagination={true}
                 />
-
-                <select
-                    value={accountStatus ?? ""}
-                    onChange={event => {
-                        const value = event.target.value as AccountStatus | "";
-
-                        setAccountStatus(value === "" ? undefined : value);
-
-                        setPagination(previous => ({
-                            ...previous,
-                            page: 0,
-                        }));
-                    }}
-                    className="h-9 rounded-md border border-input bg-background px-3 text-sm"
-                >
-                    <option value="">All Statuses</option>
-                    <option value="PENDING">Pending</option>
-                    <option value="ACTIVE">Active</option>
-                    <option value="LOCKED">Locked</option>
-                    <option value="DISABLED">Disabled</option>
-                </select>
             </div>
-
-            <DataTable
-                columns={columns}
-                data={users}
-                loading={isLoading}
-                page={data?.data?.page ?? pagination.page}
-                size={data?.data?.size ?? pagination.size}
-                totalElements={data?.data?.totalElements ?? 0}
-                totalPages={data?.data?.totalPages ?? 0}
-                onPageChange={page =>
-                    setPagination(previous => ({
-                        ...previous,
-                        page,
-                    }))
-                }
-                showPagination={true}
-            />
-        </div>
+        </>
     );
 };
 

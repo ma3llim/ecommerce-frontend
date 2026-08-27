@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { DataTable, DataTableRowActions } from "@/admin/components/table";
 import type { ColumnDef } from "@tanstack/react-table";
+import { Helmet } from "react-helmet-async";
 const paymentStatuses: PaymentStatus[] = ["PENDING", "SUCCESS", "CAPTURED", "FAILED", "REFUNDED"];
 const paymentMethods: PaymentMethod[] = ["COD"];
 
@@ -90,93 +91,100 @@ const PaymentsListingPage = () => {
     };
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="text-2xl font-bold">Payments</h1>
+        <>
+            <Helmet>
+                <title>Payments | ecommerce</title>
+                <meta name="description" content="View and manage payment records from the ecommerce admin panel." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="space-y-6">
+                <div>
+                    <h1 className="text-2xl font-bold">Payments</h1>
 
-                <p className="text-muted-foreground">View and manage payment records.</p>
+                    <p className="text-muted-foreground">View and manage payment records.</p>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <div className="space-y-2">
+                        <Label htmlFor="payment-search">Search</Label>
+
+                        <Input id="payment-search" placeholder="Search payment..." value={search} onChange={handleSearch} />
+                    </div>
+
+                    <div className="space-y-2">
+                        <Label>Payment Status</Label>
+
+                        <Select
+                            value={paymentStatus || "ALL"}
+                            onValueChange={value => {
+                                if (!value) {
+                                    return;
+                                }
+
+                                setPaymentStatus(value === "ALL" ? "" : (value as PaymentStatus));
+                                setPage(0);
+                            }}
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="Select payment status" />
+                            </SelectTrigger>
+
+                            <SelectContent>
+                                <SelectItem value="ALL">All</SelectItem>
+
+                                {paymentStatuses.map(status => (
+                                    <SelectItem key={status} value={status}>
+                                        {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                        <Label>Payment Method</Label>
+
+                        <Select
+                            value={paymentMethod || "ALL"}
+                            onValueChange={value => {
+                                if (value === null) {
+                                    return;
+                                }
+                                setPaymentMethod(value === "ALL" ? "" : (value as PaymentMethod));
+                                setPage(0);
+                            }}
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="Select payment method" />
+                            </SelectTrigger>
+
+                            <SelectContent>
+                                <SelectItem value="ALL">All</SelectItem>
+
+                                {paymentMethods.map(method => (
+                                    <SelectItem key={method} value={method}>
+                                        {method}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
+
+                <DataTable
+                    columns={columns}
+                    data={data?.data?.content ?? []}
+                    loading={isLoading || isFetching}
+                    page={data?.data?.page ?? page}
+                    size={data?.data?.size ?? size}
+                    totalElements={data?.data?.totalElements ?? 0}
+                    totalPages={data?.data?.totalPages ?? 0}
+                    onPageChange={newPage => {
+                        setPage(newPage);
+                    }}
+                />
             </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div className="space-y-2">
-                    <Label htmlFor="payment-search">Search</Label>
-
-                    <Input id="payment-search" placeholder="Search payment..." value={search} onChange={handleSearch} />
-                </div>
-
-                <div className="space-y-2">
-                    <Label>Payment Status</Label>
-
-                    <Select
-                        value={paymentStatus || "ALL"}
-                        onValueChange={value => {
-                            if (!value) {
-                                return;
-                            }
-
-                            setPaymentStatus(value === "ALL" ? "" : (value as PaymentStatus));
-                            setPage(0);
-                        }}
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select payment status" />
-                        </SelectTrigger>
-
-                        <SelectContent>
-                            <SelectItem value="ALL">All</SelectItem>
-
-                            {paymentStatuses.map(status => (
-                                <SelectItem key={status} value={status}>
-                                    {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-
-                <div className="space-y-2">
-                    <Label>Payment Method</Label>
-
-                    <Select
-                        value={paymentMethod || "ALL"}
-                        onValueChange={value => {
-                            if (value === null) {
-                                return;
-                            }
-                            setPaymentMethod(value === "ALL" ? "" : (value as PaymentMethod));
-                            setPage(0);
-                        }}
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select payment method" />
-                        </SelectTrigger>
-
-                        <SelectContent>
-                            <SelectItem value="ALL">All</SelectItem>
-
-                            {paymentMethods.map(method => (
-                                <SelectItem key={method} value={method}>
-                                    {method}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-            </div>
-
-            <DataTable
-                columns={columns}
-                data={data?.data?.content ?? []}
-                loading={isLoading || isFetching}
-                page={data?.data?.page ?? page}
-                size={data?.data?.size ?? size}
-                totalElements={data?.data?.totalElements ?? 0}
-                totalPages={data?.data?.totalPages ?? 0}
-                onPageChange={newPage => {
-                    setPage(newPage);
-                }}
-            />
-        </div>
+        </>
     );
 };
 

@@ -10,6 +10,7 @@ import { CouponApi } from "@/admin/api/Coupon.api";
 import type { CouponResponse, CouponStatus } from "@/admin/types/Coupon.types";
 import { DataTable, DataTableRowActions } from "@/admin/components/table";
 import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
+import { Helmet } from "react-helmet-async";
 
 const CouponListing = () => {
     const navigate = useNavigate();
@@ -144,43 +145,50 @@ const CouponListing = () => {
     ];
 
     return (
-        <div className="mx-auto w-full">
-            <div className="mb-6 flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-semibold tracking-tight">Coupons</h1>
+        <>
+            <Helmet>
+                <title>Coupons | ecommerce</title>
+                <meta name="description" content="View and manage discount coupons from the ecommerce admin panel." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="mx-auto w-full">
+                <div className="mb-6 flex items-center justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight">Coupons</h1>
 
-                    <p className="text-sm text-muted-foreground">Manage discount coupons and promotional offers.</p>
+                        <p className="text-sm text-muted-foreground">Manage discount coupons and promotional offers.</p>
+                    </div>
+
+                    <Button type="button" onClick={() => navigate("/admin/coupons/add")}>
+                        <Plus className="mr-2 size-4" />
+                        Add Coupon
+                    </Button>
                 </div>
 
-                <Button type="button" onClick={() => navigate("/admin/coupons/add")}>
-                    <Plus className="mr-2 size-4" />
-                    Add Coupon
-                </Button>
-            </div>
+                <div className="mb-4 max-w-sm">
+                    <Input
+                        placeholder="Search coupon code..."
+                        value={search}
+                        onChange={event => {
+                            setSearch(event.target.value);
+                            setPage(0);
+                        }}
+                    />
+                </div>
 
-            <div className="mb-4 max-w-sm">
-                <Input
-                    placeholder="Search coupon code..."
-                    value={search}
-                    onChange={event => {
-                        setSearch(event.target.value);
-                        setPage(0);
-                    }}
+                <DataTable
+                    columns={columns}
+                    data={data?.data?.content ?? []}
+                    loading={isLoading}
+                    page={data?.data?.page ?? 0}
+                    size={data?.data?.size ?? size}
+                    totalElements={data?.data?.totalElements ?? 0}
+                    totalPages={data?.data?.totalPages ?? 0}
+                    onPageChange={setPage}
+                    showPagination
                 />
             </div>
-
-            <DataTable
-                columns={columns}
-                data={data?.data?.content ?? []}
-                loading={isLoading}
-                page={data?.data?.page ?? 0}
-                size={data?.data?.size ?? size}
-                totalElements={data?.data?.totalElements ?? 0}
-                totalPages={data?.data?.totalPages ?? 0}
-                onPageChange={setPage}
-                showPagination
-            />
-        </div>
+        </>
     );
 };
 

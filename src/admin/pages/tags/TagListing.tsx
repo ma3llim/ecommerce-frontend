@@ -10,6 +10,7 @@ import type { Tag } from "@/admin/types/products/Tag.types";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable, DataTableRowActions } from "@/admin/components/table";
 import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
+import { Helmet } from "react-helmet-async";
 
 const TagListing = () => {
     const navigate = useNavigate();
@@ -100,36 +101,43 @@ const TagListing = () => {
         },
     ];
     return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-semibold tracking-tight">Tags</h1>
+        <>
+            <Helmet>
+                <title>Tag Listing | Admin</title>
+                <meta name="description" content="View and manage product tags used to organize products in the ecommerce catalog." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight">Tags</h1>
 
-                    <p className="text-sm text-muted-foreground">Manage product tags.</p>
+                        <p className="text-sm text-muted-foreground">Manage product tags.</p>
+                    </div>
+
+                    <Button onClick={() => navigate("/admin/tags/add-tag")}>
+                        <Plus className="mr-2 size-4" />
+                        Add Tag
+                    </Button>
                 </div>
 
-                <Button onClick={() => navigate("/admin/tags/add-tag")}>
-                    <Plus className="mr-2 size-4" />
-                    Add Tag
-                </Button>
+                <DataTable
+                    columns={tagColumns}
+                    data={tags}
+                    page={tagResponse?.data.page ?? 0}
+                    loading={isLoading}
+                    size={tagResponse?.data.size ?? pagination.size}
+                    totalElements={tagResponse?.data.totalElements ?? 0}
+                    totalPages={tagResponse?.data.totalPages ?? 0}
+                    onPageChange={page =>
+                        setPagination(previous => ({
+                            ...previous,
+                            page,
+                        }))
+                    }
+                />
             </div>
-
-            <DataTable
-                columns={tagColumns}
-                data={tags}
-                page={tagResponse?.data.page ?? 0}
-                loading={isLoading}
-                size={tagResponse?.data.size ?? pagination.size}
-                totalElements={tagResponse?.data.totalElements ?? 0}
-                totalPages={tagResponse?.data.totalPages ?? 0}
-                onPageChange={page =>
-                    setPagination(previous => ({
-                        ...previous,
-                        page,
-                    }))
-                }
-            />
-        </div>
+        </>
     );
 };
 

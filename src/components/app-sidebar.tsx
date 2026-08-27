@@ -6,7 +6,6 @@ import { NavUser } from "@/components/nav-user";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
 import { HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags, Users, Truck, Ticket, ShoppingCart, CreditCard } from "lucide-react";
 
-// This is sample data.
 const data = {
     navMain: [
         {
@@ -107,13 +106,13 @@ const data = {
             ],
         },
         {
-            title: "Manage Orders",
+            title: "Manage Payments",
             icon: <CreditCard />,
             url: "#",
             items: [
                 {
-                    title: "Order Listing",
-                    url: "/admin/orders/order-listing",
+                    title: "Payment Listing",
+                    url: "/admin/payments/payment-listing",
                 },
             ],
         },

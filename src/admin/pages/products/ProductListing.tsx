@@ -10,6 +10,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Eye, MessageCircleQuestion, Package, Pencil, Power, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 const ProductListing = () => {
@@ -171,27 +172,37 @@ const ProductListing = () => {
     }
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="text-2xl font-semibold text-">Products</h1>
-                <p className="text-muted-foreground">Manage your products.</p>
+        <>
+            <Helmet>
+                <title>Product Listing | Admin</title>
+                <meta
+                    name="description"
+                    content="View and manage all ecommerce products, including product information, pricing, inventory, variants, and status."
+                />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="space-y-6">
+                <div>
+                    <h1 className="text-2xl font-semibold text-">Products</h1>
+                    <p className="text-muted-foreground">Manage your products.</p>
+                </div>
+                <DataTable
+                    columns={productColumns}
+                    data={products}
+                    page={data?.data.page ?? 0}
+                    loading={isLoading}
+                    size={data?.data.size ?? pagination.size}
+                    totalElements={data?.data.totalElements ?? 0}
+                    totalPages={data?.data.totalPages ?? 0}
+                    onPageChange={page =>
+                        setPagination(previous => ({
+                            ...previous,
+                            page,
+                        }))
+                    }
+                />
             </div>
-            <DataTable
-                columns={productColumns}
-                data={products}
-                page={data?.data.page ?? 0}
-                loading={isLoading}
-                size={data?.data.size ?? pagination.size}
-                totalElements={data?.data.totalElements ?? 0}
-                totalPages={data?.data.totalPages ?? 0}
-                onPageChange={page =>
-                    setPagination(previous => ({
-                        ...previous,
-                        page,
-                    }))
-                }
-            />
-        </div>
+        </>
     );
 };
 

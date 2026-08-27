@@ -12,6 +12,7 @@ import ToastService from "@/services/ToastService";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -88,63 +89,74 @@ const EditCategory = () => {
 
     const category = data?.data;
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Edit Category</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <form onSubmit={handleSubmit(values => updateCategory(values))} className="space-y-6">
-                    <div className="grid gap-6 md:grid-cols-2">
-                        <div className="space-y-2">
-                            <Label htmlFor="name">Category Name</Label>
-                            <Input id="name" disabled={isPending} {...register("name")} />
-                            <FormError message={errors.name?.message} />
+        <>
+            <Helmet>
+                <title>Edit Category | ecommerce</title>
+                <meta name="description" content="Update product category information and settings." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Edit Category</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleSubmit(values => updateCategory(values))} className="space-y-6">
+                        <div className="grid gap-6 md:grid-cols-2">
+                            <div className="space-y-2">
+                                <Label htmlFor="name">Category Name</Label>
+                                <Input id="name" disabled={isPending} {...register("name")} />
+                                <FormError message={errors.name?.message} />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label>Category Image</Label>
+                                <Controller
+                                    name="categoryImage"
+                                    control={control}
+                                    render={({ field: { onChange } }) => (
+                                        <Input
+                                            type="file"
+                                            disabled={isPending}
+                                            accept="image/jpeg,image/png,image/webp"
+                                            onChange={event => {
+                                                const file = event.target.files?.[0];
+                                                onChange(file);
+                                            }}
+                                        />
+                                    )}
+                                />
+                                <p className="text-xs text-muted-foreground">Leave empty to keep the current image.</p>
+                                <FormError message={errors.categoryImage?.message} />
+                            </div>
                         </div>
 
                         <div className="space-y-2">
-                            <Label>Category Image</Label>
+                            <Label>Current Image</Label>
+                            <img src={category?.imageUrl} alt={category?.name} className="h-20 w-32 rounded-md border object-cover" />
+                        </div>
+
+                        <div className="flex items-center gap-3">
                             <Controller
-                                name="categoryImage"
+                                name="active"
                                 control={control}
-                                render={({ field: { onChange } }) => (
-                                    <Input
-                                        type="file"
-                                        disabled={isPending}
-                                        accept="image/jpeg,image/png,image/webp"
-                                        onChange={event => {
-                                            const file = event.target.files?.[0];
-                                            onChange(file);
-                                        }}
-                                    />
-                                )}
+                                render={({ field }) => <Switch checked={field.value} onCheckedChange={field.onChange} />}
                             />
-                            <p className="text-xs text-muted-foreground">Leave empty to keep the current image.</p>
-                            <FormError message={errors.categoryImage?.message} />
+                            <Label>Active</Label>
                         </div>
-                    </div>
 
-                    <div className="space-y-2">
-                        <Label>Current Image</Label>
-                        <img src={category?.imageUrl} alt={category?.name} className="h-20 w-32 rounded-md border object-cover" />
-                    </div>
+                        <div className="flex justify-end gap-3">
+                            <Button type="button" variant="outline" disabled={isPending} onClick={() => navigate("/admin/categories/category-listing")}>
+                                Cancel
+                            </Button>
 
-                    <div className="flex items-center gap-3">
-                        <Controller name="active" control={control} render={({ field }) => <Switch checked={field.value} onCheckedChange={field.onChange} />} />
-                        <Label>Active</Label>
-                    </div>
-
-                    <div className="flex justify-end gap-3">
-                        <Button type="button" variant="outline" disabled={isPending} onClick={() => navigate("/admin/categories/category-listing")}>
-                            Cancel
-                        </Button>
-
-                        <Button type="submit" disabled={isPending}>
-                            {isPending ? "Updating..." : "Update Category"}
-                        </Button>
-                    </div>
-                </form>
-            </CardContent>
-        </Card>
+                            <Button type="submit" disabled={isPending}>
+                                {isPending ? "Updating..." : "Update Category"}
+                            </Button>
+                        </div>
+                    </form>
+                </CardContent>
+            </Card>
+        </>
     );
 };
 
