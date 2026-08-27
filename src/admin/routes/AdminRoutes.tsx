@@ -23,6 +23,8 @@ const ProductFaqsListing = lazy(() => import("@/admin/pages/fags/ProductFaqsList
 const CreateProductFaq = lazy(() => import("@/admin/pages/fags/CreateProductFaq"));
 const EditProductFaq = lazy(() => import("@/admin/pages/fags/EditProductFaq"));
 const ViewProductFaq = lazy(() => import("@/admin/pages/fags/ViewProductFaq"));
+const UserDetailsPage = lazy(() => import("@/admin/pages/users/UserDetailsPage"));
+const UsersListingPage = lazy(() => import("@/admin/pages/users/UsersListingPage"));
 
 const AdminRoutes = () => {
     return (
@@ -199,6 +201,26 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <EditTag />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+
+                <Route path="users">
+                    <Route index element={<Navigate to="user-listing" replace />} />
+                    <Route
+                        path="user-listing"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <UsersListingPage />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="user-details/:userId"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <UserDetailsPage />
                             </Suspense>
                         }
                     />

@@ -50,6 +50,12 @@ export const ADMIN_ENDPOINTS = {
         UPDATE_FAQ_STATUS: (productId: string, faqId: string) => `/admin/products/${productId}/faqs/${faqId}/status`,
     },
 
+    USERS: {
+        GET_USERS: "/admin/users",
+        GET_USER_DETAILS: (userId: string) => `/admin/users/${userId}`,
+        UPDATE_USER_STATUS: (userId: string) => `/admin/users/${userId}/status`,
+    },
+
     TAGS: {
         GET_ALL: "/admin/tags",
         CREATE: "/admin/tags",

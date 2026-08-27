@@ -4,7 +4,7 @@ import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
-import { BookOpenIcon, Settings2Icon, HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags } from "lucide-react";
+import { Settings2Icon, HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags, Users } from "lucide-react";
 
 // This is sample data.
 const data = {
@@ -59,25 +59,13 @@ const data = {
             ],
         },
         {
-            title: "Documentation",
+            title: "Manage Users",
             url: "#",
-            icon: <BookOpenIcon />,
+            icon: <Users />,
             items: [
                 {
-                    title: "Introduction",
-                    url: "#",
-                },
-                {
-                    title: "Get Started",
-                    url: "#",
-                },
-                {
-                    title: "Tutorials",
-                    url: "#",
-                },
-                {
-                    title: "Changelog",
-                    url: "#",
+                    title: "User Listing",
+                    url: "/admin/users/user-listing",
                 },
             ],
         },
