@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import UpdateShipmentStatus from "@/admin/components/UpdateShipmentStatus";
 import { Helmet } from "react-helmet-async";
+import type { ShipmentStatus } from "@/admin/types/Shipment.types";
 
 const ShipmentDetails = () => {
     const { shipmentId } = useParams<{ shipmentId: string }>();
@@ -16,7 +17,7 @@ const ShipmentDetails = () => {
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["shipment", shipmentId],
-        queryFn: () => ShipmentApi.getShipmentById(shipmentId!),
+        queryFn: () => ShipmentApi.getShipment(shipmentId!),
         enabled: !!shipmentId,
     });
 
@@ -28,12 +29,33 @@ const ShipmentDetails = () => {
         return <ErrorState message={error.message} />;
     }
 
-    const shipment = data?.data;
+    const shipment = data;
 
     if (!shipment) {
         return <ErrorState message="Shipment not found." />;
     }
 
+    const getNextShipmentStatuses = (currentStatus: ShipmentStatus): ShipmentStatus[] => {
+        switch (currentStatus) {
+            case "PENDING":
+                return ["SHIPPED"];
+
+            case "SHIPPED":
+                return ["IN_TRANSIT"];
+
+            case "IN_TRANSIT":
+                return ["OUT_FOR_DELIVERY"];
+
+            case "OUT_FOR_DELIVERY":
+                return ["DELIVERED"];
+
+            case "DELIVERED":
+                return [];
+
+            default:
+                return [];
+        }
+    };
     return (
         <>
             <Helmet>
@@ -109,15 +131,17 @@ const ShipmentDetails = () => {
                         </CardContent>
                     </Card>
 
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Update Shipment Status</CardTitle>
-                        </CardHeader>
+                    {getNextShipmentStatuses(shipment.shipmentStatus).length > 0 && (
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Update Shipment Status</CardTitle>
+                            </CardHeader>
 
-                        <CardContent>
-                            <UpdateShipmentStatus shipmentId={shipment.shipmentId} currentStatus={shipment.shipmentStatus} />
-                        </CardContent>
-                    </Card>
+                            <CardContent>
+                                <UpdateShipmentStatus shipmentId={shipment.shipmentId} currentStatus={shipment.shipmentStatus} />
+                            </CardContent>
+                        </Card>
+                    )}
                 </div>
 
                 <Card className="mt-6">

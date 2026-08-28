@@ -6,7 +6,6 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { ShipmentApi } from "@/admin/api/Shipment.api";
 import { DataTable, DataTableRowActions } from "@/admin/components/table";
 import ErrorState from "@/components/common/ErrorState";
-import { Badge } from "@/components/ui/badge";
 import type { ShipmentResponse, ShipmentStatus } from "@/admin/types/Shipment.types";
 import useDebounce from "@/hooks/useDebounce";
 import { Helmet } from "react-helmet-async";
@@ -36,36 +35,24 @@ const ShipmentListing = () => {
 
     const columns: ColumnDef<ShipmentResponse>[] = [
         {
-            accessorKey: "shipmentId",
-            header: "Shipment ID",
-            cell: ({ row }) => <div className="max-w-46 truncate font-medium">{row.original.shipmentId}</div>,
-        },
-        {
-            accessorKey: "orderId",
-            header: "Order ID",
-            cell: ({ row }) => <div className="max-w-46 truncate">{row.original.orderId}</div>,
+            accessorKey: "trackingNumber",
+            header: "Tracking Number",
         },
         {
             accessorKey: "courierName",
             header: "Courier",
         },
         {
-            accessorKey: "trackingNumber",
-            header: "Tracking Number",
-        },
-        {
             accessorKey: "shipmentStatus",
             header: "Status",
-            cell: ({ row }) => {
-                const status = row.original.shipmentStatus;
-
-                return <Badge variant="outline">{status.replaceAll("_", " ")}</Badge>;
-            },
+        },
+        {
+            accessorKey: "orderId",
+            header: "Order ID",
         },
         {
             accessorKey: "createdAt",
             header: "Created At",
-            cell: ({ row }) => new Date(row.original.createdAt).toLocaleDateString(),
         },
         {
             id: "actions",
@@ -79,7 +66,7 @@ const ShipmentListing = () => {
                                 label: "View",
                                 icon: Eye,
                                 variant: "info",
-                                onClick: () => navigate(`/admin/shipments/${shipment.shipmentId}`),
+                                onClick: () => navigate(`/admin/shipments/shipment-details/${shipment.shipmentId}`),
                             },
                         ]}
                     />

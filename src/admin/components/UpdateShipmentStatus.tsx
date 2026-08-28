@@ -20,7 +20,7 @@ const UpdateShipmentStatus = ({ shipmentId, currentStatus }: UpdateShipmentStatu
     const { mutate: updateStatus, isPending } = useMutation({
         mutationFn: (data: UpdateShipmentStatusRequest) => ShipmentApi.updateShipmentStatus(shipmentId, data),
 
-        onSuccess: response => {
+        onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ["shipment", shipmentId],
             });
@@ -29,7 +29,7 @@ const UpdateShipmentStatus = ({ shipmentId, currentStatus }: UpdateShipmentStatu
                 queryKey: ["shipments"],
             });
 
-            ToastService.success(response.message);
+            ToastService.success("Updated Shipment Successfully");
 
             setCurrentLocation("");
             setDescription("");
@@ -49,7 +49,29 @@ const UpdateShipmentStatus = ({ shipmentId, currentStatus }: UpdateShipmentStatu
             description,
         });
     };
+    const getNextShipmentStatuses = (currentStatus: ShipmentStatus): ShipmentStatus[] => {
+        switch (currentStatus) {
+            case "PENDING":
+                return ["SHIPPED"];
 
+            case "SHIPPED":
+                return ["IN_TRANSIT"];
+
+            case "IN_TRANSIT":
+                return ["OUT_FOR_DELIVERY"];
+
+            case "OUT_FOR_DELIVERY":
+                return ["DELIVERED"];
+
+            case "DELIVERED":
+                return [];
+
+            default:
+                return [];
+        }
+    };
+
+    const nextStatuses = getNextShipmentStatuses(currentStatus);
     return (
         <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
@@ -62,11 +84,16 @@ const UpdateShipmentStatus = ({ shipmentId, currentStatus }: UpdateShipmentStatu
                     disabled={isPending}
                     className="flex h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
                 >
-                    <option value="PENDING">Pending</option>
-                    <option value="SHIPPED">Shipped</option>
-                    <option value="IN_TRANSIT">In Transit</option>
-                    <option value="OUT_FOR_DELIVERY">Out for Delivery</option>
-                    <option value="DELIVERED">Delivered</option>
+                    <option value="">Select a Shipment Status</option>
+
+                    {nextStatuses.map(nextStatus => (
+                        <option key={nextStatus} value={nextStatus}>
+                            {nextStatus
+                                .replaceAll("_", " ")
+                                .toLowerCase()
+                                .replace(/\b\w/g, char => char.toUpperCase())}
+                        </option>
+                    ))}
                 </select>
             </div>
 

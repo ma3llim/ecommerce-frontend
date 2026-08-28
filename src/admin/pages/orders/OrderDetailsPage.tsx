@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { AdminButton } from "@/components/common/AdminButton";
 import { Helmet } from "react-helmet-async";
+import { ShipmentApi } from "@/admin/api/Shipment.api";
+import { Input } from "@/components/ui/input";
 
 const getNextStatuses = (status: OrderStatus): OrderStatus[] => {
     switch (status) {
@@ -44,6 +46,7 @@ const OrderDetailsPage = () => {
     const [selectedStatus, setSelectedStatus] = useState<OrderStatus | "">("");
     const navigate = useNavigate();
     const queryClient = useQueryClient();
+    const [courierName, setCourierName] = useState("");
 
     const { data: order, isLoading } = useQuery({
         queryKey: ["order", orderId],
@@ -67,6 +70,25 @@ const OrderDetailsPage = () => {
             setSelectedStatus("");
 
             ToastService.success("Order status updated successfully");
+        },
+    });
+
+    const { mutate: createShipment, isPending: isCreating } = useMutation({
+        mutationFn: () =>
+            ShipmentApi.createShipment(order?.orderId!, {
+                courierName: courierName.trim(),
+            }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["order", order?.orderId],
+            });
+            queryClient.invalidateQueries({
+                queryKey: ["shipments"],
+            });
+
+            setCourierName("");
+
+            ToastService.success("Shipment created successfully");
         },
     });
 
@@ -197,7 +219,41 @@ const OrderDetailsPage = () => {
                 ) : (
                     ""
                 )}
+                {order.orderStatus === "PACKED" && !order.userShipmentResponse && (
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Create Shipment</CardTitle>
+                        </CardHeader>
 
+                        <CardContent>
+                            <form
+                                onSubmit={event => {
+                                    event.preventDefault();
+                                    createShipment();
+                                }}
+                                className="space-y-4"
+                            >
+                                <div className="space-y-2">
+                                    <Label htmlFor="courier-name">
+                                        Courier Name <span className="text-destructive">*</span>
+                                    </Label>
+
+                                    <Input
+                                        id="courier-name"
+                                        value={courierName}
+                                        onChange={event => setCourierName(event.target.value)}
+                                        placeholder="Enter courier name"
+                                        disabled={isCreating}
+                                    />
+                                </div>
+
+                                <AdminButton type="submit" disabled={isCreating || !courierName.trim()}>
+                                    Create Shipment
+                                </AdminButton>
+                            </form>
+                        </CardContent>
+                    </Card>
+                )}
                 <Card>
                     <CardHeader>
                         <CardTitle>Order Items</CardTitle>

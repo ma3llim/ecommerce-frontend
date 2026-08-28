@@ -21,17 +21,7 @@ export interface ShipmentResponse {
     timeline: ShipmentTimelineResponse[];
 }
 
-export interface ShipmentListResponse {
-    content: ShipmentResponse[];
-    page: number;
-    size: number;
-    totalElements: number;
-    totalPages: number;
-    first: boolean;
-    last: boolean;
-}
-
-export interface ShipmentFilters {
+export interface ShipmentListParams {
     search?: string;
     shipmentStatus?: ShipmentStatus;
     courierName?: string;

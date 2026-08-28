@@ -50,11 +50,11 @@ export const ADMIN_ENDPOINTS = {
         UPDATE_FAQ_STATUS: (productId: string, faqId: string) => `/admin/products/${productId}/faqs/${faqId}/status`,
     },
 
-    SHIPMENTS: {
-        GET_SHIPMENTS: "/admin/shipments",
-        GET_SHIPMENT: (shipmentId: string) => `/admin/shipments/${shipmentId}`,
-        UPDATE_SHIPMENT: (shipmentId: string) => `/admin/shipments/${shipmentId}/status`,
-        CREATE_SHIPMENT: (orderId: string) => `/admin/shipments/orders/${orderId}/shipment`,
+    SHIPMENT: {
+        GET_ALL: "/admin/shipments",
+        GET_BY_ID: (shipmentId: string) => `/admin/shipments/${shipmentId}`,
+        UPDATE_STATUS: (shipmentId: string) => `/admin/shipments/${shipmentId}/status`,
+        CREATE: (orderId: string) => `/admin/shipments/orders/${orderId}/shipment`,
     },
 
     USERS: {

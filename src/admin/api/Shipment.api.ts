@@ -1,35 +1,26 @@
 import type { ApiResponse } from "@/types/common/ApiResponse.types";
-import type { CreateShipmentRequest, ShipmentFilters, ShipmentListResponse, ShipmentResponse, UpdateShipmentStatusRequest } from "../types/Shipment.types";
-import { axiosInstance } from "@/config/axios";
+import type { CreateShipmentRequest, ShipmentListParams, ShipmentResponse, UpdateShipmentStatusRequest } from "../types/Shipment.types";
+import type { PageResponse } from "@/types/common/PageResponse.types";
 import { ADMIN_ENDPOINTS } from "./Admin.endpoints";
+import { axiosInstance } from "@/config/axios";
 
 export const ShipmentApi = {
-    getShipments: async (filters: ShipmentFilters): Promise<ApiResponse<ShipmentListResponse>> => {
-        const response = await axiosInstance.get<ApiResponse<ShipmentListResponse>>(ADMIN_ENDPOINTS.SHIPMENTS.GET_SHIPMENTS, {
-            params: {
-                search: filters.search || undefined,
-                shipmentStatus: filters.shipmentStatus || undefined,
-                courierName: filters.courierName || undefined,
-                from: filters.from || undefined,
-                to: filters.to || undefined,
-                page: filters.page,
-                size: filters.size,
-            },
+    getShipments: async (params: ShipmentListParams): Promise<ApiResponse<PageResponse<ShipmentResponse>>> => {
+        const response = await axiosInstance.get<ApiResponse<PageResponse<ShipmentResponse>>>(ADMIN_ENDPOINTS.SHIPMENT.GET_ALL, {
+            params,
         });
-
         return response.data;
     },
-
-    getShipmentById: async (shipmentId: string): Promise<ApiResponse<ShipmentResponse>> => {
-        const response = await axiosInstance.get<ApiResponse<ShipmentResponse>>(ADMIN_ENDPOINTS.SHIPMENTS.GET_SHIPMENT(shipmentId));
-        return response.data;
+    getShipment: async (shipmentId: string): Promise<ShipmentResponse> => {
+        const response = await axiosInstance.get<ApiResponse<ShipmentResponse>>(ADMIN_ENDPOINTS.SHIPMENT.GET_BY_ID(shipmentId));
+        return response.data.data;
     },
-    updateShipmentStatus: async (shipmentId: string, data: UpdateShipmentStatusRequest): Promise<ApiResponse<ShipmentResponse>> => {
-        const response = await axiosInstance.patch<ApiResponse<ShipmentResponse>>(ADMIN_ENDPOINTS.SHIPMENTS.UPDATE_SHIPMENT(shipmentId), data);
-        return response.data;
+    updateShipmentStatus: async (shipmentId: string, data: UpdateShipmentStatusRequest): Promise<ShipmentResponse> => {
+        const response = await axiosInstance.patch<ApiResponse<ShipmentResponse>>(ADMIN_ENDPOINTS.SHIPMENT.UPDATE_STATUS(shipmentId), data);
+        return response.data.data;
     },
-    createShipment: async (orderId: string, data: CreateShipmentRequest): Promise<ApiResponse<ShipmentResponse>> => {
-        const response = await axiosInstance.post<ApiResponse<ShipmentResponse>>(ADMIN_ENDPOINTS.SHIPMENTS.CREATE_SHIPMENT(orderId), data);
-        return response.data;
+    createShipment: async (orderId: string, data: CreateShipmentRequest): Promise<ShipmentResponse> => {
+        const response = await axiosInstance.post<ApiResponse<ShipmentResponse>>(ADMIN_ENDPOINTS.SHIPMENT.CREATE(orderId), data);
+        return response.data.data;
     },
 };

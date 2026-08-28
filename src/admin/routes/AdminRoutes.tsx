@@ -27,6 +27,7 @@ const UserDetailsPage = lazy(() => import("@/admin/pages/users/UserDetailsPage")
 const UsersListingPage = lazy(() => import("@/admin/pages/users/UsersListingPage"));
 const ShipmentListing = lazy(() => import("@/admin/pages/shipment/ShipmentListing"));
 const ShipmentDetails = lazy(() => import("@/admin/pages/shipment/ShipmentDetails"));
+const CreateShipment = lazy(() => import("@/admin/pages/shipment/CreateShipment"));
 const CouponListing = lazy(() => import("@/admin/pages/coupon/CouponListing"));
 const AddCoupon = lazy(() => import("@/admin/pages/coupon/AddCoupon"));
 const EditCoupon = lazy(() => import("@/admin/pages/coupon/EditCoupon"));
@@ -247,10 +248,18 @@ const AdminRoutes = () => {
                         }
                     />
                     <Route
-                        path=":shipmentId"
+                        path="shipment-details/:shipmentId"
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <ShipmentDetails />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="create-shipment/:orderId"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <CreateShipment />
                             </Suspense>
                         }
                     />
