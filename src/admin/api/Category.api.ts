@@ -14,7 +14,7 @@ export const CategoryApi = {
     addCategory: async (data: AddCategoryFormValues) => {
         const formData = new FormData();
         formData.append("name", data.name);
-        formData.append("categoryImage", data.categoryImage);
+        formData.append("categoryImage", data.categoryImage!);
         formData.append("active", String(data.active));
 
         const response = await axiosInstance.post<ApiResponse<Category>>(ADMIN_ENDPOINTS.CATEGORY.CREATE, formData);

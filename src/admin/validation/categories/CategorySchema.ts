@@ -23,14 +23,10 @@ export const updateCategorySchema = yup.object({
     active: yup.boolean().required(),
 });
 
-export interface AddCategoryFormValues {
-    name: string;
-    categoryImage: File;
-    active: boolean;
-}
-
 export interface UpdateCategoryFormValues {
     name: string;
     categoryImage?: File;
     active: boolean;
 }
+
+export type AddCategoryFormValues = yup.InferType<typeof addCategorySchema>;
