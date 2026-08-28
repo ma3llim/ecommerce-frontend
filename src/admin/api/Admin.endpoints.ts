@@ -92,4 +92,11 @@ export const ADMIN_ENDPOINTS = {
         GET_ALL: "/admin/payments",
         GET_BY_ID: (paymentId: string) => `/admin/payments/${paymentId}`,
     },
+
+    DASHBOARD: {
+        SUMMARY: "/admin/dashboard/summary",
+        ORDER_STATISTICS: "/admin/dashboard/orders/statistics",
+        PRODUCT_STATISTICS: "/admin/dashboard/products/statistics",
+        USER_STATISTICS: "/admin/dashboard/users/statistics",
+    },
 } as const;
