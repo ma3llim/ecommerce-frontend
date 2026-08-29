@@ -77,7 +77,7 @@ const Header = () => {
                 <SearchComponent />
             </div>
 
-            <div className="w-full bg-primary text-white">
+            <div className="hidden w-full bg-primary text-white lg:block">
                 <div className="mx-auto flex min-h-12 items-center justify-between px-4">
                     <nav className="flex items-center gap-1">
                         {headerNavigation.map(nav => (
