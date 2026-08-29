@@ -11,6 +11,7 @@ const Delivery = lazy(() => import("@/client/pages/Delivery"));
 const LegalNotice = lazy(() => import("@/client/pages/LegalNotice"));
 const ReturnPolicy = lazy(() => import("@/client/pages/ReturnPolicy"));
 const ContactUs = lazy(() => import("@/client/pages/ContactUs"));
+const TermsAndCondition = lazy(() => import("@/client/pages/TermsAndCondition"));
 
 const ClientRoutes = () => {
     return (
@@ -76,6 +77,14 @@ const ClientRoutes = () => {
                 element={
                     <Suspense fallback={<PageLoader />}>
                         <ReturnPolicy />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/terms-and-conditions"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <TermsAndCondition />
                     </Suspense>
                 }
             />
