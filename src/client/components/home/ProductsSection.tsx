@@ -7,7 +7,6 @@ import type { Swiper as SwiperType } from "swiper";
 import Rating from "../Rating";
 import SectionHeader from "./SectionHeader";
 import { Link } from "react-router-dom";
-import { capitalizeWords } from "@/utils";
 import type { Product } from "@/client/types/Product.types";
 
 interface ProductsSectionProps {
@@ -49,7 +48,7 @@ const ProductsSection = ({ title = "Featured Products", productData = [] }: Prod
             >
                 {productData.map(product => (
                     <SwiperSlide key={product._id} className="p-3">
-                        <div className="group flex min-h-[520px] max-h-[520px] cursor-pointer flex-col items-center justify-center space-y-4 overflow-hidden rounded-lg bg-muted px-4 py-4 shadow-lg transition-all">
+                        <div className="group flex min-h-130 max-h-130 cursor-pointer flex-col items-center justify-center space-y-4 overflow-hidden rounded-lg bg-muted px-4 py-4 shadow-lg transition-all">
                             <div className="relative w-full">
                                 <img
                                     loading="lazy"

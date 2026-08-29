@@ -7,6 +7,7 @@ import capitalize from "lodash/capitalize";
 
 const headerNavigation = [
     { label: "Home", path: "/" },
+    { label: "About Us", path: "/about-us" },
     { label: "Categories", path: "/category" },
     { label: "Delivery", path: "/delivery" },
     { label: "About Us", path: "/about-us" },
