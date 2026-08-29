@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { Eye } from "lucide-react";
@@ -7,10 +7,11 @@ import { ShipmentApi } from "@/admin/api/Shipment.api";
 import { DataTable, DataTableRowActions } from "@/admin/components/table";
 import ErrorState from "@/components/common/ErrorState";
 import type { ShipmentResponse, ShipmentStatus } from "@/admin/types/Shipment.types";
-import useDebounce from "@/hooks/useDebounce";
 import { Helmet } from "react-helmet-async";
+import debounce from "lodash/debounce";
 
 const ShipmentListing = () => {
+    const delay = 500;
     const navigate = useNavigate();
     const [pagination, setPagination] = useState({
         page: 0,
@@ -19,17 +20,17 @@ const ShipmentListing = () => {
 
     const [shipmentStatus, setShipmentStatus] = useState<ShipmentStatus | "">("");
     const [courierName, setCourierName] = useState("");
-    const debouncedCourierName = useDebounce(courierName, 500);
+    const debouncedSearch = useMemo(() => debounce(setCourierName, delay), [delay]);
 
     const { data, isLoading, error } = useQuery({
-        queryKey: ["shipments", pagination.page, pagination.size, shipmentStatus, debouncedCourierName],
+        queryKey: ["shipments", pagination.page, pagination.size, shipmentStatus, debouncedSearch],
 
         queryFn: () =>
             ShipmentApi.getShipments({
                 page: pagination.page,
                 size: pagination.size,
                 shipmentStatus: shipmentStatus || undefined,
-                courierName: debouncedCourierName || undefined,
+                courierName: courierName || undefined,
             }),
     });
 
