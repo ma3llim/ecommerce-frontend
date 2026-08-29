@@ -5,6 +5,7 @@ import PageLoader from "@/components/common/PageLoader";
 
 const Home = lazy(() => import("@/client/pages/Home"));
 const AboutUs = lazy(() => import("@/client/pages/AboutUs"));
+const Categories = lazy(() => import("@/client/pages/Categories"));
 
 const ClientRoutes = () => {
     return (
@@ -22,6 +23,14 @@ const ClientRoutes = () => {
                 element={
                     <Suspense fallback={<PageLoader />}>
                         <AboutUs />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/category"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <Categories />
                     </Suspense>
                 }
             />
