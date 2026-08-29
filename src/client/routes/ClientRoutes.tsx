@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import ClientLayout from "../layouts/ClientLayout";
 import PageLoader from "@/components/common/PageLoader";
+import ContactUs from "../pages/ContactUs";
 
 const Home = lazy(() => import("@/client/pages/Home"));
 const AboutUs = lazy(() => import("@/client/pages/AboutUs"));
@@ -49,6 +50,14 @@ const ClientRoutes = () => {
                 element={
                     <Suspense fallback={<PageLoader />}>
                         <SecurePayment />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/contact-us"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <ContactUs />
                     </Suspense>
                 }
             />
