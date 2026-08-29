@@ -1,4 +1,4 @@
-import { addContact } from "@/client/api/contact.api";
+import { addContact } from "@/client/api/Contact.api";
 import { contactUsSchema, type ContactUsFormValues } from "@/client/validation/Contact.schema";
 import FormError from "@/components/forms/FormError";
 import { Button } from "@/components/ui/button";

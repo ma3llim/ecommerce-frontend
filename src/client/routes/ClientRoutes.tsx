@@ -9,6 +9,7 @@ const AboutUs = lazy(() => import("@/client/pages/AboutUs"));
 const Categories = lazy(() => import("@/client/pages/Categories"));
 const SecurePayment = lazy(() => import("@/client/pages/SecurePayment"));
 const Delivery = lazy(() => import("@/client/pages/Delivery"));
+const LegalNotice = lazy(() => import("@/client/pages/LegalNotice"));
 
 const ClientRoutes = () => {
     return (
@@ -58,6 +59,14 @@ const ClientRoutes = () => {
                 element={
                     <Suspense fallback={<PageLoader />}>
                         <ContactUs />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/legal-notice"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <LegalNotice />
                     </Suspense>
                 }
             />
