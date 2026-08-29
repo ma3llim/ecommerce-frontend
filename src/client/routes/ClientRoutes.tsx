@@ -2,11 +2,12 @@ import { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import ClientLayout from "../layouts/ClientLayout";
 import PageLoader from "@/components/common/PageLoader";
-import Delivery from "../pages/Delivery";
 
 const Home = lazy(() => import("@/client/pages/Home"));
 const AboutUs = lazy(() => import("@/client/pages/AboutUs"));
 const Categories = lazy(() => import("@/client/pages/Categories"));
+const SecurePayment = lazy(() => import("@/client/pages/SecurePayment"));
+const Delivery = lazy(() => import("@/client/pages/Delivery"));
 
 const ClientRoutes = () => {
     return (
@@ -40,6 +41,14 @@ const ClientRoutes = () => {
                 element={
                     <Suspense fallback={<PageLoader />}>
                         <Delivery />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/secure-payment"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <SecurePayment />
                     </Suspense>
                 }
             />
