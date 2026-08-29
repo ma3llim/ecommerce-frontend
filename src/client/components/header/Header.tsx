@@ -18,7 +18,7 @@ const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
+        <header className="sticky top-0 z-50 w-full bg-background">
             <div className="flex min-h-19 items-center justify-between gap-6 px-4">
                 <Link to="/" className="group shrink-0 font-heading text-2xl font-bold tracking-tight">
                     <span className="text-foreground transition-colors group-hover:text-primary">Sameer</span>
