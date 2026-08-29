@@ -1,43 +1,37 @@
-import { Heart, Minus, Plus, ShoppingCart, Star } from "lucide-react";
+import { AlertCircle, Check, Heart, Info, Minus, Plus, Search, ShoppingBag, Star, X } from "lucide-react";
 
 const DesignSystem = () => {
     return (
-        <main className="min-h-screen bg-background text-foreground">
-            <div className="mx-auto max-w-7xl space-y-12 px-6 py-12">
+        <main className="min-h-screen bg-background p-6 text-foreground md:p-10">
+            <div className="mx-auto max-w-7xl space-y-12">
                 {/* Header */}
-                <section className="space-y-3">
-                    <p className="text-sm font-medium text-primary">E-COMMERCE DESIGN SYSTEM</p>
+                <section>
+                    <p className="text-sm font-medium uppercase tracking-[0.2em] text-primary">Design System</p>
 
-                    <h1 className="text-4xl font-bold tracking-tight">Design System Playground</h1>
+                    <h1 className="mt-2 text-4xl font-bold tracking-tight">E-Commerce UI Foundation</h1>
 
-                    <p className="max-w-2xl text-muted-foreground">
-                        A testing page for colors, typography, components, product cards, states, and light/dark themes.
-                    </p>
+                    <p className="mt-3 max-w-2xl text-muted-foreground">Core visual components and design tokens used throughout the client application.</p>
                 </section>
 
                 {/* Colors */}
                 <section className="space-y-5">
                     <div>
                         <h2 className="text-2xl font-semibold">Colors</h2>
-                        <p className="text-sm text-muted-foreground">Semantic colors used throughout the application.</p>
+                        <p className="mt-1 text-sm text-muted-foreground">Semantic colors from the application theme.</p>
                     </div>
 
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                        <ColorCard name="Primary" className="bg-primary text-primary-foreground" />
+                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+                        <ColorBox name="Primary" className="bg-primary text-primary-foreground" />
 
-                        <ColorCard name="Secondary" className="bg-secondary text-secondary-foreground" />
+                        <ColorBox name="Secondary" className="bg-secondary text-secondary-foreground" />
 
-                        <ColorCard name="Accent" className="bg-accent text-accent-foreground" />
+                        <ColorBox name="Accent" className="bg-accent text-accent-foreground" />
 
-                        <ColorCard name="Muted" className="bg-muted text-muted-foreground" />
+                        <ColorBox name="Card" className="border border-border bg-card text-card-foreground" />
 
-                        <ColorCard name="Card" className="border bg-card text-card-foreground" />
+                        <ColorBox name="Muted" className="bg-muted text-muted-foreground" />
 
-                        <ColorCard name="Destructive" className="bg-destructive text-destructive-foreground" />
-
-                        <ColorCard name="Background" className="border bg-background text-foreground" />
-
-                        <ColorCard name="Foreground" className="bg-foreground text-background" />
+                        <ColorBox name="Destructive" className="bg-destructive text-white" />
                     </div>
                 </section>
 
@@ -45,21 +39,19 @@ const DesignSystem = () => {
                 <section className="space-y-5">
                     <div>
                         <h2 className="text-2xl font-semibold">Typography</h2>
-                        <p className="text-sm text-muted-foreground">Basic typography hierarchy for the storefront.</p>
+                        <p className="mt-1 text-sm text-muted-foreground">Heading and body typography.</p>
                     </div>
 
-                    <div className="space-y-4 rounded-xl border bg-card p-6">
-                        <h1 className="text-4xl font-bold">Heading One</h1>
+                    <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+                        <p className="text-sm text-muted-foreground">Heading / Space Grotesk</p>
 
-                        <h2 className="text-3xl font-semibold">Heading Two</h2>
+                        <h1 className="mt-2 text-4xl font-bold">Everything You Need.</h1>
 
-                        <h3 className="text-2xl font-semibold">Heading Three</h3>
+                        <h2 className="mt-6 text-2xl font-semibold">Premium products, simple shopping.</h2>
 
-                        <p className="text-base">This is normal body text for product descriptions, checkout information, and general content.</p>
-
-                        <p className="text-sm text-muted-foreground">This is muted text for supporting information.</p>
-
-                        <p className="text-xs text-muted-foreground">Small text for metadata.</p>
+                        <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">
+                            Inter is used for readable body content, descriptions, labels and supporting information across the store.
+                        </p>
                     </div>
                 </section>
 
@@ -67,155 +59,178 @@ const DesignSystem = () => {
                 <section className="space-y-5">
                     <div>
                         <h2 className="text-2xl font-semibold">Buttons</h2>
-                        <p className="text-sm text-muted-foreground">Common actions used throughout the store.</p>
+                        <p className="mt-1 text-sm text-muted-foreground">Primary actions and secondary actions.</p>
                     </div>
 
-                    <div className="flex flex-wrap gap-3">
-                        <button className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90">
-                            Add to Cart
+                    <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-card p-6">
+                        <button className="rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground transition-opacity hover:opacity-90">
+                            Shop Now
                         </button>
 
-                        <button className="rounded-lg bg-secondary px-5 py-2.5 text-sm font-medium text-secondary-foreground transition-opacity hover:opacity-80">
-                            Buy Now
+                        <button className="rounded-xl border border-border bg-background px-5 py-3 font-semibold text-foreground transition-colors hover:bg-muted">
+                            View Details
                         </button>
 
-                        <button className="rounded-lg border bg-background px-5 py-2.5 text-sm font-medium transition-colors hover:bg-muted">Cancel</button>
-
-                        <button className="rounded-lg bg-destructive px-5 py-2.5 text-sm font-medium text-destructive-foreground transition-opacity hover:opacity-90">
-                            Delete
+                        <button className="rounded-xl bg-secondary px-5 py-3 font-semibold text-secondary-foreground transition-colors hover:bg-muted">
+                            Secondary
                         </button>
 
-                        <button className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground opacity-50">Disabled</button>
+                        <button className="rounded-xl bg-destructive px-5 py-3 font-semibold text-white transition-opacity hover:opacity-90">Delete</button>
+
+                        <button
+                            className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-background transition-colors hover:bg-muted"
+                            aria-label="Search"
+                        >
+                            <Search className="h-5 w-5" />
+                        </button>
+
+                        <button
+                            className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-opacity hover:opacity-90"
+                            aria-label="Shopping bag"
+                        >
+                            <ShoppingBag className="h-5 w-5" />
+                        </button>
                     </div>
                 </section>
 
-                {/* Product Card */}
+                {/* Form Controls */}
                 <section className="space-y-5">
                     <div>
-                        <h2 className="text-2xl font-semibold">Product Card</h2>
-
-                        <p className="text-sm text-muted-foreground">Example storefront product presentation.</p>
+                        <h2 className="text-2xl font-semibold">Form Controls</h2>
+                        <p className="mt-1 text-sm text-muted-foreground">Inputs and common form elements.</p>
                     </div>
 
-                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                    </div>
-                </section>
+                    <div className="grid gap-6 rounded-2xl border border-border bg-card p-6 md:grid-cols-2">
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium">Search Products</label>
 
-                {/* Product Detail */}
-                <section className="space-y-5">
-                    <h2 className="text-2xl font-semibold">Product Information</h2>
+                            <div className="relative">
+                                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
-                    <div className="grid gap-8 rounded-2xl border bg-card p-6 lg:grid-cols-2">
-                        <div className="aspect-square rounded-xl bg-muted" />
-
-                        <div className="flex flex-col justify-center space-y-5">
-                            <div className="space-y-2">
-                                <span className="text-sm font-medium text-primary">Premium Collection</span>
-
-                                <h3 className="text-3xl font-bold">Premium Product Name</h3>
-
-                                <div className="flex items-center gap-2">
-                                    <div className="flex text-amber-500">
-                                        <Star size={16} fill="currentColor" />
-                                        <Star size={16} fill="currentColor" />
-                                        <Star size={16} fill="currentColor" />
-                                        <Star size={16} fill="currentColor" />
-                                        <Star size={16} fill="currentColor" />
-                                    </div>
-
-                                    <span className="text-sm text-muted-foreground">4.8 (124 reviews)</span>
-                                </div>
-                            </div>
-
-                            <div className="flex items-end gap-3">
-                                <span className="text-3xl font-bold">₹2,499</span>
-
-                                <span className="text-lg text-muted-foreground line-through">₹3,499</span>
-
-                                <span className="rounded-full bg-destructive/10 px-2.5 py-1 text-xs font-medium text-destructive">29% OFF</span>
-                            </div>
-
-                            <p className="text-muted-foreground">
-                                A short product description demonstrating how your ecommerce content will look using the design tokens.
-                            </p>
-
-                            <div className="flex items-center gap-3">
-                                <button className="flex h-11 w-11 items-center justify-center rounded-lg border hover:bg-muted">
-                                    <Minus size={16} />
-                                </button>
-
-                                <span className="min-w-8 text-center font-medium">1</span>
-
-                                <button className="flex h-11 w-11 items-center justify-center rounded-lg border hover:bg-muted">
-                                    <Plus size={16} />
-                                </button>
-                            </div>
-
-                            <div className="flex gap-3">
-                                <button className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-primary-foreground">
-                                    <ShoppingCart size={18} />
-                                    Add to Cart
-                                </button>
-
-                                <button className="flex h-12 w-12 items-center justify-center rounded-lg border hover:bg-muted">
-                                    <Heart size={18} />
-                                </button>
+                                <input
+                                    type="text"
+                                    placeholder="Search products..."
+                                    className="h-11 w-full rounded-xl border border-input bg-background pl-10 pr-4 text-sm outline-none transition-shadow placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
+                                />
                             </div>
                         </div>
-                    </div>
-                </section>
 
-                {/* Inputs */}
-                <section className="space-y-5">
-                    <h2 className="text-2xl font-semibold">Form Elements</h2>
-
-                    <div className="grid gap-6 rounded-xl border bg-card p-6 md:grid-cols-2">
                         <div className="space-y-2">
-                            <label htmlFor="email" className="text-sm font-medium">
-                                Email Address
-                            </label>
+                            <label className="text-sm font-medium">Email Address</label>
 
                             <input
-                                id="email"
                                 type="email"
                                 placeholder="you@example.com"
-                                className="h-11 w-full rounded-lg border bg-background px-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
-                            />
-                        </div>
-
-                        <div className="space-y-2">
-                            <label htmlFor="search" className="text-sm font-medium">
-                                Search Products
-                            </label>
-
-                            <input
-                                id="search"
-                                type="search"
-                                placeholder="Search products..."
-                                className="h-11 w-full rounded-lg border bg-background px-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                className="h-11 w-full rounded-xl border border-input bg-background px-4 text-sm outline-none transition-shadow placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
                             />
                         </div>
                     </div>
                 </section>
 
-                {/* Status */}
+                {/* Cards */}
                 <section className="space-y-5">
-                    <h2 className="text-2xl font-semibold">Status & Badges</h2>
+                    <div>
+                        <h2 className="text-2xl font-semibold">Cards</h2>
+                        <p className="mt-1 text-sm text-muted-foreground">Surfaces used for products, content and information.</p>
+                    </div>
 
-                    <div className="flex flex-wrap gap-3">
-                        <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">New</span>
+                    <div className="grid gap-5 md:grid-cols-3">
+                        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+                            <ShoppingBag className="h-6 w-6 text-primary" />
 
-                        <span className="rounded-full bg-green-500/10 px-3 py-1 text-sm font-medium text-green-600 dark:text-green-400">In Stock</span>
+                            <h3 className="mt-4 text-lg font-semibold">Product Card</h3>
 
-                        <span className="rounded-full bg-yellow-500/10 px-3 py-1 text-sm font-medium text-yellow-600 dark:text-yellow-400">Low Stock</span>
+                            <p className="mt-2 text-sm leading-6 text-muted-foreground">Clean elevated surface for product information.</p>
+                        </div>
 
-                        <span className="rounded-full bg-destructive/10 px-3 py-1 text-sm font-medium text-destructive">Out of Stock</span>
+                        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+                            <Star className="h-6 w-6 text-accent-foreground" />
 
-                        <span className="rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">Draft</span>
+                            <h3 className="mt-4 text-lg font-semibold">Review Card</h3>
+
+                            <p className="mt-2 text-sm leading-6 text-muted-foreground">Used for ratings, reviews and customer feedback.</p>
+                        </div>
+
+                        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+                            <Heart className="h-6 w-6 text-primary" />
+
+                            <h3 className="mt-4 text-lg font-semibold">Feature Card</h3>
+
+                            <p className="mt-2 text-sm leading-6 text-muted-foreground">Supporting content with a subtle visual hierarchy.</p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Badges */}
+                <section className="space-y-5">
+                    <div>
+                        <h2 className="text-2xl font-semibold">Badges</h2>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-card p-6">
+                        <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">New</span>
+
+                        <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">Popular</span>
+
+                        <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">Featured</span>
+
+                        <span className="rounded-full bg-destructive px-3 py-1 text-xs font-semibold text-white">Sale</span>
+                    </div>
+                </section>
+
+                {/* Alerts */}
+                <section className="space-y-5">
+                    <div>
+                        <h2 className="text-2xl font-semibold">Feedback</h2>
+                    </div>
+
+                    <div className="space-y-3">
+                        <Feedback
+                            icon={<Check />}
+                            title="Success"
+                            text="Your order has been placed successfully."
+                            className="border-primary/20 bg-primary/5 text-primary"
+                        />
+
+                        <Feedback
+                            icon={<Info />}
+                            title="Information"
+                            text="Free delivery is available on orders above ₹999."
+                            className="border-border bg-muted text-muted-foreground"
+                        />
+
+                        <Feedback
+                            icon={<AlertCircle />}
+                            title="Warning"
+                            text="Only 2 items are remaining in stock."
+                            className="border-accent/30 bg-accent/20 text-accent-foreground"
+                        />
+
+                        <Feedback
+                            icon={<X />}
+                            title="Error"
+                            text="Something went wrong. Please try again."
+                            className="border-destructive/20 bg-destructive/5 text-destructive"
+                        />
+                    </div>
+                </section>
+
+                {/* Quantity */}
+                <section className="space-y-5">
+                    <div>
+                        <h2 className="text-2xl font-semibold">Product Controls</h2>
+                    </div>
+
+                    <div className="flex w-fit items-center overflow-hidden rounded-xl border border-border bg-card">
+                        <button className="flex h-10 w-10 items-center justify-center transition-colors hover:bg-muted" aria-label="Decrease quantity">
+                            <Minus className="h-4 w-4" />
+                        </button>
+
+                        <span className="flex h-10 min-w-12 items-center justify-center border-x border-border text-sm font-semibold">1</span>
+
+                        <button className="flex h-10 w-10 items-center justify-center transition-colors hover:bg-muted" aria-label="Increase quantity">
+                            <Plus className="h-4 w-4" />
+                        </button>
                     </div>
                 </section>
             </div>
@@ -223,62 +238,36 @@ const DesignSystem = () => {
     );
 };
 
-interface ColorCardProps {
+interface ColorBoxProps {
     name: string;
     className: string;
 }
 
-const ColorCard = ({ name, className }: ColorCardProps) => {
+const ColorBox = ({ name, className }: ColorBoxProps) => {
     return (
-        <div className={`flex h-28 items-end rounded-xl p-4 ${className}`}>
-            <span className="text-sm font-medium">{name}</span>
+        <div className={`flex h-28 items-end rounded-2xl p-4 shadow-sm ${className}`}>
+            <span className="text-sm font-semibold">{name}</span>
         </div>
     );
 };
 
-const ProductCard = () => {
+interface FeedbackProps {
+    icon: React.ReactNode;
+    title: string;
+    text: string;
+    className: string;
+}
+
+const Feedback = ({ icon, title, text, className }: FeedbackProps) => {
     return (
-        <article className="group overflow-hidden rounded-xl border bg-card text-card-foreground">
-            <div className="relative aspect-square bg-muted">
-                <div className="absolute left-3 top-3 rounded-full bg-primary px-2.5 py-1 text-xs font-medium text-primary-foreground">New</div>
+        <div className={`flex items-start gap-3 rounded-xl border p-4 ${className}`}>
+            <div className="[&>svg]:h-5 [&>svg]:w-5">{icon}</div>
 
-                <button
-                    type="button"
-                    aria-label="Add to wishlist"
-                    className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-background/90 shadow-sm backdrop-blur"
-                >
-                    <Heart size={16} />
-                </button>
+            <div>
+                <p className="font-semibold">{title}</p>
+                <p className="mt-1 text-sm opacity-80">{text}</p>
             </div>
-
-            <div className="space-y-3 p-4">
-                <div>
-                    <h3 className="font-medium">Premium Product</h3>
-
-                    <p className="mt-1 text-sm text-muted-foreground">Product description</p>
-                </div>
-
-                <div className="flex items-center gap-1">
-                    <Star size={14} className="fill-amber-500 text-amber-500" />
-
-                    <span className="text-sm font-medium">4.8</span>
-
-                    <span className="text-xs text-muted-foreground">(124)</span>
-                </div>
-
-                <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold">₹2,499</span>
-
-                    <button
-                        type="button"
-                        aria-label="Add product to cart"
-                        className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-opacity hover:opacity-90"
-                    >
-                        <ShoppingCart size={16} />
-                    </button>
-                </div>
-            </div>
-        </article>
+        </div>
     );
 };
 

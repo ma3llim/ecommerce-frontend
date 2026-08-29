@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import AdminAuthReducer from "@/admin/store/slice/AdminAuth.slice";
+import UserAuthReducer from "@/client/store/slice/UserAuth.slice";
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
 
@@ -11,11 +12,19 @@ const authPersistConfig = {
     whitelist: ["admin"],
 };
 
+const authUserPersistConfig = {
+    key: "userAuth",
+    storage,
+    whitelist: ["user"],
+};
+
 const persistedAuthReducer = persistReducer(authPersistConfig, AdminAuthReducer);
+const persistedUserAuthReducer = persistReducer(authUserPersistConfig, UserAuthReducer);
 
 export const ReduxStore = configureStore({
     reducer: {
         AdminAuth: persistedAuthReducer,
+        userAuth: persistedUserAuthReducer,
     },
 
     middleware: getDefaultMiddleware =>
