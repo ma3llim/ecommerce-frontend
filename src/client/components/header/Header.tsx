@@ -82,6 +82,7 @@ const Header = () => {
                     <nav className="flex items-center gap-1">
                         {headerNavigation.map(nav => (
                             <Link
+                                key={nav.path}
                                 to={nav.path}
                                 className="rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-foreground/10"
                             >

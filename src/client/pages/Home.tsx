@@ -6,6 +6,8 @@ import slider3 from "@/assets/sliders/slider3.webp";
 import slider4 from "@/assets/sliders/slider4.webp";
 import { Helmet } from "react-helmet-async";
 import { type SliderItem } from "../components/home/Slider";
+import Categories from "../components/home/Categories";
+import Container from "../components/Container";
 
 const Slider = lazy(() => import("@/client/components/home/Slider"));
 
@@ -64,6 +66,11 @@ const Home = () => {
             <Suspense fallback={<PageLoader />}>
                 <Slider sliderData={sliderData} />
             </Suspense>
+            <Container>
+                <Suspense fallback={<PageLoader />}>
+                    <Categories />
+                </Suspense>
+            </Container>
         </>
     );
 };

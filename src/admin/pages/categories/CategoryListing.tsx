@@ -64,7 +64,11 @@ const CategoryListing = () => {
             accessorKey: "imageUrl",
             header: "Image",
             cell: ({ row }) => {
-                return <img src={row.original.imageUrl} alt={row.original.name} loading="lazy" className="h-16 w-24 rounded-md border object-cover" />;
+                return (
+                    <div className="flex justify-center">
+                        <img src={row.original.imageUrl} alt={row.original.name} loading="lazy" className="h-20 w-32 rounded-md border object-cover" />
+                    </div>
+                );
             },
         },
         {
