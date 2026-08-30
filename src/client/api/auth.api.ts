@@ -1,0 +1,49 @@
+import type { ApiResponse } from "@/types/common/ApiResponse.types";
+import type {
+    AuthenticationData,
+    ForgotPasswordRequest,
+    RegisterRequest,
+    ResendVerificationRequest,
+    ResetPasswordRequest,
+    VerifyEmailRequest,
+} from "../types/Auth.types";
+import type { User } from "@/types/User.types";
+import { axiosInstance } from "@/config/axios";
+import { ENDPOINTS } from "./Api.endpoints";
+import type { LoginRequest } from "../types/User.types";
+
+export const AuthApi = {
+    registerUser: async (values: RegisterRequest): Promise<ApiResponse<User>> => {
+        const response = await axiosInstance.post<ApiResponse<User>>(ENDPOINTS.AUTH.REGISTER, values);
+        return response.data;
+    },
+    loginUser: async (values: LoginRequest): Promise<ApiResponse<AuthenticationData>> => {
+        const response = await axiosInstance.post<ApiResponse<AuthenticationData>>("/api/v1/auth/login", values);
+        return response.data;
+    },
+    verifyEmail: async (values: VerifyEmailRequest): Promise<ApiResponse<AuthenticationData>> => {
+        const response = await axiosInstance.post<ApiResponse<AuthenticationData>>("/api/v1/auth/verify-email", values);
+        return response.data;
+    },
+    resendVerification: async (values: ResendVerificationRequest): Promise<ApiResponse<string>> => {
+        const response = await axiosInstance.post<ApiResponse<string>>("/api/v1/auth/resend-verification", values);
+        return response.data;
+    },
+    forgotPassword: async (values: ForgotPasswordRequest): Promise<ApiResponse<string>> => {
+        const response = await axiosInstance.post<ApiResponse<string>>("/api/v1/auth/forgot-password", values);
+        return response.data;
+    },
+    resetPassword: async (values: ResetPasswordRequest): Promise<ApiResponse<string>> => {
+        const response = await axiosInstance.post<ApiResponse<string>>("/api/v1/auth/reset-password", values);
+        return response.data;
+    },
+    logoutUser: async (): Promise<ApiResponse<string>> => {
+        const response = await axiosInstance.post<ApiResponse<string>>("/api/v1/auth/logout");
+        return response.data;
+    },
+    refreshToken: async (): Promise<ApiResponse<AuthenticationData>> => {
+        const response = await axiosInstance.post<ApiResponse<AuthenticationData>>("/api/v1/auth/refresh-token");
+
+        return response.data;
+    },
+};
