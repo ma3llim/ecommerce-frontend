@@ -36,7 +36,7 @@ const VerifyEmail = () => {
             ToastService.success(response.message || "Email verified successfully.");
             const { accessToken, user } = response.data;
             dispatch(setUser({ accessToken, user }));
-            navigate("/");
+            navigate("/account/dashboard");
         },
 
         onError: error => {

@@ -50,3 +50,14 @@ export interface UserDetailsResponse {
 export interface UpdateUserStatusRequest {
     accountStatus: AccountStatus;
 }
+
+export interface ChangePasswordRequest {
+    currentPassword: string;
+    newPassword: string;
+}
+
+export interface UpdateUserRequest {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+}

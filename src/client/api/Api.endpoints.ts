@@ -12,4 +12,9 @@ export const ENDPOINTS = {
         RESET_PASSWORD: "/auth/reset-password",
         VERIFY_EMAIL: "/auth/verify-email",
     },
+    USER: {
+        ME: "/users/me",
+        PASSWORD: "/users/me/password",
+        PROFILE_IMAGE: "/users/me/profile-image",
+    },
 };

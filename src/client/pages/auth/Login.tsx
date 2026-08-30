@@ -36,7 +36,7 @@ const Login = () => {
             ToastService.success(response.message || "Login successful.");
             const { accessToken, user } = response.data;
             dispatch(setUser({ accessToken, user }));
-            navigate("/");
+            navigate("/account/dashboard");
         },
 
         onError: error => {

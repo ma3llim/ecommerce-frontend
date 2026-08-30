@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import ClientLayout from "../layouts/ClientLayout";
 import PageLoader from "@/components/common/PageLoader";
+import ClientProtectedRoute from "../layouts/ClientProtectedRoute";
 
 const Home = lazy(() => import("@/client/pages/Home"));
 const AboutUs = lazy(() => import("@/client/pages/AboutUs"));
@@ -18,6 +19,9 @@ const Register = lazy(() => import("@/client/pages/auth/Register"));
 const VerifyEmail = lazy(() => import("@/client/pages/auth/VerifyEmail"));
 const ForgotPassword = lazy(() => import("@/client/pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("@/client/pages/auth/ResetPassword"));
+const Dashboard = lazy(() => import("@/client/pages/account/Dashboard"));
+const Profile = lazy(() => import("@/client/pages/account/Profile"));
+const ChangePassword = lazy(() => import("@/client/pages/account/ChangePassword"));
 
 const ClientRoutes = () => {
     return (
@@ -142,6 +146,12 @@ const ClientRoutes = () => {
                     </Suspense>
                 }
             />
+            <Route path="/account" element={<ClientProtectedRoute />}>
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="change-password" element={<ChangePassword />} />
+                {/* <Route path="addresses" element={<Addresses />} /> */}
+            </Route>
         </Route>
     );
 };
