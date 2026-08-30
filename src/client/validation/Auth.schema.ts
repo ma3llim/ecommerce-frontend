@@ -45,3 +45,5 @@ export const resetPasswordSchema = yup.object({
 export type LoginFormValues = yup.InferType<typeof loginSchema>;
 export type RegisterUserFormValues = yup.InferType<typeof registerSchema>;
 export type VerifyEmailFormValues = yup.InferType<typeof otpSchema>;
+export type ForgotPasswordFormValues = yup.InferType<typeof forgotPasswordSchema>;
+export type ResetPasswordFormValues = yup.InferType<typeof resetPasswordSchema>;

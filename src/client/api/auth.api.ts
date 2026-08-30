@@ -33,8 +33,8 @@ export const AuthApi = {
         const response = await axiosInstance.post<ApiResponse<string>>(ENDPOINTS.AUTH.FORGOT_PASSWORD, values);
         return response.data;
     },
-    resetPassword: async (values: ResetPasswordRequest): Promise<ApiResponse<string>> => {
-        const response = await axiosInstance.post<ApiResponse<string>>(ENDPOINTS.AUTH.RESET_PASSWORD, values);
+    resetPassword: async (values: ResetPasswordRequest): Promise<ApiResponse<void>> => {
+        const response = await axiosInstance.post<ApiResponse<void>>(ENDPOINTS.AUTH.RESET_PASSWORD, values, { skipAuthRefresh: true });
         return response.data;
     },
     logoutUser: async (): Promise<ApiResponse<string>> => {

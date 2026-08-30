@@ -16,6 +16,8 @@ const PrivacyPolicy = lazy(() => import("@/client/pages/PrivacyPolicy"));
 const Login = lazy(() => import("@/client/pages/auth/Login"));
 const Register = lazy(() => import("@/client/pages/auth/Register"));
 const VerifyEmail = lazy(() => import("@/client/pages/auth/VerifyEmail"));
+const ForgotPassword = lazy(() => import("@/client/pages/auth/ForgotPassword"));
+const ResetPassword = lazy(() => import("@/client/pages/auth/ResetPassword"));
 
 const ClientRoutes = () => {
     return (
@@ -113,6 +115,22 @@ const ClientRoutes = () => {
                 element={
                     <Suspense fallback={<PageLoader />}>
                         <VerifyEmail />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/forgot-password"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <ForgotPassword />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/reset-password/:userId"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <ResetPassword />
                     </Suspense>
                 }
             />
