@@ -13,4 +13,8 @@ export const AdminAuthApi = {
     logout: async () => {
         await axiosInstance.post(ADMIN_ENDPOINTS.AUTH.LOGOUT);
     },
+    refreshToken: async (): Promise<ApiResponse<LoginResponse>> => {
+        const response = await axiosInstance.post(ADMIN_ENDPOINTS.AUTH.REFRESH);
+        return response.data;
+    },
 };

@@ -1,13 +1,17 @@
 declare module "axios" {
     interface AxiosRequestConfig {
+        authType?: UserRole;
         skipAuthRefresh?: boolean;
+        _retry?: boolean;
     }
 }
 
 import { ADMIN_ENDPOINTS } from "@/admin/api/Admin.endpoints";
-import { cleanAdmin, setAccessToken } from "@/admin/store/slice/AdminAuth.slice";
+import { cleanAdmin, setAccessToken as setAccessTokenAdmin } from "@/admin/store/slice/AdminAuth.slice";
+import { setAccessToken } from "@/client/store/slice/UserAuth.slice";
 import { ReduxStore } from "@/store/store";
 import type { ApiError } from "@/types/common/ApiError.types";
+import type { UserRole } from "@/types/UserRole.types";
 import axios, { type InternalAxiosRequestConfig } from "axios";
 
 const axiosInstance = axios.create({
@@ -17,10 +21,15 @@ const axiosInstance = axios.create({
 
 // Attach access token to every request
 axiosInstance.interceptors.request.use(config => {
-    const accessToken = ReduxStore.getState().AdminAuth.accessToken;
+    const accessAdminToken = ReduxStore.getState().AdminAuth.accessToken;
+    const accessUserToken = ReduxStore.getState().userAuth.accessToken;
 
-    if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
+    if (accessAdminToken) {
+        config.headers.Authorization = `Bearer ${accessAdminToken}`;
+        config.authType = "ADMIN";
+    } else if (accessUserToken) {
+        config.headers.Authorization = `Bearer ${accessUserToken}`;
+        config.authType = "USER";
     }
 
     return config;
@@ -71,7 +80,11 @@ axiosInstance.interceptors.response.use(
             const response = await axiosInstance.post(ADMIN_ENDPOINTS.AUTH.REFRESH);
             const accessToken = response.data.data.accessToken;
 
-            ReduxStore.dispatch(setAccessToken(accessToken));
+            if (originalRequest.authType === "ADMIN") {
+                ReduxStore.dispatch(setAccessTokenAdmin(accessToken));
+            } else if (originalRequest.authType === "USER") {
+                ReduxStore.dispatch(setAccessToken(accessToken));
+            }
 
             originalRequest.headers.Authorization = `Bearer ${accessToken}`;
 
