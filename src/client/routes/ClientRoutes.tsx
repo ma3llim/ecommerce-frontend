@@ -22,6 +22,7 @@ const ResetPassword = lazy(() => import("@/client/pages/auth/ResetPassword"));
 const Dashboard = lazy(() => import("@/client/pages/account/Dashboard"));
 const Profile = lazy(() => import("@/client/pages/account/Profile"));
 const ChangePassword = lazy(() => import("@/client/pages/account/ChangePassword"));
+const Account = lazy(() => import("@/client/pages/account/Account"));
 
 const ClientRoutes = () => {
     return (
@@ -147,10 +148,12 @@ const ClientRoutes = () => {
                 }
             />
             <Route path="/account" element={<ClientProtectedRoute />}>
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="profile" element={<Profile />} />
-                <Route path="change-password" element={<ChangePassword />} />
-                {/* <Route path="addresses" element={<Addresses />} /> */}
+                <Route element={<Account />}>
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="change-password" element={<ChangePassword />} />
+                    {/* <Route path="addresses" element={<Addresses />} /> */}
+                </Route>
             </Route>
         </Route>
     );
