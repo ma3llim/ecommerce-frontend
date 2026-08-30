@@ -41,7 +41,7 @@ const ChangePassword = () => {
     const onSubmit = (values: UpdatePasswordFormValues) => {
         updatePassword({
             currentPassword: values.currentPassword,
-            newPassword: values.password,
+            password: values.password,
         });
     };
 

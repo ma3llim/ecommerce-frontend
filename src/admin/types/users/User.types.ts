@@ -53,7 +53,7 @@ export interface UpdateUserStatusRequest {
 
 export interface ChangePasswordRequest {
     currentPassword: string;
-    newPassword: string;
+    password: string;
 }
 
 export interface UpdateUserRequest {
