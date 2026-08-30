@@ -51,13 +51,13 @@ const Dashboard = () => {
     }
 
     return (
-        <section className="w-full space-y-8 overflow-hidden rounded-2xl border bg-card p-5 shadow-sm md:p-8">
+        <section className="w-full space-y-6 overflow-hidden rounded-2xl border bg-card p-4 shadow-sm sm:space-y-8 sm:p-5 md:p-8">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Welcome back, {user?.firstName}!</h1>
                 <p className="mt-2 text-muted-foreground">Manage your account and profile information.</p>
             </div>
             <div className="rounded-xl border bg-muted/20">
-                <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-5 p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
                     <div className="flex items-center gap-5">
                         <div className="relative">
                             <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border bg-muted">
