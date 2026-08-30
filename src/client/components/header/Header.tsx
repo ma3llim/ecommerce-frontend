@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, ShoppingCart, UserRound, Truck } from "lucide-react";
+import { Menu, ShoppingCart, UserRound, Truck, LogOut } from "lucide-react";
 import SearchComponent from "./SearchComponent";
 import ThemeToggle from "@/providers/ThemeToggle";
 import capitalize from "lodash/capitalize";
+import { useDispatch, useSelector } from "react-redux";
+import { persistor, type RootState } from "@/store/store";
+import { useMutation } from "@tanstack/react-query";
+import { AuthApi } from "@/client/api/auth.api";
+import { cleanUser } from "@/client/store/slice/UserAuth.slice";
+import ToastService from "@/services/ToastService";
 
 const headerNavigation = [
     { label: "Home", path: "/" },
@@ -16,6 +22,27 @@ const headerNavigation = [
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const logoutInProgress = useRef(false);
+    const dispatch = useDispatch();
+    const userAccessToken = useSelector((state: RootState) => state.userAuth.accessToken);
+
+    const { mutate: logout, isPending } = useMutation({
+        mutationFn: AuthApi.logoutUser,
+
+        onSuccess: response => {
+            logoutInProgress.current = false;
+            dispatch(cleanUser());
+            persistor.purge();
+            ToastService.success(response.message || "Logged out successfully.");
+        },
+
+        onError: error => {
+            logoutInProgress.current = false;
+            dispatch(cleanUser());
+            persistor.purge();
+            ToastService.error(error?.message || "Logout failed. You have been logged out locally.");
+        },
+    });
 
     return (
         <header className="sticky top-0 z-50 w-full bg-background">
@@ -50,17 +77,45 @@ const Header = () => {
 
                     <ThemeToggle />
 
-                    <Link
-                        to="/account/dashboard"
-                        className="group flex items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-gray-950/5 dark:text-white"
-                    >
-                        <UserRound className="h-5 w-5 text-foreground transition-colors group-hover:text-primary" />
-                        <div className="hidden leading-tight sm:block">
-                            <p className="text-xs text-muted-foreground">Welcome</p>
+                    {userAccessToken ? (
+                        <div className="flex items-center gap-2">
+                            <Link
+                                to="/account/dashboard"
+                                className="flex items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-gray-950/5 dark:hover:bg-white/5"
+                            >
+                                <UserRound className="h-5 w-5 text-foreground transition-colors group-hover:text-primary" />
 
-                            <p className="text-sm font-semibold text-foreground transition-colors group-hover:text-primary">Login / Register</p>
+                                <div className="hidden leading-tight sm:block">
+                                    <p className="text-xs text-muted-foreground">Welcome</p>
+
+                                    <p className="text-sm font-semibold text-foreground transition-colors group-hover:text-primary">My Account</p>
+                                </div>
+                            </Link>
+
+                            <button
+                                type="button"
+                                disabled={isPending}
+                                onClick={() => logout()}
+                                className="rounded-lg bg-destructive p-2 text-destructive-foreground shadow-sm transition-all duration-200 hover:bg-destructive/90 disabled:cursor-not-allowed disabled:opacity-50"
+                                aria-label="Logout"
+                            >
+                                <LogOut className="h-5 w-5" />
+                            </button>
                         </div>
-                    </Link>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="group flex items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-gray-950/5 dark:hover:bg-white/5"
+                        >
+                            <UserRound className="h-5 w-5 text-foreground transition-colors group-hover:text-primary" />
+
+                            <div className="hidden leading-tight sm:block">
+                                <p className="text-xs text-muted-foreground">Welcome</p>
+
+                                <p className="text-sm font-semibold text-foreground transition-colors group-hover:text-primary">Login / Register</p>
+                            </div>
+                        </Link>
+                    )}
 
                     <button
                         type="button"

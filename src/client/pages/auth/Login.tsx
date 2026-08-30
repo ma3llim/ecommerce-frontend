@@ -11,9 +11,12 @@ import { Label } from "@/components/ui/label";
 
 import ToastService from "@/services/ToastService";
 import { AuthApi } from "../../api/auth.api";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/client/store/slice/UserAuth.slice";
 
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const {
         register,
@@ -31,6 +34,8 @@ const Login = () => {
         mutationFn: AuthApi.loginUser,
         onSuccess: response => {
             ToastService.success(response.message || "Login successful.");
+            const { accessToken, user } = response.data;
+            dispatch(setUser({ accessToken, user }));
             navigate("/");
         },
 

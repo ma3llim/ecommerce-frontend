@@ -10,14 +10,16 @@ import ToastService from "@/services/ToastService";
 import { otpSchema, type VerifyEmailFormValues } from "@/client/validation/Auth.schema";
 import { AuthApi } from "@/client/api/auth.api";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/client/store/slice/UserAuth.slice";
 
 const VerifyEmail = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { userId } = useParams<{ userId: string }>();
     const {
         register,
         handleSubmit,
-        watch,
         setValue,
         formState: { errors },
     } = useForm<VerifyEmailFormValues>({
@@ -32,6 +34,8 @@ const VerifyEmail = () => {
 
         onSuccess: response => {
             ToastService.success(response.message || "Email verified successfully.");
+            const { accessToken, user } = response.data;
+            dispatch(setUser({ accessToken, user }));
             navigate("/");
         },
 
@@ -88,13 +92,7 @@ const VerifyEmail = () => {
                     <div className="w-full space-y-2">
                         <Label htmlFor="otp">Verification Code</Label>
 
-                        <InputOTP
-                            maxLength={6}
-                            {...register("otp")}
-                            disabled={isPending}
-                            value={watch("otp")}
-                            onChange={value => setValue("otp", value, { shouldValidate: true })}
-                        >
+                        <InputOTP maxLength={6} {...register("otp")} disabled={isPending} onChange={value => setValue("otp", value, { shouldValidate: true })}>
                             <InputOTPGroup className="w-full justify-center">
                                 <InputOTPSlot className="h-15 w-15 text-xl" index={0} />
                                 <InputOTPSlot className="h-15 w-15 text-xl" index={1} />
