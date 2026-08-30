@@ -13,6 +13,9 @@ const ReturnPolicy = lazy(() => import("@/client/pages/ReturnPolicy"));
 const ContactUs = lazy(() => import("@/client/pages/ContactUs"));
 const TermsAndCondition = lazy(() => import("@/client/pages/TermsAndCondition"));
 const PrivacyPolicy = lazy(() => import("@/client/pages/PrivacyPolicy"));
+const Login = lazy(() => import("@/client/pages/auth/Login"));
+const Register = lazy(() => import("@/client/pages/auth/Register"));
+const VerifyEmail = lazy(() => import("@/client/pages/auth/VerifyEmail"));
 
 const ClientRoutes = () => {
     return (
@@ -94,6 +97,30 @@ const ClientRoutes = () => {
                 element={
                     <Suspense fallback={<PageLoader />}>
                         <PrivacyPolicy />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/register"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <Register />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/verify-email/:userId"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <VerifyEmail />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/login"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <Login />
                     </Suspense>
                 }
             />

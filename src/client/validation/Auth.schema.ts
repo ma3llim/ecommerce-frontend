@@ -41,3 +41,7 @@ export const resetPasswordSchema = yup.object({
 
     password: yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
 });
+
+export type LoginFormValues = yup.InferType<typeof loginSchema>;
+export type RegisterUserFormValues = yup.InferType<typeof registerSchema>;
+export type VerifyEmailFormValues = yup.InferType<typeof otpSchema>;

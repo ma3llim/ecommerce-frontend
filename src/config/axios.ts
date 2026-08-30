@@ -1,3 +1,9 @@
+declare module "axios" {
+    interface AxiosRequestConfig {
+        skipAuthRefresh?: boolean;
+    }
+}
+
 import { ADMIN_ENDPOINTS } from "@/admin/api/Admin.endpoints";
 import { cleanAdmin, setAccessToken } from "@/admin/store/slice/AdminAuth.slice";
 import { ReduxStore } from "@/store/store";
@@ -31,6 +37,7 @@ axiosInstance.interceptors.response.use(
 
         const originalRequest = error.config as InternalAxiosRequestConfig & {
             _retry?: boolean;
+            skipAuthRefresh?: boolean;
         };
 
         if (error.config?.url === ADMIN_ENDPOINTS.AUTH.LOGOUT) {
@@ -45,6 +52,12 @@ axiosInstance.interceptors.response.use(
 
         // Only handle 401 responses.
         if (error.response?.status !== 401) {
+            return Promise.reject(error.response?.data ?? error);
+        }
+
+        // Do not refresh the token for requests that explicitly
+        // opt out of authentication refresh handling.
+        if (originalRequest.skipAuthRefresh) {
             return Promise.reject(error.response?.data ?? error);
         }
 

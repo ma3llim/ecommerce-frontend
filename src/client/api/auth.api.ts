@@ -18,32 +18,31 @@ export const AuthApi = {
         return response.data;
     },
     loginUser: async (values: LoginRequest): Promise<ApiResponse<AuthenticationData>> => {
-        const response = await axiosInstance.post<ApiResponse<AuthenticationData>>("/api/v1/auth/login", values);
+        const response = await axiosInstance.post<ApiResponse<AuthenticationData>>(ENDPOINTS.AUTH.LOGIN, values);
         return response.data;
     },
     verifyEmail: async (values: VerifyEmailRequest): Promise<ApiResponse<AuthenticationData>> => {
-        const response = await axiosInstance.post<ApiResponse<AuthenticationData>>("/api/v1/auth/verify-email", values);
+        const response = await axiosInstance.post<ApiResponse<AuthenticationData>>(ENDPOINTS.AUTH.VERIFY_EMAIL, values, { skipAuthRefresh: true });
         return response.data;
     },
     resendVerification: async (values: ResendVerificationRequest): Promise<ApiResponse<string>> => {
-        const response = await axiosInstance.post<ApiResponse<string>>("/api/v1/auth/resend-verification", values);
+        const response = await axiosInstance.post<ApiResponse<string>>(ENDPOINTS.AUTH.RESEND_VERIFICATION, values);
         return response.data;
     },
     forgotPassword: async (values: ForgotPasswordRequest): Promise<ApiResponse<string>> => {
-        const response = await axiosInstance.post<ApiResponse<string>>("/api/v1/auth/forgot-password", values);
+        const response = await axiosInstance.post<ApiResponse<string>>(ENDPOINTS.AUTH.FORGOT_PASSWORD, values);
         return response.data;
     },
     resetPassword: async (values: ResetPasswordRequest): Promise<ApiResponse<string>> => {
-        const response = await axiosInstance.post<ApiResponse<string>>("/api/v1/auth/reset-password", values);
+        const response = await axiosInstance.post<ApiResponse<string>>(ENDPOINTS.AUTH.RESET_PASSWORD, values);
         return response.data;
     },
     logoutUser: async (): Promise<ApiResponse<string>> => {
-        const response = await axiosInstance.post<ApiResponse<string>>("/api/v1/auth/logout");
+        const response = await axiosInstance.post<ApiResponse<string>>(ENDPOINTS.AUTH.LOGOUT);
         return response.data;
     },
     refreshToken: async (): Promise<ApiResponse<AuthenticationData>> => {
-        const response = await axiosInstance.post<ApiResponse<AuthenticationData>>("/api/v1/auth/refresh-token");
-
+        const response = await axiosInstance.post<ApiResponse<AuthenticationData>>(ENDPOINTS.AUTH.REFRESH_TOKEN);
         return response.data;
     },
 };

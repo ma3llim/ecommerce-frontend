@@ -2,7 +2,7 @@ import type { AccountStatus } from "./AccountStatus.types";
 import type { UserRole } from "./UserRole.types";
 
 export interface User {
-    userId: string;
+    id: string;
     firstName: string;
     lastName: string;
     email: string;
