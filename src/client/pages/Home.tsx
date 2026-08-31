@@ -5,7 +5,7 @@ import slider2 from "@/assets/sliders/slider2.webp";
 import slider3 from "@/assets/sliders/slider3.webp";
 import slider4 from "@/assets/sliders/slider4.webp";
 import { Helmet } from "react-helmet-async";
-import { type SliderItem } from "../components/home/Slider";
+import type { SliderItem } from "../components/home/Slider";
 import Categories from "../components/home/Categories";
 import Container from "../components/Container";
 
