@@ -1,0 +1,157 @@
+import { useMemo, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import bannerImage from "@/assets/banners/basket_banner.webp";
+import { Helmet } from "react-helmet-async";
+import type { ProductVariant } from "@/client/types/Product.types";
+import ToastService from "@/services/ToastService";
+import { ProductApi } from "@/client/api/Product.api";
+import ProductGallery from "@/client/components/products/ProductGallery";
+import ProductInfo from "@/client/components/products/ProductInfo";
+import ProductSpecifications from "@/client/components/products/ProductSpecifications";
+import ProductFaqs from "@/client/components/products/ProductFaqs";
+import Container from "@/client/components/Container";
+import Banner from "@/client/components/Banner";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import PageLoader from "@/components/common/PageLoader";
+
+const ProductDetails = () => {
+    const { productSlug } = useParams<{ productSlug: string }>();
+    const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
+    const [quantity, setQuantity] = useState(1);
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ["product", productSlug],
+        queryFn: () => ProductApi.getProductBySlug(productSlug!),
+        enabled: !!productSlug,
+    });
+
+    const product = data?.data;
+    const variants = product?.variants ?? [];
+
+    const selectedVariant = useMemo(() => {
+        if (!variants.length) {
+            return undefined;
+        }
+
+        if (selectedVariantId) {
+            return variants.find(variant => variant.productVariantId === selectedVariantId) ?? variants[0];
+        }
+
+        return variants.find(variant => variant.productVariantId === product?.defaultVariantId) ?? variants[0];
+    }, [variants, selectedVariantId, product?.defaultVariantId]);
+
+    const handleSelectVariant = (variant: ProductVariant) => {
+        setSelectedVariantId(variant.productVariantId);
+        setQuantity(1);
+    };
+
+    const { mutate: addToCart, isPending } = useMutation({
+        mutationFn: async () => {
+            if (!product || !selectedVariant) {
+                throw new Error("Product variant is unavailable.");
+            }
+
+            // Replace with your existing cart API.
+            return Promise.resolve();
+        },
+
+        onSuccess: () => {
+            ToastService.success("Product added to cart.");
+        },
+
+        onError: error => {
+            ToastService.error(error instanceof Error ? error.message : "Failed to add product to cart.");
+        },
+    });
+
+    if (isError || !product) {
+        return (
+            <Container>
+                <div className="flex min-h-96 flex-col items-center justify-center text-center">
+                    <h1 className="text-2xl font-bold">Product not found</h1>
+                    <p className="mt-2 text-muted-foreground">The product you're looking for is unavailable.</p>
+                    <Link to="/products" className="mt-5 text-primary hover:underline">
+                        Back to Products
+                    </Link>
+                </div>
+            </Container>
+        );
+    }
+
+    if (!selectedVariant) {
+        return (
+            <Container>
+                <div className="flex min-h-96 items-center justify-center">
+                    <p className="text-muted-foreground">No active product variant available.</p>
+                </div>
+            </Container>
+        );
+    }
+
+    const handleAddToCart = () => {
+        addToCart();
+    };
+    return (
+        <>
+            <Helmet>
+                <title>{`${product.name} - SameerCart`}</title>
+                <meta
+                    name="description"
+                    content={`${product.description} Shop ${product.name} at the best price on SameerCart with secure shopping and fast delivery.`}
+                />
+                <meta name="keywords" content={`${product.name}, ${product.slug}, buy ${product.name} online, ${product.name} price, SameerCart`} />
+                <meta property="og:title" content={`${product.name} - SameerCart`} />
+                <meta property="og:description" content={`${product.description} Shop now on SameerCart.`} />
+                <meta property="og:url" content={`https://sameercart.com/product-details/${product.slug}`} />
+                <meta property="og:type" content="product" />
+                {selectedVariant.images?.[0]?.url && <meta property="og:image" content={selectedVariant.images[0].url} />}
+                <meta name="robots" content="index, follow" />
+            </Helmet>
+            <Banner title="Products" image={bannerImage}>
+                <Breadcrumb>
+                    <BreadcrumbList className="text-lg">
+                        <BreadcrumbItem>
+                            <Link to="/">Home</Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <Link to="/products">Products</Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage>{product.name}</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </Banner>
+            <Container>
+                {isLoading ? (
+                    <PageLoader />
+                ) : (
+                    <section className="w-full py-8 md:py-10">
+                        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
+                            <ProductGallery images={selectedVariant.images} productName={product.name} />
+                            <ProductInfo
+                                product={product}
+                                selectedVariant={selectedVariant}
+                                quantity={quantity}
+                                isPending={isPending}
+                                onSelectVariant={handleSelectVariant}
+                                onQuantityChange={setQuantity}
+                                onAddToCart={handleAddToCart}
+                            />
+                        </div>
+
+                        <div className="mt-12">
+                            <ProductSpecifications specifications={product.specifications} />
+
+                            <ProductFaqs faqs={product.faqs} />
+                        </div>
+                    </section>
+                )}
+            </Container>
+        </>
+    );
+};
+
+export default ProductDetails;

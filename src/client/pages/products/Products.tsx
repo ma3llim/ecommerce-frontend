@@ -67,7 +67,7 @@ const Products = () => {
             <Container>
                 <section className="w-full py-8 md:py-10">
                     <SectionHeader title="Products" />
-                    {}
+
                     {isLoading ? (
                         <PageLoader />
                     ) : products.length === 0 ? (

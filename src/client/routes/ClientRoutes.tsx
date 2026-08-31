@@ -25,6 +25,7 @@ const ChangePassword = lazy(() => import("@/client/pages/account/ChangePassword"
 const Account = lazy(() => import("@/client/pages/account/Account"));
 const Addresses = lazy(() => import("@/client/pages/account/Addresses"));
 const Products = lazy(() => import("@/client/pages/products/Products"));
+const ProductDetails = lazy(() => import("@/client/pages/products/ProductDetails"));
 
 const ClientRoutes = () => {
     return (
@@ -66,6 +67,14 @@ const ClientRoutes = () => {
                 element={
                     <Suspense fallback={<PageLoader />}>
                         <Products />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/product-details/:productSlug"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <ProductDetails />
                     </Suspense>
                 }
             />

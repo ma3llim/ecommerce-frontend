@@ -1,5 +1,5 @@
 import type { ApiResponse } from "@/types/common/ApiResponse.types";
-import type { Product, searchProduct } from "../types/Product.types";
+import type { Product, ProductDetails, searchProduct } from "../types/Product.types";
 import { axiosInstance } from "@/config/axios";
 import { ENDPOINTS } from "./Api.endpoints";
 import type { PageResponse } from "@/types/common/PageResponse.types";
@@ -17,8 +17,8 @@ export const ProductApi = {
         });
         return response.data;
     },
-    getProductBySlug: async (productSlug: string): Promise<ApiResponse<Product>> => {
-        const response = await axiosInstance.get<ApiResponse<Product>>(ENDPOINTS.PRODUCT.BY_SLUG(productSlug));
+    getProductBySlug: async (productSlug: string): Promise<ApiResponse<ProductDetails>> => {
+        const response = await axiosInstance.get<ApiResponse<ProductDetails>>(ENDPOINTS.PRODUCT.BY_SLUG(productSlug));
         return response.data;
     },
 };

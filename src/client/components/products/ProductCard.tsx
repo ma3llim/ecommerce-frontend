@@ -9,7 +9,7 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
             to={`/product-details/${product.slug}`}
             className="group flex h-full w-full select-none flex-col overflow-hidden rounded-lg border-2 border-border bg-card p-0.5 transition-[border-color,box-shadow] duration-300 ease-in-out hover:border-primary hover:shadow-md"
         >
-            <div className="relative block h-64 w-full overflow-hidden rounded-md bg-muted/30">
+            <div className="relative block h-96 w-full overflow-hidden rounded-md bg-muted/30">
                 <img
                     src={product.image}
                     alt={product.name}

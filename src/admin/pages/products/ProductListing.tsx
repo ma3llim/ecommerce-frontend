@@ -37,22 +37,6 @@ const ProductListing = () => {
             header: ({ column }) => <DataTableColumnHeader column={column} title="Category" />,
         },
         {
-            accessorKey: "specifications",
-            header: "Specifications",
-            cell: ({ row }) => {
-                const specifications = row.original.specifications;
-                return (
-                    <div className="flex gap-2 flex-wrap">
-                        {Object.entries(specifications).map(([key, value]) => (
-                            <span key={key} className="text-sm">
-                                {key}: {String(value)}
-                            </span>
-                        ))}
-                    </div>
-                );
-            },
-        },
-        {
             accessorKey: "published",
             header: "Published",
             cell: ({ row }) => {
