@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import ToastService from "@/services/ToastService";
 import type { Address } from "@/client/types/Address.types";
-import { AddressApi } from "@/client/api/AddressApi";
+import { AddressApi } from "@/client/api/Address.api";
 import type { AddressFormSchemaValues } from "@/client/validation/Address.schema";
 import AddressForm from "@/client/components/address/AddressForm";
 import AddressCard from "@/client/components/address/AddressCard";
