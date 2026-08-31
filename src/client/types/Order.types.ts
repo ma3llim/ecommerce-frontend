@@ -27,3 +27,12 @@ export interface CreateOrderResponse {
         paymentStatus: string;
     };
 }
+
+export interface InitiatePaymentResponse {
+    paymentId: string;
+    razorpayOrderId: string;
+    amount: number;
+    currency: string;
+    paymentMethod: PaymentMethod;
+    paymentStatus: string;
+}

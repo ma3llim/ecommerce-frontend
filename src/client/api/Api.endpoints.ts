@@ -38,4 +38,7 @@ export const ENDPOINTS = {
     ORDERS: {
         BASE: "/orders",
     },
+    PAYMENTS: {
+        INITIATE: (orderId: string) => `/payments/${orderId}/payments`,
+    },
 };
