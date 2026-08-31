@@ -62,6 +62,14 @@ const ClientRoutes = () => {
                 }
             />
             <Route
+                path="/products"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <Products />
+                    </Suspense>
+                }
+            />
+            <Route
                 path="/delivery"
                 element={
                     <Suspense fallback={<PageLoader />}>

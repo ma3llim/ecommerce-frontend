@@ -14,6 +14,7 @@ import ToastService from "@/services/ToastService";
 const headerNavigation = [
     { label: "Home", path: "/" },
     { label: "Categories", path: "/category" },
+    { label: "Products", path: "/products" },
     { label: "Delivery", path: "/delivery" },
     { label: "About Us", path: "/about-us" },
     { label: "Secure Payment", path: "/secure-payment" },
