@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import bannerImage from "@/assets/banners/basket_banner.webp";
@@ -48,19 +48,9 @@ const ProductDetails = () => {
 
     const product = data?.data;
 
-    const selectedVariant = useMemo(() => {
-        const variants = product?.variants ?? [];
+    const variants = product?.variants ?? [];
 
-        if (!variants.length) {
-            return undefined;
-        }
-
-        if (selectedVariantId) {
-            return variants.find(variant => variant.productVariantId === selectedVariantId) ?? variants[0];
-        }
-
-        return variants.find(variant => variant.productVariantId === product?.defaultVariantId) ?? variants[0];
-    }, [variants, selectedVariantId, product?.defaultVariantId]);
+    const selectedVariant = variants.find(variant => variant.productVariantId === (selectedVariantId ?? product?.defaultVariantId)) ?? variants[0];
 
     const handleSelectVariant = (variant: ProductVariant) => {
         setSelectedVariantId(variant.productVariantId);
