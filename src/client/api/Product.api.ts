@@ -10,7 +10,7 @@ export const ProductApi = {
         const repsonse = await axiosInstance.get(ENDPOINTS.SEARCH(keyword));
         return repsonse.data;
     },
-    getProducts: async ({ category, ...pagination }: { category?: string; pagination: PaginationRequest }): Promise<ApiResponse<PageResponse<Product>>> => {
+    getProducts: async ({ category, pagination }: { category?: string; pagination: PaginationRequest }): Promise<ApiResponse<PageResponse<Product>>> => {
         const response = await axiosInstance.get<ApiResponse<PageResponse<Product>>>(ENDPOINTS.PRODUCT.BASE, {
             params: { ...pagination, ...(category && { category }) },
             skipAuthRefresh: true,
