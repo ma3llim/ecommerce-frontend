@@ -149,18 +149,15 @@ const Dashboard = () => {
 
     return (
         <section className="w-full space-y-6 overflow-hidden rounded-2xl border bg-card p-4 shadow-sm sm:space-y-8 sm:p-5 md:p-8">
-            {/* Header */}
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Welcome back, {user?.firstName}!</h1>
 
                 <p className="mt-2 text-muted-foreground">Manage your account and profile information.</p>
             </div>
 
-            {/* Profile */}
             <div className="rounded-xl border bg-muted/20">
                 <div className="flex flex-col gap-5 p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
                     <div className="flex items-center gap-5">
-                        {/* Profile Image */}
                         <div className="relative shrink-0">
                             <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border bg-muted">
                                 {user?.profileImageUrl ? (
@@ -173,7 +170,6 @@ const Dashboard = () => {
                                 )}
                             </div>
 
-                            {/* Replace Image */}
                             <label
                                 htmlFor="profileImage"
                                 title="Replace profile image"
@@ -194,7 +190,6 @@ const Dashboard = () => {
                             </label>
                         </div>
 
-                        {/* User */}
                         <div className="min-w-0">
                             <h2 className="text-2xl font-semibold">
                                 {user?.firstName} {user?.lastName}
@@ -204,7 +199,6 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    {/* Status */}
                     <div className="flex items-center gap-2 self-start lg:self-center">
                         <span className="text-sm text-muted-foreground">Status</span>
 
@@ -213,7 +207,6 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* Personal Information */}
             <div>
                 <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
@@ -233,7 +226,6 @@ const Dashboard = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                        {/* First Name */}
                         <div className="space-y-2">
                             <Label htmlFor="firstName">First Name</Label>
 
@@ -242,7 +234,6 @@ const Dashboard = () => {
                             {isEditing && <FormError message={errors.firstName?.message} />}
                         </div>
 
-                        {/* Last Name */}
                         <div className="space-y-2">
                             <Label htmlFor="lastName">Last Name</Label>
 
@@ -252,7 +243,6 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    {/* Email */}
                     <div className="space-y-2">
                         <Label htmlFor="email">Email Address</Label>
 
@@ -265,7 +255,6 @@ const Dashboard = () => {
                         <p className="text-xs text-muted-foreground">Email address cannot be changed.</p>
                     </div>
 
-                    {/* Phone */}
                     <div className="space-y-2">
                         <Label htmlFor="phoneNumber">Phone Number</Label>
 
@@ -285,7 +274,6 @@ const Dashboard = () => {
                         {isEditing && <FormError message={errors.phoneNumber?.message} />}
                     </div>
 
-                    {/* Account Information */}
                     <div className="border-t pt-6">
                         <div className="mb-5">
                             <h2 className="text-xl font-semibold">Account Information</h2>
@@ -294,7 +282,6 @@ const Dashboard = () => {
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                            {/* Email Verification */}
                             <div className="rounded-xl border p-5">
                                 <div className="flex items-center justify-between gap-4">
                                     <div>
@@ -313,7 +300,6 @@ const Dashboard = () => {
                                 </div>
                             </div>
 
-                            {/* Role */}
                             <div className="rounded-xl border p-5">
                                 <div className="flex items-center justify-between gap-4">
                                     <div>
@@ -328,14 +314,12 @@ const Dashboard = () => {
                                 </div>
                             </div>
 
-                            {/* Member Since */}
                             <div className="rounded-xl border p-5">
                                 <p className="text-sm text-muted-foreground">Member Since</p>
 
                                 <p className="mt-1 font-medium">{user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "—"}</p>
                             </div>
 
-                            {/* Last Login */}
                             <div className="rounded-xl border p-5">
                                 <p className="text-sm text-muted-foreground">Last Login</p>
 
@@ -344,7 +328,6 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    {/* Edit Actions */}
                     {isEditing && (
                         <div className="flex flex-col-reverse gap-3 border-t pt-6 sm:flex-row sm:justify-end">
                             <Button type="button" variant="outline" disabled={isUpdating} onClick={handleCancelEdit}>

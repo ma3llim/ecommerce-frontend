@@ -23,6 +23,7 @@ const Dashboard = lazy(() => import("@/client/pages/account/Dashboard"));
 const Profile = lazy(() => import("@/client/pages/account/Profile"));
 const ChangePassword = lazy(() => import("@/client/pages/account/ChangePassword"));
 const Account = lazy(() => import("@/client/pages/account/Account"));
+const Addresses = lazy(() => import("@/client/pages/account/Addresses"));
 
 const ClientRoutes = () => {
     return (
@@ -152,7 +153,7 @@ const ClientRoutes = () => {
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="change-password" element={<ChangePassword />} />
-                    {/* <Route path="addresses" element={<Addresses />} /> */}
+                    <Route path="addresses" element={<Addresses />} />
                 </Route>
             </Route>
         </Route>

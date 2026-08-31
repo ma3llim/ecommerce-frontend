@@ -17,4 +17,10 @@ export const ENDPOINTS = {
         PASSWORD: "/users/me/password",
         PROFILE_IMAGE: "/users/me/profile-image",
     },
+    ADDRESS: {
+        BASE: "/users/me/addresses",
+        DEFAULT_BILLING: (addressId: string) => `/users/me/addresses/${addressId}/default-billing`,
+        DEFAULT_SHIPPING: (addressId: string) => `/users/me/addresses/${addressId}/default-shipping`,
+        BY_ID: (addressId: string) => `/users/me/addresses/${addressId}`,
+    },
 };

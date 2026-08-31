@@ -2,7 +2,7 @@ export type AccountStatus = "PENDING" | "ACTIVE" | "LOCKED" | "DISABLED";
 
 export type UserRole = "ADMIN" | "USER";
 
-export type AddressType = "HOME" | "WORK" | "OTHER";
+export type AddressType = "HOME" | "OFFICE" | "OTHER";
 
 export interface UserListResponse {
     id: string;

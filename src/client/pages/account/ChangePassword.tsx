@@ -46,7 +46,7 @@ const ChangePassword = () => {
     };
 
     return (
-        <section className="mx-auto w-full max-w-2xl space-y-8">
+        <section className="mx-auto w-full space-y-8">
             <div>
                 <h1 className="text-3xl font-bold">Change Password</h1>
                 <p className="mt-2 text-muted-foreground">Update your password to keep your account secure.</p>
