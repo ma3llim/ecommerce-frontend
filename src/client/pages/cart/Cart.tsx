@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import type { Cart, CartItem } from "@/client/types/Cart.types";
+import type { Cart, CartItem, CartItemCardProps, CartSummaryProps } from "@/client/types/Cart.types";
 import ToastService from "@/services/ToastService";
 import { CartApi } from "@/client/api/Cart.api";
 import PageLoader from "@/components/common/PageLoader";
@@ -104,11 +104,8 @@ const Cart = () => {
                     <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted">
                         <ShoppingBag className="h-9 w-9 text-muted-foreground" />
                     </div>
-
                     <h1 className="mt-6 text-2xl font-bold">Your cart is empty</h1>
-
                     <p className="mt-2 max-w-md text-muted-foreground">Looks like you haven't added anything to your cart yet.</p>
-
                     <Button className="mt-6">
                         <Link to="/products">Continue Shopping</Link>
                     </Button>
@@ -157,14 +154,6 @@ const Cart = () => {
         </>
     );
 };
-
-interface CartItemCardProps {
-    item: CartItem;
-    isUpdating: boolean;
-    isDeleting: boolean;
-    onQuantityChange: (item: CartItem, quantity: number) => void;
-    onDelete: (item: CartItem) => void;
-}
 
 const CartItemCard = ({ item, isUpdating, isDeleting, onQuantityChange, onDelete }: CartItemCardProps) => {
     return (
@@ -226,10 +215,6 @@ const CartItemCard = ({ item, isUpdating, isDeleting, onQuantityChange, onDelete
     );
 };
 
-interface CartSummaryProps {
-    cart: Cart | undefined;
-}
-
 const CartSummary = ({ cart }: CartSummaryProps) => {
     const totalItems = cart?.items.reduce((total, item) => total + item.quantity, 0) ?? 0;
 
@@ -258,12 +243,9 @@ const CartSummary = ({ cart }: CartSummaryProps) => {
                     <span className="text-xl font-bold text-primary">₹{(cart?.totalAmount ?? 0).toLocaleString("en-IN")}</span>
                 </div>
             </div>
-
-            <Button type="button" size="lg" className="mt-6 w-full" disabled>
-                Proceed to Checkout
+            <Button size="lg" className="mt-6 w-full">
+                <Link to="/checkout">Proceed to Checkout</Link>
             </Button>
-
-            <p className="mt-3 text-center text-xs text-muted-foreground">Checkout will be available soon.</p>
         </aside>
     );
 };

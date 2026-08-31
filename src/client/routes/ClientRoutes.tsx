@@ -27,6 +27,7 @@ const Addresses = lazy(() => import("@/client/pages/account/Addresses"));
 const Products = lazy(() => import("@/client/pages/products/Products"));
 const ProductDetails = lazy(() => import("@/client/pages/products/ProductDetails"));
 const Cart = lazy(() => import("@/client/pages/cart/Cart"));
+const Checkout = lazy(() => import("@/client/pages/cart/Checkout"));
 
 const ClientRoutes = () => {
     return (
@@ -176,12 +177,62 @@ const ClientRoutes = () => {
                 }
             />
             <Route element={<ClientProtectedRoute />}>
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/account" element={<Account />}>
-                    <Route path="dashboard" element={<Dashboard />} />
-                    <Route path="profile" element={<Profile />} />
-                    <Route path="change-password" element={<ChangePassword />} />
-                    <Route path="addresses" element={<Addresses />} />
+                <Route
+                    path="/cart"
+                    element={
+                        <Suspense fallback={<PageLoader />}>
+                            <Cart />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/checkout"
+                    element={
+                        <Suspense fallback={<PageLoader />}>
+                            <Checkout />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/account"
+                    element={
+                        <Suspense fallback={<PageLoader />}>
+                            <Account />
+                        </Suspense>
+                    }
+                >
+                    <Route
+                        path="dashboard"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <Dashboard />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="profile"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <Profile />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="change-password"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <ChangePassword />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="addresses"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <Addresses />
+                            </Suspense>
+                        }
+                    />
                 </Route>
             </Route>
         </Route>

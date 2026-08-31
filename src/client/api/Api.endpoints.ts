@@ -32,4 +32,10 @@ export const ENDPOINTS = {
         BASE: "/cart",
         ITEMS: "/cart/items",
     },
+    COUPON: {
+        APPLY: "/coupons/apply",
+    },
+    ORDERS: {
+        BASE: "/orders",
+    },
 };

@@ -3,7 +3,7 @@ import type { PaginationRequest } from "@/types/common/Pagination.types";
 
 export type PaymentStatus = "PENDING" | "SUCCESS" | "CAPTURED" | "FAILED" | "REFUNDED";
 
-export type PaymentMethod = "COD" | string;
+export type PaymentMethod = "COD" | "RAZORPAY";
 
 export interface PaymentResponse {
     paymentId: string;
