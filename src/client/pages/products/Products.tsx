@@ -12,6 +12,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
 import SectionHeader from "@/client/components/SectionHeader";
+import { Helmet } from "react-helmet-async";
 
 const Products = () => {
     const { categorySlug } = useParams<{ categorySlug: string }>();
@@ -29,14 +30,6 @@ const Products = () => {
         console.log("Add to cart:", product);
     };
 
-    if (isLoading) {
-        return (
-            <Container>
-                <PageLoader />
-            </Container>
-        );
-    }
-
     if (isError) {
         return (
             <Container>
@@ -53,12 +46,31 @@ const Products = () => {
 
     return (
         <>
+            <Helmet>
+                <title>{categorySlug ? `${categorySlug.replace("-", " ")} Products - SameerCart` : "Products - SameerCart"}</title>
+                <meta
+                    name="description"
+                    content={
+                        categorySlug
+                            ? `Buy top-quality ${categorySlug.replace("-", " ")} products at the best prices on SameerCart. Fast delivery and secure shopping.`
+                            : "Browse top-quality products at the best prices on SameerCart."
+                    }
+                />
+                <meta name="keywords" content={`${categorySlug}, buy ${categorySlug} online, best ${categorySlug} products, SameerCart`} />
+                <meta property="og:title" content={`${categorySlug?.replace("-", " ")} Products - SameerCart`} />
+                <meta property="og:description" content={`Discover the latest ${categorySlug?.replace("-", " ")} collection on SameerCart. Shop now!`} />
+                <meta property="og:url" content={`https://sameercart.com/${categorySlug}/${categorySlug}/products`} />
+                <meta property="og:type" content="website" />
+                <meta name="robots" content="index, follow" />
+            </Helmet>
             <Banner title="Products" image={bannerImage} />
             <Container>
                 <section className="w-full py-8 md:py-10">
                     <SectionHeader title="Products" />
-
-                    {products.length === 0 ? (
+                    {}
+                    {isLoading ? (
+                        <PageLoader />
+                    ) : products.length === 0 ? (
                         <div className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-dashed text-center">
                             <h2 className="text-xl font-semibold">No products found</h2>
                             <p className="mt-2 text-muted-foreground">There are no products available right now.</p>
