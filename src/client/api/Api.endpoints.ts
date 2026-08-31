@@ -23,4 +23,8 @@ export const ENDPOINTS = {
         DEFAULT_SHIPPING: (addressId: string) => `/users/me/addresses/${addressId}/default-shipping`,
         BY_ID: (addressId: string) => `/users/me/addresses/${addressId}`,
     },
+    PRODUCT: {
+        BASE: "/products",
+        BY_SLUG: (productSlug: string) => `/products/${productSlug}`,
+    },
 };

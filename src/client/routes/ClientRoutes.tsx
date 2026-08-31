@@ -24,6 +24,7 @@ const Profile = lazy(() => import("@/client/pages/account/Profile"));
 const ChangePassword = lazy(() => import("@/client/pages/account/ChangePassword"));
 const Account = lazy(() => import("@/client/pages/account/Account"));
 const Addresses = lazy(() => import("@/client/pages/account/Addresses"));
+const Products = lazy(() => import("@/client/pages/products/Products"));
 
 const ClientRoutes = () => {
     return (
@@ -49,6 +50,14 @@ const ClientRoutes = () => {
                 element={
                     <Suspense fallback={<PageLoader />}>
                         <Categories />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/category/:categorySlug"
+                element={
+                    <Suspense fallback={<PageLoader />}>
+                        <Products />
                     </Suspense>
                 }
             />
