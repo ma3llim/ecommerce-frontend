@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import bannerImage from "@/assets/banners/basket_banner.webp";
 import { Helmet } from "react-helmet-async";
 import type { ProductVariant } from "@/client/types/Product.types";
@@ -14,21 +14,43 @@ import Container from "@/client/components/Container";
 import Banner from "@/client/components/Banner";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import PageLoader from "@/components/common/PageLoader";
+import { CartApi } from "@/client/api/Cart.api";
 
 const ProductDetails = () => {
     const { productSlug } = useParams<{ productSlug: string }>();
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
     const [quantity, setQuantity] = useState(1);
+    const queryClient = useQueryClient();
+
     const { data, isLoading, isError } = useQuery({
         queryKey: ["product", productSlug],
         queryFn: () => ProductApi.getProductBySlug(productSlug!),
         enabled: !!productSlug,
     });
 
+    const { mutate: addToCart, isPending } = useMutation({
+        mutationFn: () => {
+            if (!selectedVariant) {
+                throw new Error("Product variant is unavailable.");
+            }
+            return CartApi.addItem({ productVariantId: selectedVariant.productVariantId, quantity });
+        },
+        onSuccess: response => {
+            queryClient.invalidateQueries({
+                queryKey: ["cart"],
+            });
+            ToastService.success(response.message || "Product added to cart.");
+        },
+        onError: error => {
+            ToastService.error(error instanceof Error ? error.message : "Login to add product in cart.");
+        },
+    });
+
     const product = data?.data;
-    const variants = product?.variants ?? [];
 
     const selectedVariant = useMemo(() => {
+        const variants = product?.variants ?? [];
+
         if (!variants.length) {
             return undefined;
         }
@@ -44,25 +66,6 @@ const ProductDetails = () => {
         setSelectedVariantId(variant.productVariantId);
         setQuantity(1);
     };
-
-    const { mutate: addToCart, isPending } = useMutation({
-        mutationFn: async () => {
-            if (!product || !selectedVariant) {
-                throw new Error("Product variant is unavailable.");
-            }
-
-            // Replace with your existing cart API.
-            return Promise.resolve();
-        },
-
-        onSuccess: () => {
-            ToastService.success("Product added to cart.");
-        },
-
-        onError: error => {
-            ToastService.error(error instanceof Error ? error.message : "Failed to add product to cart.");
-        },
-    });
 
     if (isError || !product) {
         return (

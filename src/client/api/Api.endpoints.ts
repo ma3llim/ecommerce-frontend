@@ -28,4 +28,8 @@ export const ENDPOINTS = {
         BY_SLUG: (productSlug: string) => `/products/${productSlug}`,
         GET_REVIEWS: (productSlug: string) => `/products/${productSlug}/reviews`,
     },
+    CART: {
+        BASE: "/cart",
+        ITEMS: "/cart/items",
+    },
 };

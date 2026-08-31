@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import type { ProductCardProps } from "@/client/types/Product.types";
 
-const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
     return (
         <Link
             to={`/product-details/${product.slug}`}
@@ -25,20 +23,6 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
                     <p className="text-xl font-bold text-primary">
                         {product.price != null ? `₹${product.price.toLocaleString("en-IN")}` : "Price unavailable"}
                     </p>
-                </div>
-                <div className="mt-auto pt-5">
-                    <Button
-                        type="button"
-                        className="w-full"
-                        onClick={event => {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            onAddToCart(product);
-                        }}
-                    >
-                        <ShoppingCart className="mr-2 h-4 w-4" />
-                        Add to Cart
-                    </Button>
                 </div>
             </div>
         </Link>

@@ -26,6 +26,7 @@ const Account = lazy(() => import("@/client/pages/account/Account"));
 const Addresses = lazy(() => import("@/client/pages/account/Addresses"));
 const Products = lazy(() => import("@/client/pages/products/Products"));
 const ProductDetails = lazy(() => import("@/client/pages/products/ProductDetails"));
+const Cart = lazy(() => import("@/client/pages/cart/Cart"));
 
 const ClientRoutes = () => {
     return (
@@ -174,8 +175,9 @@ const ClientRoutes = () => {
                     </Suspense>
                 }
             />
-            <Route path="/account" element={<ClientProtectedRoute />}>
-                <Route element={<Account />}>
+            <Route element={<ClientProtectedRoute />}>
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/account" element={<Account />}>
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="change-password" element={<ChangePassword />} />

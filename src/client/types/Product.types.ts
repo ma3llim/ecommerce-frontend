@@ -15,7 +15,6 @@ export interface Product {
 
 export interface ProductCardProps {
     product: Product;
-    onAddToCart: (product: Product) => void;
 }
 
 export interface ProductVariant {

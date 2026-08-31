@@ -6,10 +6,11 @@ import ThemeToggle from "@/providers/ThemeToggle";
 import capitalize from "lodash/capitalize";
 import { useDispatch, useSelector } from "react-redux";
 import { persistor, type RootState } from "@/store/store";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { AuthApi } from "@/client/api/auth.api";
 import { cleanUser } from "@/client/store/slice/UserAuth.slice";
 import ToastService from "@/services/ToastService";
+import { CartApi } from "@/client/api/Cart.api";
 
 const headerNavigation = [
     { label: "Home", path: "/" },
@@ -45,6 +46,13 @@ const Header = () => {
         },
     });
 
+    const { data } = useQuery({
+        queryKey: ["cart"],
+        queryFn: CartApi.getCart,
+        enabled: !!userAccessToken,
+    });
+
+    const cart = data?.data;
     return (
         <header className="sticky top-0 z-50 w-full bg-background">
             <div className="flex min-h-19 items-center justify-between gap-6 px-4">
@@ -66,12 +74,12 @@ const Header = () => {
                         <div className="relative">
                             <ShoppingCart className="h-5 w-5 text-foreground transition-colors group-hover:text-primary" />
                             <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-white">
-                                0
+                                {cart?.items.length ?? 0}
                             </span>
                         </div>
                         <div className="hidden leading-tight sm:block">
                             <p className="text-xs text-muted-foreground">Cart</p>
-                            <p className="text-sm font-semibold text-foreground">₹0.00</p>
+                            <p className="text-sm font-semibold text-foreground">₹ {cart?.totalAmount.toFixed(2) ?? 0}</p>
                         </div>
                     </Link>
                     <div className="mx-1 hidden h-7 w-px bg-border sm:block" />

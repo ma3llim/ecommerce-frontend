@@ -1,7 +1,6 @@
 import { ProductApi } from "@/client/api/Product.api";
 import Banner from "@/client/components/Banner";
 import Container from "@/client/components/Container";
-import type { Product } from "@/client/types/Product.types";
 import PageLoader from "@/components/common/PageLoader";
 import bannerImage from "@/assets/banners/basket_banner.webp";
 import { Button } from "@/components/ui/button";
@@ -25,10 +24,6 @@ const Products = () => {
 
     const productPage = data?.data;
     const products = productPage?.content ?? [];
-
-    const handleAddToCart = (product: Product) => {
-        console.log("Add to cart:", product);
-    };
 
     if (isError) {
         return (
@@ -82,7 +77,7 @@ const Products = () => {
                         <>
                             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                                 {products.map(product => (
-                                    <ProductCard key={product.productId} product={product} onAddToCart={handleAddToCart} />
+                                    <ProductCard key={product.productId} product={product} />
                                 ))}
                             </div>
 
