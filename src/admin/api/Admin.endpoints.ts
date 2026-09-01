@@ -99,4 +99,13 @@ export const ADMIN_ENDPOINTS = {
         PRODUCT_STATISTICS: "/admin/dashboard/products/statistics",
         USER_STATISTICS: "/admin/dashboard/users/statistics",
     },
+
+    CONTACT: {
+        GET_CONTACTS: "/admin/contacts",
+        CONTACT_DETAILS: (contactId: string) => `/admin/contacts/${contactId}`,
+    },
+
+    NEWSLETTER: {
+        GET_NEWSLETTERS: "/admin/newsletter/newsletter",
+    },
 } as const;

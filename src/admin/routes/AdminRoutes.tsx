@@ -36,6 +36,9 @@ const OrdersListingPage = lazy(() => import("@/admin/pages/orders/OrdersListingP
 const OrderDetailsPage = lazy(() => import("@/admin/pages/orders/OrderDetailsPage"));
 const PaymentsListingPage = lazy(() => import("@/admin/pages/payments/PaymentsListingPage"));
 const PaymentDetailsPage = lazy(() => import("@/admin/pages/payments/PaymentDetailsPage"));
+const Contacts = lazy(() => import("@/admin/pages/contact/Contacts"));
+const ContactDetails = lazy(() => import("@/admin/pages/contact/ContactDetails"));
+const NewsletterSubscribers = lazy(() => import("@/admin/pages/NewsletterSubscribers"));
 
 const AdminRoutes = () => {
     return (
@@ -337,6 +340,38 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <PaymentDetailsPage />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+
+                <Route path="contacts">
+                    <Route index element={<Navigate to="contact-listing" replace />} />
+
+                    <Route
+                        path="contact-listing"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <Contacts />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="contact-details/:contactId"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <ContactDetails />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+                <Route path="newsletter">
+                    <Route index element={<Navigate to="subscriber-listing" replace />} />
+                    <Route
+                        path="subscriber-listing"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <NewsletterSubscribers />
                             </Suspense>
                         }
                     />

@@ -4,7 +4,20 @@ import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
-import { HomeIcon, LayoutDashboardIcon, ChartBarStacked, Package, Tags, Users, Truck, Ticket, ShoppingCart, CreditCard } from "lucide-react";
+import {
+    HomeIcon,
+    LayoutDashboardIcon,
+    ChartBarStacked,
+    Package,
+    Tags,
+    Users,
+    Truck,
+    Ticket,
+    ShoppingCart,
+    CreditCard,
+    Mail,
+    MessageSquare,
+} from "lucide-react";
 
 const data = {
     navMain: [
@@ -85,12 +98,12 @@ const data = {
             icon: <Ticket />,
             items: [
                 {
-                    title: "Coupon Listing",
-                    url: "/admin/coupons/listing",
-                },
-                {
                     title: "Add Coupon",
                     url: "/admin/coupons/add",
+                },
+                {
+                    title: "Coupon Listing",
+                    url: "/admin/coupons/listing",
                 },
             ],
         },
@@ -113,6 +126,28 @@ const data = {
                 {
                     title: "Payment Listing",
                     url: "/admin/payments/payment-listing",
+                },
+            ],
+        },
+        {
+            title: "Manage Newsletter",
+            url: "#",
+            icon: <Mail />,
+            items: [
+                {
+                    title: "Newsletter Listing",
+                    url: "/admin/newsletter/subscriber-listing",
+                },
+            ],
+        },
+        {
+            title: "Manage Contacts",
+            url: "#",
+            icon: <MessageSquare />,
+            items: [
+                {
+                    title: "Contacts Listing",
+                    url: "/admin/contacts/contact-listing",
                 },
             ],
         },
