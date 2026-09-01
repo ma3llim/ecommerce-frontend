@@ -32,3 +32,17 @@ export interface ProductReview {
     verifiedPurchase: boolean;
     createdAt: string;
 }
+
+export interface ReviewFormProps {
+    productId: string;
+    productVariantId: string;
+    review?: Review | null;
+    onSuccess?: () => void;
+}
+
+export interface ReviewActionsProps {
+    review: Review;
+    onEdit: () => void;
+    onDeleted?: () => void;
+    orderId: string;
+}

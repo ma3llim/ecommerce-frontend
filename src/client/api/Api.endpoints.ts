@@ -44,6 +44,7 @@ export const ENDPOINTS = {
         INITIATE: (orderId: string) => `/payments/${orderId}/payments`,
     },
     REVIEW: {
+        GET: (productId: string, productVariantId: string) => `/reviews/product/${productId}/variant/${productVariantId}`,
         CREATE: "/reviews",
         UPDATE: (reviewId: string) => `/reviews/${reviewId}`,
         DELETE: (reviewId: string) => `/reviews/${reviewId}`,

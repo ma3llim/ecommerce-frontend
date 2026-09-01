@@ -81,7 +81,7 @@ const OrderDetails = () => {
                                     </div>
                                     <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
                                         <div className="space-y-6">
-                                            <OrderItems items={order.items} />
+                                            <OrderItems items={order.items} canReview={order.orderStatus === "DELIVERED"} />
                                             <ShipmentTimeline shipment={order.userShipmentResponse} />
                                             <ShippingAddress address={order.shippingAddress} />
                                             <PaymentDetails order={order} />

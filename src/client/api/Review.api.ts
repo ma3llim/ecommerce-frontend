@@ -5,11 +5,14 @@ import { axiosInstance } from "@/config/axios";
 import { ENDPOINTS } from "./Api.endpoints";
 
 export const ReviewApi = {
+    getMyReview: async (productId: string, productVariantId: string): Promise<ApiResponse<Review | null>> => {
+        const response = await axiosInstance.get<ApiResponse<Review>>(ENDPOINTS.REVIEW.GET(productId, productVariantId));
+        return response.data;
+    },
     createReview: async (request: CreateReviewRequest): Promise<ApiResponse<Review>> => {
         const response = await axiosInstance.post<ApiResponse<Review>>(ENDPOINTS.REVIEW.CREATE, request);
         return response.data;
     },
-
     updateReview: async (reviewId: string, request: UpdateReviewRequest): Promise<ApiResponse<Review>> => {
         const response = await axiosInstance.patch<ApiResponse<Review>>(ENDPOINTS.REVIEW.UPDATE(reviewId), request);
         return response.data;
