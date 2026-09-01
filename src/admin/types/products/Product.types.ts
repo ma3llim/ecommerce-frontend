@@ -76,3 +76,20 @@ export interface ProductOptionResponse {
     productId: string;
     productName: string;
 }
+
+export interface ProductVariantImage {
+    id: string;
+    imageUrl: string;
+    displayOrder: number;
+    primary: boolean;
+}
+
+export interface ProductVariant {
+    id: string;
+    sku: string;
+    price: number;
+    stockQuantity: number;
+    attributes: Record<string, string>;
+    active: boolean;
+    images: ProductVariantImage[];
+}

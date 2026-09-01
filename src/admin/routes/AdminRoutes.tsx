@@ -39,6 +39,7 @@ const PaymentDetailsPage = lazy(() => import("@/admin/pages/payments/PaymentDeta
 const Contacts = lazy(() => import("@/admin/pages/contact/Contacts"));
 const ContactDetails = lazy(() => import("@/admin/pages/contact/ContactDetails"));
 const NewsletterSubscribers = lazy(() => import("@/admin/pages/NewsletterSubscribers"));
+const ProductDetails = lazy(() => import("@/admin/pages/products/ProductDetails"));
 
 const AdminRoutes = () => {
     return (
@@ -107,6 +108,14 @@ const AdminRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <ProductListing />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="view-product/:productId"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <ProductDetails />
                             </Suspense>
                         }
                     />
