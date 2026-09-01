@@ -86,9 +86,9 @@ export interface OrderDetail {
 
 export interface InitiatePaymentResponse {
     paymentId: string;
-    razorpayOrderId: string | null;
+    razorpayOrderId: string;
     amount: number;
     currency: string;
     paymentMethod: PaymentMethod;
-    paymentStatus: PaymentStatus;
+    paymentStatus: string;
 }
