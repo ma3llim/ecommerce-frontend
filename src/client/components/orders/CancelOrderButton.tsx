@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { OrderApi } from "@/client/api/Order.api";
 import ToastService from "@/services/ToastService";
 import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
+import { CircleX } from "lucide-react";
 
 interface CancelOrderButtonProps {
     orderId: string;
@@ -32,6 +33,8 @@ const CancelOrderButton = ({ orderId }: CancelOrderButtonProps) => {
 
     return (
         <ButtonWithAlert
+            buttonTitle={isPending ? "Cancelling..." : "Cancel Order"}
+            buttonIcon={CircleX}
             dialogTitle={isPending ? "Cancelling..." : "Cancel Order"}
             dialogDesc={`Are you sure you want to cancel order "${orderId}"? This action cannot be undone.`}
             dialogActionTitle="Cancel"

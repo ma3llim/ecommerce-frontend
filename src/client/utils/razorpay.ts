@@ -51,7 +51,7 @@ export const openRazorpayCheckout = async ({ payment, name, email, phoneNumber, 
 
     const razorpay = new window.Razorpay({
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: payment.amount,
+        amount: Math.round(payment.amount * 100),
         currency: payment.currency,
         name: "SameerCart",
         description: "SameerCart Order",

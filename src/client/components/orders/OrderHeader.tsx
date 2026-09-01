@@ -13,7 +13,7 @@ const OrderHeader = ({ orderNumber, orderStatus, paymentStatus }: OrderHeaderPro
             <h1 className="mt-1 text-3xl font-bold">#{orderNumber}</h1>
             <div className="mt-4 flex flex-wrap gap-2">
                 <span className="rounded-full bg-muted px-3 py-1 text-sm font-medium">{orderStatus}</span>
-                <span className="rounded-full bg-muted px-3 py-1 text-sm font-medium">Payment: {paymentStatus}</span>
+                {orderStatus !== "CANCELLED" && <span className="rounded-full bg-muted px-3 py-1 text-sm font-medium">Payment: {paymentStatus}</span>}
             </div>
         </div>
     );

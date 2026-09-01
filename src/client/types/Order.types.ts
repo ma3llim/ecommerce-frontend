@@ -19,11 +19,10 @@ export interface OrderListItem {
 export interface OrderItem {
     orderItem: string;
     orderId: string;
-
     productId: string;
+    imageUrl: string;
     productVariantId: string;
     productSlug: string;
-
     productName: string;
     variantName: string;
     quantity: number;

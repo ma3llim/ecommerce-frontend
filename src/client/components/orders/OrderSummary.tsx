@@ -6,7 +6,7 @@ interface OrderSummaryProps {
 
 const OrderSummary = ({ order }: OrderSummaryProps) => {
     return (
-        <section className="rounded-xl border bg-card p-5">
+        <section className="rounded-xl border bg-card h-min p-5">
             <h2 className="text-xl font-semibold">Order Summary</h2>
 
             <div className="mt-5 space-y-4">
