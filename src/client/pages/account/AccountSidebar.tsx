@@ -1,4 +1,4 @@
-import { KeyRound, LayoutDashboard, LogOut, MapPin } from "lucide-react";
+import { KeyRound, LayoutDashboard, LogOut, MapPin, ShoppingBag } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 interface AccountSidebarProps {
@@ -49,6 +49,18 @@ const AccountSidebar = ({ logout }: AccountSidebarProps) => {
                     >
                         <MapPin className="h-5 w-5" />
                         <span>Addresses</span>
+                    </NavLink>
+
+                    <NavLink
+                        to="/orders"
+                        className={({ isActive }) =>
+                            `flex shrink-0 items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors lg:gap-3 ${
+                                isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                            }`
+                        }
+                    >
+                        <ShoppingBag className="h-5 w-5" />
+                        <span>Orders</span>
                     </NavLink>
 
                     <div className="hidden lg:block">

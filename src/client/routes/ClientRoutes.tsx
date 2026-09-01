@@ -28,6 +28,8 @@ const Products = lazy(() => import("@/client/pages/products/Products"));
 const ProductDetails = lazy(() => import("@/client/pages/products/ProductDetails"));
 const Cart = lazy(() => import("@/client/pages/cart/Cart"));
 const Checkout = lazy(() => import("@/client/pages/cart/Checkout"));
+const Orders = lazy(() => import("@/client/pages/Orders"));
+const OrderDetails = lazy(() => import("@/client/pages/OrderDetails"));
 
 const ClientRoutes = () => {
     return (
@@ -190,6 +192,22 @@ const ClientRoutes = () => {
                     element={
                         <Suspense fallback={<PageLoader />}>
                             <Checkout />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/orders"
+                    element={
+                        <Suspense fallback={<PageLoader />}>
+                            <Orders />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/orders/:orderId"
+                    element={
+                        <Suspense fallback={<PageLoader />}>
+                            <OrderDetails />
                         </Suspense>
                     }
                 />

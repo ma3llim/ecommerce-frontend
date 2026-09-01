@@ -1,36 +1,27 @@
+export type PaymentStatus = "PENDING" | "SUCCESS" | "FAILED" | "REFUNDED";
 export type OrderStatus = "PENDING" | "CONFIRMED" | "PACKED" | "SHIPPED" | "DELIVERED" | "CANCELLED" | "RETURNED";
+export type PaymentMethod = "COD" | "RAZORPAY";
 
-export type PaymentStatus = "PENDING" | "PAID" | "FAILED" | "REFUNDED" | "CANCELLED";
-
-export type PaymentMethod = "COD" | "CARD" | "UPI" | "NET_BANKING";
-
-export interface OrderPaymentResponse {
-    paymentId: string;
-    razorpayOrderId: string;
-    amount: number;
-    currency: string;
-    paymentMethod: PaymentMethod;
-    paymentStatus: PaymentStatus;
-}
-
-export interface OrderListResponse {
+export interface OrderListItem {
     orderId: string;
     orderNumber: string;
-    subtotal: number;
     shippingAmount: number;
     discountAmount: number;
     taxAmount: number;
     totalAmount: number;
-    couponId?: string;
-    couponCode?: string;
+    couponId: string | null;
+    couponCode: string | null;
     paymentStatus: PaymentStatus;
     orderStatus: OrderStatus;
-    payment?: OrderPaymentResponse;
+    createdAt: string;
 }
 
-export interface OrderItemResponse {
+export interface OrderItem {
     orderItem: string;
     orderId: string;
+    productId: string;
+    productVariantId: string;
+    productSlug: string;
     productName: string;
     variantName: string;
     quantity: number;
@@ -39,17 +30,26 @@ export interface OrderItemResponse {
     createdAt: string;
 }
 
-export interface OrderShippingAddressResponse {
+export interface OrderPayment {
+    paymentId: string;
+    razorpayOrderId: string | null;
+    amount: number;
+    currency: string;
+    paymentMethod: PaymentMethod;
+    paymentStatus: PaymentStatus;
+}
+
+export interface ShippingAddress {
     addressId: string;
     addressLine1: string;
-    addressLine2?: string;
+    addressLine2: string | null;
     city: string;
     state: string;
     postalCode: string;
     country: string;
 }
 
-export interface OrderShipmentTimelineResponse {
+export interface ShipmentTimeline {
     eventId: string;
     status: string;
     location: string;
@@ -57,17 +57,17 @@ export interface OrderShipmentTimelineResponse {
     eventTime: string;
 }
 
-export interface OrderShipmentResponse {
+export interface UserShipmentResponse {
     shipmentId: string;
     courierName: string;
     trackingNumber: string;
     shipmentStatus: string;
-    shippedAt?: string;
-    deliveredAt?: string;
-    timeline: OrderShipmentTimelineResponse[];
+    shippedAt: string | null;
+    deliveredAt: string | null;
+    timeline: ShipmentTimeline[];
 }
 
-export interface OrderDetailsResponse {
+export interface OrderDetail {
     orderId: string;
     orderNumber: string;
     subtotal: number;
@@ -77,20 +77,37 @@ export interface OrderDetailsResponse {
     totalAmount: number;
     paymentStatus: PaymentStatus;
     orderStatus: OrderStatus;
-    items: OrderItemResponse[];
-    payment: OrderPaymentResponse;
-    shippingAddress: OrderShippingAddressResponse;
-    userShipmentResponse?: OrderShipmentResponse;
+    items: OrderItem[];
+    payment: OrderPayment;
+    shippingAddress: ShippingAddress;
+    userShipmentResponse: UserShipmentResponse | null;
+}
+export interface CreateOrderRequest {
+    shippingAddressId: string;
+    paymentMethod: PaymentMethod;
+    couponCode?: string;
 }
 
-export interface OrderListParams {
-    page: number;
-    size: number;
-    search?: string;
-    orderStatus?: OrderStatus;
-    paymentStatus?: PaymentStatus;
+export interface CreateOrderPayment {
+    paymentId: string;
+    razorpayOrderId: string | null;
+    amount: number;
+    currency: string;
+    paymentMethod: PaymentMethod;
+    paymentStatus: PaymentStatus;
 }
 
-export interface UpdateOrderStatusRequest {
-    status: OrderStatus;
+export interface CreateOrderResponse {
+    orderId: string;
+    orderNumber: string;
+    subtotal: number;
+    shippingAmount: number;
+    discountAmount: number;
+    taxAmount: number;
+    totalAmount: number;
+    couponId: string | null;
+    couponCode: string | null;
+    paymentStatus: PaymentStatus;
+    orderStatus: OrderStatus;
+    payment: CreateOrderPayment;
 }

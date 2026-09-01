@@ -37,8 +37,15 @@ export const ENDPOINTS = {
     },
     ORDERS: {
         BASE: "/orders",
+        GET_ORDER: (orderId: string) => `/orders/${orderId}`,
+        CANCEL_ORDER: (orderId: string) => `/orders/${orderId}/cancel`,
     },
     PAYMENTS: {
         INITIATE: (orderId: string) => `/payments/${orderId}/payments`,
+    },
+    REVIEW: {
+        CREATE: "/reviews",
+        UPDATE: (reviewId: string) => `/reviews/${reviewId}`,
+        DELETE: (reviewId: string) => `/reviews/${reviewId}`,
     },
 };
