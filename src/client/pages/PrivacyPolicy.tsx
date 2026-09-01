@@ -141,7 +141,7 @@ const PrivacyPolicy = () => {
                             <p className="text-lg mb-2">If you have any questions about this Privacy Policy, please contact us:</p>
                             <ul className="list-disc">
                                 <li className="ml-6">
-                                    <strong>Email:</strong> mohdsameer68257@gmail.com
+                                    <strong>Email:</strong> sameer.dev@gmail.com
                                 </li>
                                 <li className="ml-6">
                                     <strong>Phone:</strong> +91 13245 67890

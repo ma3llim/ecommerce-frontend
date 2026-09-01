@@ -60,8 +60,8 @@ const TermsAndCondition = () => {
                         <p>
                             We accept returns within 7 days from the date of purchase. Items must be returned in their original condition and packaging. To
                             initiate a return, please contact our customer service team at{" "}
-                            <a className="mx-2" href="mailto:mohdsameer68257@gmail.com">
-                                mohdsameer68257@gmail.com
+                            <a className="mx-2" href="mailto:sameer.dev@gmail.com">
+                                sameer.dev@gmail.com
                             </a>
                             . Refunds will be processed within 7 business days of receiving the returned item, and the amount will be credited back to your
                             original payment method.

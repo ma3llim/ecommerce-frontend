@@ -59,8 +59,8 @@ const ReturnPolicy = () => {
                             <ol className="list-decimal list-inside mb-6">
                                 <li>
                                     <strong>Contact our Customer Service Team</strong>: Email us at
-                                    <a href="mailto:mohdsameer68257@gmail.com" className="text-light-blue dark:text-dark-light hover:underline mx-2">
-                                        mohdsameer68257@gmail.com
+                                    <a href="mailto:sameer.dev@gmail.com" className="text-light-blue dark:text-dark-light hover:underline mx-2">
+                                        sameer.dev@gmail.com
                                     </a>
                                     or call
                                     <a href="tel:+1234567890" className="text-light-blue dark:text-dark-light hover:underline mx-2">
@@ -101,8 +101,8 @@ const ReturnPolicy = () => {
                             <h2 className="text-2xl font-semibold text-light-blue dark:text-dark-light mb-4">Damaged or Defective Items</h2>
                             <p className="text-lg mb-6">
                                 If you receive a defective or damaged item, please notify us immediately at
-                                <a href="mailto:mohdsameer68257@gmail.com" className="text-light-blue dark:text-dark-light hover:underline mx-2">
-                                    mohdsameer68257@gmail.com
+                                <a href="mailto:sameer.dev@gmail.com" className="text-light-blue dark:text-dark-light hover:underline mx-2">
+                                    sameer.dev@gmail.com
                                 </a>
                                 with details and images of the issue. We will provide instructions on how to proceed, and in most cases, we will cover the
                                 return shipping cost.
@@ -132,8 +132,8 @@ const ReturnPolicy = () => {
                             <ul className="list-disc list-inside">
                                 <li>
                                     <strong className="mr-2">Email:</strong>
-                                    <a href="mailto:mohdsameer68257@gmail.com" className="text-light-blue dark:text-dark-light hover:underline">
-                                        mohdsameer68257@gmail.com
+                                    <a href="mailto:sameer.dev@gmail.com" className="text-light-blue dark:text-dark-light hover:underline">
+                                        sameer.dev@gmail.com
                                     </a>
                                 </li>
                                 <li>
