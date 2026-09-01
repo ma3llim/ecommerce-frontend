@@ -1,181 +1,171 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
-
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/inter";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: "Space Grotesk Variable", sans-serif;
+    --font-sans: "Inter Variable", sans-serif;
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
 
 :root {
-    --ds-primary: #2563eb;
-    --ds-primary-hover: #1d4ed8;
-    --ds-primary-light: #eff6ff;
-    --ds-accent: #7c3aed;
-    --ds-accent-hover: #6d28d9;
-    --ds-accent-light: #f5f3ff;
-    --ds-success: #16a34a;
-    --ds-success-subtle: #dcfce7;
-    --ds-warning: #d97706;
-    --ds-warning-subtle: #fef3c7;
-    --ds-danger: #dc2626;
-    --ds-danger-subtle: #fee2e2;
-    --ds-info: #0284c7;
-    --ds-info-subtle: #e0f2fe;
-    --ds-background: #f8fafc;
-    --ds-surface: #ffffff;
-    --ds-surface-secondary: #f1f5f9;
-    --ds-surface-elevated: #ffffff;
-    --ds-text-primary: #0f172a;
-    --ds-text-secondary: #334155;
-    --ds-text-muted: #64748b;
-    --ds-text-disabled: #94a3b8;
-    --ds-border: #e2e8f0;
-    --ds-border-strong: #cbd5e1;
-    --ds-font-body: "Inter", sans-serif;
-    --ds-font-heading: "Plus Jakarta Sans", sans-serif;
+    --background: oklch(0.985 0.006 285);
+    --foreground: oklch(0.16 0.025 285);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.16 0.025 285);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.16 0.025 285);
+    --primary: oklch(0.5217 0.1942 258.48);
+    --primary-foreground: oklch(0.99 0.005 285);
+    --secondary: oklch(0.955 0.018 285);
+    --secondary-foreground: oklch(0.22 0.035 285);
+    --muted: oklch(0.955 0.012 285);
+    --muted-foreground: oklch(0.52 0.035 285);
+    --accent: oklch(0.93 0.055 292);
+    --accent-foreground: oklch(0.38 0.16 292);
+    --destructive: oklch(0.59 0.235 25);
+    --border: oklch(0.9 0.018 285);
+    --input: oklch(0.9 0.018 285);
+    --ring: oklch(0.5217 0.1942 258.48);
+    --chart-1: oklch(0.5217 0.1942 258.48);
+    --chart-2: oklch(0.68 0.19 165);
+    --chart-3: oklch(0.76 0.17 85);
+    --chart-4: oklch(0.64 0.22 330);
+    --chart-5: oklch(0.62 0.21 35);
+    --radius: 0.75rem;
+    --sidebar: oklch(0.975 0.01 285);
+    --sidebar-foreground: oklch(0.16 0.025 285);
+    --sidebar-primary: oklch(0.5217 0.1942 258.48);
+    --sidebar-primary-foreground: oklch(0.99 0.005 285);
+    --sidebar-accent: oklch(0.93 0.055 292);
+    --sidebar-accent-foreground: oklch(0.38 0.16 292);
+    --sidebar-border: oklch(0.9 0.018 285);
+    --sidebar-ring: oklch(0.5217 0.1942 258.48);
+
+    --admin-primary: #2563eb;
+    --admin-primary-foreground: #ffffff;
+    --admin-info: #06b6d4;
+    --admin-info-foreground: #ffffff;
+    --admin-accent: #7c3aed;
+    --admin-accent-foreground: #ffffff;
+    --admin-success: #16a34a;
+    --admin-success-foreground: #ffffff;
+    --admin-danger: #dc2626;
+    --admin-danger-foreground: #ffffff;
+    --admin-warning: #d97706;
+    --admin-warning-foreground: #ffffff;
+    --admin-teal: #0f766e;
+    --admin-teal-foreground: #ffffff;
+    --admin-pink: #db2777;
+    --admin-pink-foreground: #ffffff;
 }
 
 .dark {
-    --ds-primary-light: #172554;
-    --ds-accent-light: #2e1065;
-    --ds-success-subtle: #052e16;
-    --ds-warning-subtle: #451a03;
-    --ds-danger-subtle: #450a0a;
-    --ds-info-subtle: #082f49;
-    --ds-background: #0b1120;
-    --ds-surface: #111827;
-    --ds-surface-secondary: #172033;
-    --ds-surface-elevated: #1e293b;
-    --ds-text-primary: #f8fafc;
-    --ds-text-secondary: #cbd5e1;
-    --ds-text-muted: #94a3b8;
-    --ds-text-disabled: #64748b;
-    --ds-border: #263449;
-    --ds-border-strong: #334155;
+    --background: oklch(0.115 0.02 285);
+    --foreground: oklch(0.97 0.01 285);
+    --card: oklch(0.17 0.025 285);
+    --card-foreground: oklch(0.97 0.01 285);
+    --popover: oklch(0.17 0.025 285);
+    --popover-foreground: oklch(0.97 0.01 285);
+    --primary-foreground: oklch(0.97 0.01 285);
+    --secondary: oklch(0.235 0.03 285);
+    --secondary-foreground: oklch(0.96 0.01 285);
+    --muted: oklch(0.235 0.025 285);
+    --muted-foreground: oklch(0.7 0.03 285);
+    --accent: oklch(0.29 0.075 292);
+    --accent-foreground: oklch(0.9 0.06 292);
+    --destructive: oklch(0.68 0.205 25);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 14%);
+    --chart-2: oklch(0.72 0.19 165);
+    --chart-3: oklch(0.8 0.17 85);
+    --chart-4: oklch(0.72 0.21 330);
+    --chart-5: oklch(0.7 0.21 35);
+    --sidebar: oklch(0.145 0.025 285);
+    --sidebar-foreground: oklch(0.97 0.01 285);
+    --sidebar-primary-foreground: oklch(0.16 0.04 292);
+    --sidebar-accent: oklch(0.29 0.075 292);
+    --sidebar-accent-foreground: oklch(0.9 0.06 292);
+    --sidebar-border: oklch(1 0 0 / 10%);
 }
 
-@theme inline {
-    --color-primary: var(--ds-primary);
-    --color-primary-hover: var(--ds-primary-hover);
-    --color-primary-light: var(--ds-primary-light);
-    --color-accent: var(--ds-accent);
-    --color-accent-hover: var(--ds-accent-hover);
-    --color-accent-light: var(--ds-accent-light);
-    --color-success: var(--ds-success);
-    --color-success-subtle: var(--ds-success-subtle);
-    --color-warning: var(--ds-warning);
-    --color-warning-subtle: var(--ds-warning-subtle);
-    --color-danger: var(--ds-danger);
-    --color-danger-subtle: var(--ds-danger-subtle);
-    --color-info: var(--ds-info);
-    --color-info-subtle: var(--ds-info-subtle);
-    --color-background: var(--ds-background);
-    --color-surface: var(--ds-surface);
-    --color-surface-secondary: var(--ds-surface-secondary);
-    --color-surface-elevated: var(--ds-surface-elevated);
-    --color-text-primary: var(--ds-text-primary);
-    --color-text-secondary: var(--ds-text-secondary);
-    --color-text-muted: var(--ds-text-muted);
-    --color-text-disabled: var(--ds-text-disabled);
-    --color-border: var(--ds-border);
-    --color-border-strong: var(--ds-border-strong);
-    --font-body: var(--ds-font-body);
-    --font-heading: var(--ds-font-heading);
-}
-
-@theme {
-    --shadow-card: 0 2px 8px rgb(15 23 42 / 0.06);
-    --shadow-card-hover: 0 8px 24px rgb(15 23 42 / 0.10);
-    --animate-fade-in: fade-in 300ms ease-out;
-    --animate-slide-up: slide-up 300ms ease-out;
-    --animate-slide-down: slide-down 200ms ease-out;
-    --animate-scale-in: scale-in 200ms ease-out;
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
     }
 
-    to {
-        opacity: 1;
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    html {
+        @apply font-sans;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading;
     }
 }
 
-@keyframes slide-up {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+* {
+    transition:
+        background-color 300ms ease,
+        border-color 300ms ease,
+        color 300ms ease,
+        fill 300ms ease,
+        stroke 300ms ease;
 }
 
-@keyframes slide-down {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+button {
+    cursor: pointer;
 }
 
-@keyframes scale-in {
-    from {
-        opacity: 0;
-        transform: scale(0.96);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-html {
-    font-family: var(--ds-font-body);
-    background: var(--ds-background);
-    color: var(--ds-text-primary);
-}
-
-body {
-    margin: 0;
-    min-width: 320px;
-    background: var(--ds-background);
-    color: var(--ds-text-primary);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--ds-font-heading);
-    color: var(--ds-text-primary);
-}
-
-
-button,
-input,
-textarea,
-select {
-    font: inherit;
-}
-
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+button:disabled {
+    cursor: not-allowed !important;
 }
