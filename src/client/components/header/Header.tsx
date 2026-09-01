@@ -57,8 +57,8 @@ const Header = () => {
         <header className="sticky top-0 z-50 w-full bg-background">
             <div className="flex min-h-19 items-center justify-between gap-6 px-4">
                 <Link to="/" className="group shrink-0 font-heading text-2xl font-bold tracking-tight">
-                    <span className="text-foreground transition-colors group-hover:text-primary">Sameer</span>
-                    <span className="text-primary">Cart</span>
+                    <span className="text-foreground transition-colors group-hover:text-primary">E</span>
+                    <span className="text-primary">Commerce</span>
                 </Link>
 
                 <div className="hidden w-full max-w-xl md:block lg:max-w-2xl">
