@@ -1,7 +1,8 @@
 export const ENDPOINTS = {
     SEARCH: (query: string) => `/products/search?query=${query}`,
     CATEGORIES: "/categories",
-    SEND_CONTACT: "/contacts/send-contact",
+    SEND_CONTACT: "/contact",
+    NEWSLETTER: "/newsletter",
     AUTH: {
         FORGOT_PASSWORD: "/auth/forgot-password",
         LOGIN: "/auth/login",

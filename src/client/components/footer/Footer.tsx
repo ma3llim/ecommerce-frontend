@@ -4,8 +4,44 @@ import { Link } from "react-router-dom";
 import { currentYear } from "@/utils/Time";
 import Container from "@/client/components/Container";
 import { SOCIAL_LINKS } from "@/constants/Social.constants";
+import { useForm } from "react-hook-form";
+import { newsletterSchema, type NewsletterFormValues } from "@/client/validation/Newsletter.schema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
+import { NewsletterApi } from "@/client/api/Newsletter.api";
+import ToastService from "@/services/ToastService";
+import FormError from "@/components/forms/FormError";
 
 const Footer = () => {
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm<NewsletterFormValues>({
+        resolver: yupResolver(newsletterSchema),
+        defaultValues: {
+            email: "",
+        },
+    });
+
+    const { mutate: subscribe, isPending } = useMutation({
+        mutationFn: NewsletterApi.subscribe,
+
+        onSuccess: response => {
+            ToastService.success(response.message || "Subscribed successfully.");
+            reset();
+        },
+
+        onError: error => {
+            ToastService.error(error instanceof Error ? error.message : "Failed to subscribe.");
+        },
+    });
+
+    const onSubmit = (values: NewsletterFormValues) => {
+        subscribe(values);
+    };
+
     const year = useMemo(() => currentYear(), []);
 
     return (
@@ -95,23 +131,23 @@ const Footer = () => {
                         <p className="leading-7 text-white/80">
                             You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.
                         </p>
-                        <form className="relative mt-3 w-full overflow-hidden rounded-lg">
+                        <form onSubmit={handleSubmit(onSubmit)} className="relative mt-3 mb-2 w-full overflow-hidden rounded-lg">
                             <input
                                 type="email"
                                 id="newsletter"
-                                name="newsletter"
-                                required
                                 placeholder="Enter Your Email Here"
+                                {...register("email")}
                                 className="block w-full rounded-lg border border-white bg-primary-foreground/10 p-3 pr-24 text-sm text-white outline-none placeholder:text-white/60 focus:border-white focus:ring-0"
                             />
-
                             <button
                                 type="submit"
+                                disabled={isPending}
                                 className="absolute inset-e-0 top-0 h-full rounded-e-lg bg-white px-4 font-medium text-primary transition-opacity hover:opacity-90"
                             >
-                                SIGN UP
+                                {isPending ? "Subscribing" : "Subscribe"}
                             </button>
                         </form>
+                        {errors.email && <FormError message={errors.email?.message} />}
                     </div>
                 </div>
 
