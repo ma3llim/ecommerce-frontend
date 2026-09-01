@@ -57,47 +57,23 @@ const ProductDetails = () => {
         setQuantity(1);
     };
 
-    if (isError || !product) {
-        return (
-            <Container>
-                <div className="flex min-h-96 flex-col items-center justify-center text-center">
-                    <h1 className="text-2xl font-bold">Product not found</h1>
-                    <p className="mt-2 text-muted-foreground">The product you're looking for is unavailable.</p>
-                    <Link to="/products" className="mt-5 text-primary hover:underline">
-                        Back to Products
-                    </Link>
-                </div>
-            </Container>
-        );
-    }
-
-    if (!selectedVariant) {
-        return (
-            <Container>
-                <div className="flex min-h-96 items-center justify-center">
-                    <p className="text-muted-foreground">No active product variant available.</p>
-                </div>
-            </Container>
-        );
-    }
-
     const handleAddToCart = () => {
         addToCart();
     };
     return (
         <>
             <Helmet>
-                <title>{`${product.name} - SameerCart`}</title>
+                <title>{`${product?.name} - SameerCart`}</title>
                 <meta
                     name="description"
-                    content={`${product.description} Shop ${product.name} at the best price on SameerCart with secure shopping and fast delivery.`}
+                    content={`${product?.description} Shop ${product?.name} at the best price on SameerCart with secure shopping and fast delivery.`}
                 />
-                <meta name="keywords" content={`${product.name}, ${product.slug}, buy ${product.name} online, ${product.name} price, SameerCart`} />
-                <meta property="og:title" content={`${product.name} - SameerCart`} />
-                <meta property="og:description" content={`${product.description} Shop now on SameerCart.`} />
-                <meta property="og:url" content={`https://sameercart.com/product-details/${product.slug}`} />
+                <meta name="keywords" content={`${product?.name}, ${product?.slug}, buy ${product?.name} online, ${product?.name} price, SameerCart`} />
+                <meta property="og:title" content={`${product?.name} - SameerCart`} />
+                <meta property="og:description" content={`${product?.description} Shop now on SameerCart.`} />
+                <meta property="og:url" content={`https://sameercart.com/product-details/${product?.slug}`} />
                 <meta property="og:type" content="product" />
-                {selectedVariant.images?.[0]?.url && <meta property="og:image" content={selectedVariant.images[0].url} />}
+                {selectedVariant?.images?.[0]?.url && <meta property="og:image" content={selectedVariant?.images[0].url} />}
                 <meta name="robots" content="index, follow" />
             </Helmet>
             <Banner title="Products" image={bannerImage}>
@@ -112,7 +88,7 @@ const ProductDetails = () => {
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbPage>{product.name}</BreadcrumbPage>
+                            <BreadcrumbPage>{product?.name}</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
@@ -120,6 +96,18 @@ const ProductDetails = () => {
             <Container>
                 {isLoading ? (
                     <PageLoader />
+                ) : isError || !product ? (
+                    <div className="flex min-h-96 flex-col items-center justify-center text-center">
+                        <h1 className="text-2xl font-bold">Product not found</h1>
+                        <p className="mt-2 text-muted-foreground">The product you're looking for is unavailable.</p>
+                        <Link to="/products" className="mt-5 text-primary hover:underline">
+                            Back to Products
+                        </Link>
+                    </div>
+                ) : !selectedVariant ? (
+                    <div className="flex min-h-96 items-center justify-center">
+                        <p className="text-muted-foreground">No active product variant available.</p>
+                    </div>
                 ) : (
                     <section className="w-full py-8 md:py-10">
                         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
