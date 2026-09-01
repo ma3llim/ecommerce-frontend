@@ -83,3 +83,12 @@ export interface OrderDetail {
     shippingAddress: ShippingAddress;
     userShipmentResponse?: UserShipmentResponse | null;
 }
+
+export interface InitiatePaymentResponse {
+    paymentId: string;
+    razorpayOrderId: string | null;
+    amount: number;
+    currency: string;
+    paymentMethod: PaymentMethod;
+    paymentStatus: PaymentStatus;
+}
