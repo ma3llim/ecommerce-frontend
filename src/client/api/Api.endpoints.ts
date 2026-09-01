@@ -48,5 +48,6 @@ export const ENDPOINTS = {
         CREATE: "/reviews",
         UPDATE: (reviewId: string) => `/reviews/${reviewId}`,
         DELETE: (reviewId: string) => `/reviews/${reviewId}`,
+        GET_PRODUCT_REVIEWS: (productSlug: string) => `/products/${productSlug}/reviews`,
     },
 };

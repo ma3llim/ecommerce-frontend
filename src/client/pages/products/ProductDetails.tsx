@@ -15,6 +15,7 @@ import Banner from "@/client/components/Banner";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import PageLoader from "@/components/common/PageLoader";
 import { CartApi } from "@/client/api/Cart.api";
+import ProductReviews from "@/client/components/products/ProductReviews";
 
 const ProductDetails = () => {
     const { productSlug } = useParams<{ productSlug: string }>();
@@ -128,6 +129,7 @@ const ProductDetails = () => {
 
                             <ProductFaqs faqs={product.faqs} />
                         </div>
+                        <ProductReviews productSlug={product.slug} />
                     </section>
                 )}
             </Container>

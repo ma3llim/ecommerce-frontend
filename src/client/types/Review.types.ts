@@ -46,3 +46,22 @@ export interface ReviewActionsProps {
     onDeleted?: () => void;
     orderId: string;
 }
+
+export interface ProductReview {
+    id: string;
+    rating: number;
+    title: string;
+    review: string;
+    verifiedPurchase: boolean;
+    createdAt: string;
+}
+
+export interface ProductReviewPage {
+    content: ProductReview[];
+    page: number;
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    first: boolean;
+    last: boolean;
+}

@@ -111,3 +111,12 @@ export interface CreateOrderResponse {
     orderStatus: OrderStatus;
     payment: CreateOrderPayment;
 }
+export interface OrderListPage {
+    content: OrderListItem[];
+    page: number;
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    first: boolean;
+    last: boolean;
+}
