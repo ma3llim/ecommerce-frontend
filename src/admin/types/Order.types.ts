@@ -2,6 +2,20 @@ export type PaymentStatus = "PENDING" | "SUCCESS" | "FAILED" | "REFUNDED";
 export type OrderStatus = "PENDING" | "CONFIRMED" | "PACKED" | "SHIPPED" | "DELIVERED" | "CANCELLED" | "RETURNED";
 export type PaymentMethod = "COD" | "RAZORPAY";
 
+export interface OrderListResponse {
+    orderId: string;
+    orderNumber: string;
+    subtotal: number;
+    shippingAmount: number;
+    discountAmount: number;
+    taxAmount: number;
+    totalAmount: number;
+    couponId?: string;
+    couponCode?: string;
+    paymentStatus: PaymentStatus;
+    orderStatus: OrderStatus;
+    payment?: OrderPaymentResponse;
+}
 export interface OrderListItem {
     orderId: string;
     orderNumber: string;

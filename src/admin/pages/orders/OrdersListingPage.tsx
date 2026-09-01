@@ -1,7 +1,7 @@
 import { OrderApi } from "@/admin/api/OrderApi";
 import ButtonWithAlert from "@/admin/components/ButtonWithAlert";
 import { DataTable, DataTableRowActions } from "@/admin/components/table";
-import type { OrderListItem, OrderStatus, PaymentStatus } from "@/admin/types/Order.types";
+import type { OrderListResponse, OrderStatus, PaymentStatus } from "@/admin/types/Order.types";
 import FormError from "@/components/forms/FormError";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -47,7 +47,7 @@ const OrdersListingPage = () => {
         },
     });
 
-    const columns: ColumnDef<OrderListItem>[] = [
+    const columns: ColumnDef<OrderListResponse>[] = [
         {
             accessorKey: "orderNumber",
             header: "Order Number",
