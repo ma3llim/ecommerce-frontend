@@ -17,9 +17,9 @@ const ProductFaqs = ({ faqs = [] }: ProductFaqsProps) => {
             <Accordion className="mt-5">
                 {faqs.map(faq => (
                     <AccordionItem key={faq.productFaqId} value={faq.productFaqId}>
-                        <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                        <AccordionTrigger className="text-left text-lg">{faq.question}</AccordionTrigger>
 
-                        <AccordionContent className="leading-7 text-muted-foreground">{faq.answer}</AccordionContent>
+                        <AccordionContent className="leading-7 text-muted-foreground text-base">{faq.answer}</AccordionContent>
                     </AccordionItem>
                 ))}
             </Accordion>
