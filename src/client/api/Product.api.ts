@@ -21,4 +21,10 @@ export const ProductApi = {
         const response = await axiosInstance.get<ApiResponse<ProductDetails>>(ENDPOINTS.PRODUCT.BY_SLUG(productSlug));
         return response.data;
     },
+    getProductsByTag: async ({ tagSlug, pagination }: { tagSlug: string; pagination: PaginationRequest }): Promise<ApiResponse<PageResponse<Product>>> => {
+        const response = await axiosInstance.get<ApiResponse<PageResponse<Product>>>(ENDPOINTS.PRODUCT.GET_BY_TAG(tagSlug), {
+            params: pagination,
+        });
+        return response.data;
+    },
 };

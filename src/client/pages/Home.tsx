@@ -10,6 +10,7 @@ import Categories from "../components/home/Categories";
 import Container from "../components/Container";
 
 const Slider = lazy(() => import("@/client/components/home/Slider"));
+const TagProductSlider = lazy(() => import("@/client/components/home/TagProductSlider"));
 
 const Home = () => {
     const sliderData = useMemo<SliderItem[]>(
@@ -69,6 +70,21 @@ const Home = () => {
             <Container>
                 <Suspense fallback={<PageLoader />}>
                     <Categories />
+                </Suspense>
+                <Suspense fallback={<PageLoader />}>
+                    <TagProductSlider tagSlug="best-seller" title="Best Seller" />
+                </Suspense>
+                <Suspense fallback={<PageLoader />}>
+                    <TagProductSlider tagSlug="new-arrival" title="New Arrival" />
+                </Suspense>
+                <Suspense fallback={<PageLoader />}>
+                    <TagProductSlider tagSlug="trending" title="Trending" />
+                </Suspense>
+                <Suspense fallback={<PageLoader />}>
+                    <TagProductSlider tagSlug="featured" title="Featured" />
+                </Suspense>
+                <Suspense fallback={<PageLoader />}>
+                    <TagProductSlider tagSlug="sale" title="Sale" />
                 </Suspense>
             </Container>
         </>
