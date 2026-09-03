@@ -2,6 +2,8 @@ import { Helmet } from "react-helmet-async";
 import returnPolicyBanner from "@/assets/banners/return_policy.webp";
 import Banner from "../components/Banner";
 import Container from "../components/Container";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Link } from "lucide-react";
 
 const ReturnPolicy = () => {
     return (
@@ -22,7 +24,22 @@ const ReturnPolicy = () => {
                 <meta property="og:type" content="website" />
                 <meta name="robots" content="index, follow" />
             </Helmet>
-            <Banner title={"Return Policy"} image={returnPolicyBanner} />
+            <Banner title={"Return Policy"} image={returnPolicyBanner}>
+                <Breadcrumb>
+                    <BreadcrumbList className="text-lg">
+                        <BreadcrumbItem>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className="text-white">Privacy Policy</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </Banner>
+
             <Container>
                 <section className="w-full my-10">
                     <div className="w-full p-4 space-y-8">

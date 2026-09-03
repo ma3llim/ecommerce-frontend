@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
 import Container from "../components/Container";
 import { Helmet } from "react-helmet-async";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 const LegalNotice = () => {
     return (
@@ -24,7 +25,21 @@ const LegalNotice = () => {
                 <meta name="robots" content="index, follow" />
             </Helmet>
 
-            <Banner image={legalNoticeBanner} title="Legal Notice" />
+            <Banner image={legalNoticeBanner} title="Legal Notice">
+                <Breadcrumb>
+                    <BreadcrumbList className="text-lg">
+                        <BreadcrumbItem>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className="text-white">Legal Notice</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </Banner>
             <Container>
                 <section className="my-10 w-full p-4">
                     <div className="mb-5 w-full">

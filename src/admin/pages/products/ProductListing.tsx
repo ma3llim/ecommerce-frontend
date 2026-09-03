@@ -26,15 +26,22 @@ const ProductListing = () => {
     });
 
     const products = data?.data.content ?? [];
+    console.log(products);
 
     const productColumns: ColumnDef<Product>[] = [
         {
             accessorKey: "name",
             header: ({ column }) => <DataTableColumnHeader column={column} title="Product" />,
+            cell: ({ row }) => <div className="text-wrap">{row.original.name}</div>,
         },
         {
             accessorKey: "categoryName",
             header: ({ column }) => <DataTableColumnHeader column={column} title="Category" />,
+        },
+        {
+            accessorKey: "description",
+            header: "Description",
+            cell: ({ row }) => <div className="text-wrap">{row.original.description}</div>,
         },
         {
             accessorKey: "published",

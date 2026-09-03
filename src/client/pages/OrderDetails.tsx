@@ -15,6 +15,7 @@ import bannerImage from "@/assets/banners/basket_banner.webp";
 import Banner from "../components/Banner";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ArrowLeft } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const OrderDetails = () => {
     const { orderId } = useParams<{ orderId: string }>();
@@ -34,11 +35,18 @@ const OrderDetails = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Order Details | E-Commerce</title>
+                <meta name="description" content="View your order details, items, payment information, shipping address, and order status." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
             <Banner title="Products" image={bannerImage}>
                 <Breadcrumb>
                     <BreadcrumbList className="text-lg">
                         <BreadcrumbItem>
-                            <Link to="/">Home</Link>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
@@ -46,7 +54,7 @@ const OrderDetails = () => {
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbPage>Order Details</BreadcrumbPage>
+                            <BreadcrumbPage className="text-white">Order Details</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>

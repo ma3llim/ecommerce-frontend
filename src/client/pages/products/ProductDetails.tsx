@@ -9,13 +9,13 @@ import { ProductApi } from "@/client/api/Product.api";
 import ProductGallery from "@/client/components/products/ProductGallery";
 import ProductInfo from "@/client/components/products/ProductInfo";
 import ProductSpecifications from "@/client/components/products/ProductSpecifications";
-import ProductFaqs from "@/client/components/products/ProductFaqs";
 import Container from "@/client/components/Container";
 import Banner from "@/client/components/Banner";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import PageLoader from "@/components/common/PageLoader";
 import { CartApi } from "@/client/api/Cart.api";
 import ProductReviews from "@/client/components/products/ProductReviews";
+import Faq, { type FaqItem } from "@/client/components/Faq";
 
 const ProductDetails = () => {
     const { productSlug } = useParams<{ productSlug: string }>();
@@ -61,6 +61,14 @@ const ProductDetails = () => {
     const handleAddToCart = () => {
         addToCart();
     };
+
+    const faqs: FaqItem[] =
+        product?.faqs.map(faq => ({
+            id: faq.productFaqId,
+            title: faq.question,
+            answer: faq.answer,
+        })) ?? [];
+
     return (
         <>
             <Helmet>
@@ -81,15 +89,19 @@ const ProductDetails = () => {
                 <Breadcrumb>
                     <BreadcrumbList className="text-lg">
                         <BreadcrumbItem>
-                            <Link to="/">Home</Link>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <Link to="/products">Products</Link>
+                            <Link to="/products" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Products
+                            </Link>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbPage>{product?.name}</BreadcrumbPage>
+                            <BreadcrumbPage className="text-white">{product?.name}</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
@@ -127,7 +139,7 @@ const ProductDetails = () => {
                         <div className="mt-12">
                             <ProductSpecifications specifications={product.specifications} />
 
-                            <ProductFaqs faqs={product.faqs} />
+                            <Faq lists={faqs} />
                         </div>
                         <ProductReviews productSlug={product.slug} />
                     </section>

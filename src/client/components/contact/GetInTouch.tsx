@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { SOCIAL_LINKS } from "@/constants/Social.constants";
 import ToastService from "@/services/ToastService";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
@@ -53,7 +54,6 @@ const GetInTouch = () => {
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                 <div className="rounded-lg bg-card p-6 shadow-lg md:p-8">
                     <h3 className="mb-6 text-2xl font-semibold">Contact Information</h3>
-
                     <div className="space-y-6">
                         <div className="flex items-start gap-4">
                             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -88,6 +88,26 @@ const GetInTouch = () => {
                                 <p className="mt-1 break-all text-sm text-muted-foreground">sameer.d3v@gmail.com</p>
                             </div>
                         </div>
+                        <div className="flex items-start gap-4">
+                            <div>
+                                <h4 className="font-semibold mb-3">Follow Us:</h4>
+                                <ul className="flex flex-wrap items-center gap-3">
+                                    {SOCIAL_LINKS.map(({ name, url, icon: Icon }) => (
+                                        <li key={name}>
+                                            <a
+                                                href={url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label={`Visit ${name}`}
+                                                className="flex h-9 w-9 items-center justify-center rounded-full border border-primary bg-primary text-white transition-colors hover:border-primary-foreground hover:bg-primary/70 hover:text-white"
+                                            >
+                                                <Icon className="h-4 w-4" />
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="rounded-lg bg-card p-6 shadow-lg md:p-8 lg:col-span-2">
@@ -105,15 +125,17 @@ const GetInTouch = () => {
                                 <FormError message={errors.lastName?.message} />
                             </div>
                         </div>
-                        <div className="w-full space-y-2">
-                            <Label htmlFor="email">Email</Label>
-                            <Input disabled={isPending} id="email" type="email" placeholder="Enter your email" {...register("email")} />
-                            <FormError message={errors.email?.message} />
-                        </div>
-                        <div className="w-full space-y-2">
-                            <Label htmlFor="subject">Subject</Label>
-                            <Input disabled={isPending} id="subject" placeholder="Enter subject" {...register("subject")} />
-                            <FormError message={errors.subject?.message} />
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                            <div className="w-full space-y-2">
+                                <Label htmlFor="email">Email</Label>
+                                <Input disabled={isPending} id="email" type="email" placeholder="Enter your email" {...register("email")} />
+                                <FormError message={errors.email?.message} />
+                            </div>
+                            <div className="w-full space-y-2">
+                                <Label htmlFor="subject">Subject</Label>
+                                <Input disabled={isPending} id="subject" placeholder="Enter subject" {...register("subject")} />
+                                <FormError message={errors.subject?.message} />
+                            </div>
                         </div>
                         <div className="w-full space-y-2">
                             <Label htmlFor="message">Message</Label>
@@ -121,7 +143,7 @@ const GetInTouch = () => {
                                 disabled={isPending}
                                 id="message"
                                 placeholder="Write your message..."
-                                className="min-h-40 resize-none"
+                                className="min-h-20 resize-none"
                                 {...register("message")}
                             />
                             <FormError message={errors.message?.message} />

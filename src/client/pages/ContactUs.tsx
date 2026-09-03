@@ -22,11 +22,13 @@ const ContactUs = () => {
                 <Breadcrumb>
                     <BreadcrumbList className="text-lg">
                         <BreadcrumbItem>
-                            <Link to="/">Home</Link>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbPage>Contact Us</BreadcrumbPage>
+                            <BreadcrumbPage className="text-white">Contact Us</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>

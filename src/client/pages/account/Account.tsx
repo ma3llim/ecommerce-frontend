@@ -31,7 +31,7 @@ const Account = () => {
     return (
         <Container>
             <section className="w-full py-6 md:py-8">
-                <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+                <div className="mx-auto w-full">
                     <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8">
                         <AccountSidebar logout={logout} />
 

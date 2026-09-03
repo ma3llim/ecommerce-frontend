@@ -77,7 +77,7 @@ export function DataTable<TData, TValue>({
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() ? "selected" : undefined}
-                                    className="border-b odd:bg-background even:bg-muted/30 text-center hover:bg-muted/60 data-[state=selected]:bg-muted transition-colors"
+                                    className="border-b odd:bg-background even:bg-muted/30 hover:bg-muted/60 data-[state=selected]:bg-muted transition-colors"
                                 >
                                     {row.getVisibleCells().map(cell => (
                                         <TableCell key={cell.id} className="border border-border/60 px-4 py-3">

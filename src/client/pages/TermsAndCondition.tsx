@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
 import Container from "../components/Container";
 import { Helmet } from "react-helmet-async";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 const TermsAndCondition = () => {
     return (
@@ -16,7 +17,21 @@ const TermsAndCondition = () => {
                 <meta property="og:url" content="https://E-Commerce.com/terms-and-conditions" />
                 <meta name="robots" content="index, follow" />
             </Helmet>
-            <Banner image={termsAndcondition} title={"Terms And Condition"} />
+            <Banner image={termsAndcondition} title={"Terms And Condition"}>
+                <Breadcrumb>
+                    <BreadcrumbList className="text-lg">
+                        <BreadcrumbItem>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className="text-white">Orders</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </Banner>
             <Container>
                 <section className="w-full my-10 space-y-5">
                     <div className="w-full">

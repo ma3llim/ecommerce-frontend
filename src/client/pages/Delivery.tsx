@@ -5,6 +5,8 @@ import Container from "../components/Container";
 import ShippingMethods from "../components/delivery/ShippingMethods";
 import OrderProcessingTime from "../components/delivery/OrderProcessingTime";
 import FAQsSection from "../components/delivery/FaqSection";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Link } from "react-router-dom";
 
 const Delivery = () => {
     return (
@@ -25,7 +27,21 @@ const Delivery = () => {
                 <meta property="og:type" content="website" />
                 <meta name="robots" content="index, follow" />
             </Helmet>
-            <Banner image={bannerImage} title={"Delivery Information"} />
+            <Banner image={bannerImage} title={"Delivery Information"}>
+                <Breadcrumb>
+                    <BreadcrumbList className="text-lg">
+                        <BreadcrumbItem>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className="text-white">Delivery</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </Banner>
             <Container>
                 <ShippingMethods />
                 <OrderProcessingTime />

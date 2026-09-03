@@ -10,6 +10,7 @@ import AddressForm from "@/client/components/address/AddressForm";
 import AddressCard from "@/client/components/address/AddressCard";
 import PageLoader from "@/components/common/PageLoader";
 import ErrorState from "@/components/common/ErrorState";
+import { Helmet } from "react-helmet-async";
 
 const Addresses = () => {
     const queryClient = useQueryClient();
@@ -147,67 +148,74 @@ const Addresses = () => {
     }
 
     return (
-        <section className="w-full space-y-6">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                    <h1 className="text-3xl font-bold tracking-tight">My Addresses</h1>
-                    <p className="mt-2 text-muted-foreground">Manage your shipping and billing addresses.</p>
+        <>
+            <Helmet>
+                <title>My Addresses | ecommerce</title>
+                <meta name="description" content="Manage your saved shipping and billing addresses." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>{" "}
+            <section className="w-full space-y-6">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold tracking-tight">My Addresses</h1>
+                        <p className="mt-2 text-muted-foreground">Manage your shipping and billing addresses.</p>
+                    </div>
+                    {!showForm && (
+                        <Button type="button" onClick={handleAdd}>
+                            <Plus className="mr-2 h-4 w-4" />
+                            Add Address
+                        </Button>
+                    )}
                 </div>
-                {!showForm && (
-                    <Button type="button" onClick={handleAdd}>
-                        <Plus className="mr-2 h-4 w-4" />
-                        Add Address
-                    </Button>
+
+                {showForm && (
+                    <div className="rounded-2xl border bg-card p-5 shadow-sm md:p-8">
+                        <div className="mb-6">
+                            <h2 className="text-xl font-semibold">{editingAddress ? "Edit Address" : "Add New Address"}</h2>
+
+                            <p className="mt-1 text-sm text-muted-foreground">
+                                {editingAddress ? "Update your saved address." : "Add a new shipping or billing address."}
+                            </p>
+                        </div>
+
+                        <AddressForm address={editingAddress} isPending={isPending} onSubmit={handleSubmit} onCancel={handleCancel} />
+                    </div>
                 )}
-            </div>
 
-            {showForm && (
-                <div className="rounded-2xl border bg-card p-5 shadow-sm md:p-8">
-                    <div className="mb-6">
-                        <h2 className="text-xl font-semibold">{editingAddress ? "Edit Address" : "Add New Address"}</h2>
+                {!showForm && addresses.length === 0 && (
+                    <div className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-dashed bg-card p-8 text-center">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                            <Plus className="h-6 w-6" />
+                        </div>
 
-                        <p className="mt-1 text-sm text-muted-foreground">
-                            {editingAddress ? "Update your saved address." : "Add a new shipping or billing address."}
-                        </p>
+                        <h2 className="mt-4 text-lg font-semibold">No addresses yet</h2>
+
+                        <p className="mt-1 max-w-sm text-sm text-muted-foreground">Add an address to make checkout faster and easier.</p>
+
+                        <Button className="mt-5" onClick={handleAdd}>
+                            Add Address
+                        </Button>
                     </div>
+                )}
 
-                    <AddressForm address={editingAddress} isPending={isPending} onSubmit={handleSubmit} onCancel={handleCancel} />
-                </div>
-            )}
-
-            {!showForm && addresses.length === 0 && (
-                <div className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-dashed bg-card p-8 text-center">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <Plus className="h-6 w-6" />
+                {/* Address List */}
+                {!showForm && addresses.length > 0 && (
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                        {addresses.map(address => (
+                            <AddressCard
+                                key={address.id}
+                                address={address}
+                                isPending={isPending}
+                                onEdit={handleEdit}
+                                onDelete={handleDelete}
+                                onDefaultShipping={address => setDefaultShipping(address.id)}
+                                onDefaultBilling={address => setDefaultBilling(address.id)}
+                            />
+                        ))}
                     </div>
-
-                    <h2 className="mt-4 text-lg font-semibold">No addresses yet</h2>
-
-                    <p className="mt-1 max-w-sm text-sm text-muted-foreground">Add an address to make checkout faster and easier.</p>
-
-                    <Button className="mt-5" onClick={handleAdd}>
-                        Add Address
-                    </Button>
-                </div>
-            )}
-
-            {/* Address List */}
-            {!showForm && addresses.length > 0 && (
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                    {addresses.map(address => (
-                        <AddressCard
-                            key={address.id}
-                            address={address}
-                            isPending={isPending}
-                            onEdit={handleEdit}
-                            onDelete={handleDelete}
-                            onDefaultShipping={address => setDefaultShipping(address.id)}
-                            onDefaultBilling={address => setDefaultBilling(address.id)}
-                        />
-                    ))}
-                </div>
-            )}
-        </section>
+                )}
+            </section>
+        </>
     );
 };
 

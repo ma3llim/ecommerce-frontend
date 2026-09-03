@@ -2,6 +2,8 @@ import { Helmet } from "react-helmet-async";
 import privacyPolicyBanner from "@/assets/banners/privacy_polics.webp";
 import Banner from "../components/Banner";
 import Container from "../components/Container";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Link } from "react-router-dom";
 
 const PrivacyPolicy = () => {
     return (
@@ -19,7 +21,21 @@ const PrivacyPolicy = () => {
                 <meta property="og:type" content="website" />
                 <meta name="robots" content="index, follow" />
             </Helmet>
-            <Banner image={privacyPolicyBanner} title={"Privacy Policy"} />
+            <Banner image={privacyPolicyBanner} title={"Privacy Policy"}>
+                <Breadcrumb>
+                    <BreadcrumbList className="text-lg">
+                        <BreadcrumbItem>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className="text-white">Orders</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </Banner>
             <Container>
                 <section className="w-full my-10 p-4">
                     <div className="w-full space-y-8">

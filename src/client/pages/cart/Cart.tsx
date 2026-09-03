@@ -7,6 +7,7 @@ import ToastService from "@/services/ToastService";
 import { CartApi } from "@/client/api/Cart.api";
 import PageLoader from "@/components/common/PageLoader";
 import Container from "@/client/components/Container";
+import { Helmet } from "react-helmet-async";
 
 const Cart = () => {
     const queryClient = useQueryClient();
@@ -116,6 +117,11 @@ const Cart = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Shopping Cart | ecommerce</title>
+                <meta name="description" content="Review the products in your shopping cart before checkout." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
             {isLoading ? (
                 <PageLoader />
             ) : (

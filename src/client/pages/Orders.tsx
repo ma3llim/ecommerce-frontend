@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Package } from "lucide-react";
+import { ChevronLeft, ChevronRight, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Container from "@/client/components/Container";
 import PageLoader from "@/components/common/PageLoader";
@@ -23,20 +23,6 @@ const Orders = () => {
 
     const orderPage = data?.data;
     const orders = orderPage?.content ?? [];
-
-    const handlePrevious = () => {
-        setPagination(prev => ({
-            ...prev,
-            page: Math.max(0, prev.page - 1),
-        }));
-    };
-
-    const handleNext = () => {
-        setPagination(prev => ({
-            ...prev,
-            page: prev.page + 1,
-        }));
-    };
 
     if (isError) {
         return (
@@ -60,11 +46,13 @@ const Orders = () => {
                 <Breadcrumb>
                     <BreadcrumbList className="text-lg">
                         <BreadcrumbItem>
-                            <Link to="/">Home</Link>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbPage>Orders</BreadcrumbPage>
+                            <BreadcrumbPage className="text-white">Orders</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
@@ -107,20 +95,43 @@ const Orders = () => {
                             </div>
 
                             {orderPage && orderPage.totalPages > 1 && (
-                                <div className="mt-8 flex items-center justify-center gap-3">
-                                    <Button type="button" variant="outline" disabled={orderPage.first} onClick={handlePrevious}>
-                                        <ArrowLeft className="mr-2 h-4 w-4" />
-                                        Previous
-                                    </Button>
+                                <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t pt-6 sm:flex-row">
+                                    <p className="text-sm text-muted-foreground">
+                                        Page <span className="font-medium text-foreground">{(orderPage?.page ?? 0) + 1}</span> of{" "}
+                                        <span className="font-medium text-foreground">{orderPage?.totalPages ?? 0}</span>
+                                    </p>
 
-                                    <div className="flex h-9 min-w-9 items-center justify-center rounded-md border bg-muted px-3 text-sm font-medium">
-                                        {orderPage.page + 1}
+                                    <div className="flex gap-2">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            disabled={orderPage?.first ?? true}
+                                            onClick={() =>
+                                                setPagination(prev => ({
+                                                    ...prev,
+                                                    page: Math.max(0, prev.page - 1),
+                                                }))
+                                            }
+                                        >
+                                            <ChevronLeft className="mr-1 h-4 w-4" />
+                                            Previous
+                                        </Button>
+
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            disabled={orderPage?.last ?? true}
+                                            onClick={() =>
+                                                setPagination(prev => ({
+                                                    ...prev,
+                                                    page: prev.page + 1,
+                                                }))
+                                            }
+                                        >
+                                            Next
+                                            <ChevronRight className="ml-1 h-4 w-4" />
+                                        </Button>
                                     </div>
-
-                                    <Button type="button" variant="outline" disabled={orderPage.last} onClick={handleNext}>
-                                        Next
-                                        <ArrowRight className="ml-2 h-4 w-4" />
-                                    </Button>
                                 </div>
                             )}
                         </section>

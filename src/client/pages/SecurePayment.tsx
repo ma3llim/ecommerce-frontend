@@ -2,28 +2,24 @@ import { FaCcMastercard, FaCcVisa, FaCreditCard, FaGooglePay, FaPaypal } from "r
 import { Helmet } from "react-helmet-async";
 import securePaymentBanner from "@/assets/banners/secure_payment.webp";
 import Banner from "../components/Banner";
-import Faq from "../components/Faq";
+import Faq, { type FaqItem } from "../components/Faq";
 import Container from "../components/Container";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Link } from "react-router-dom";
 
-interface FAQ {
-    id: number;
-    question: string;
-    answer: string;
-}
-
-const faqs: FAQ[] = [
+const faqs: FaqItem[] = [
     {
-        id: 1,
+        id: "1",
         question: "Is my payment information safe?",
         answer: "Yes, your payment information is encrypted and processed securely. We do not store credit card details.",
     },
     {
-        id: 2,
+        id: "2",
         question: "What payment methods do you accept?",
         answer: "We accept Visa, MasterCard, American Express, PayPal, and several other payment methods.",
     },
     {
-        id: 3,
+        id: "3",
         question: "What if my payment is declined?",
         answer: "Please double-check your card information or contact your bank. You may also try another payment option.",
     },
@@ -49,7 +45,21 @@ const SecurePayment = () => {
                 <meta name="robots" content="index, follow" />
             </Helmet>
 
-            <Banner image={securePaymentBanner} title="Secure Payment" />
+            <Banner image={securePaymentBanner} title="Secure Payment">
+                <Breadcrumb>
+                    <BreadcrumbList className="text-lg">
+                        <BreadcrumbItem>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className="text-white">Secure Payment</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </Banner>
 
             <Container>
                 <section className="mb-5 mt-10 w-full px-4 py-4">
