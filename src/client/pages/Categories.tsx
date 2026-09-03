@@ -8,7 +8,6 @@ import Banner from "../components/Banner";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
-import upperFirst from "lodash/upperFirst";
 import { Button } from "@/components/ui/button";
 
 const Categories = () => {
@@ -78,7 +77,7 @@ const Categories = () => {
                                         className="mx-auto w-4/5 rounded object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                                     />
                                 </Link>
-                                <h2 className="mt-3 text-xl font-bold underline">{upperFirst(category.name)}</h2>
+                                <h2 className="mt-3 text-xl font-bold underline">{category.name.charAt(0).toUpperCase() + category.name.slice(1)}</h2>
                                 <Link to={`/category/${category.slug}`}>
                                     <Button className="mt-4 btnXl">View Category</Button>
                                 </Link>

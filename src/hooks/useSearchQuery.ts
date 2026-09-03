@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-import debounce from "lodash/debounce";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ProductApi } from "@/client/api/Product.api";
 
@@ -7,13 +6,13 @@ const useSearchQuery = (query: string, delay: number = 500) => {
     const [debouncedQuery, setDebouncedQuery] = useState(query);
 
     // Debounce the query to reduce API calls
-    const debouncedSearch = useMemo(() => debounce(setDebouncedQuery, delay), [delay]);
-
     useEffect(() => {
-        debouncedSearch(query.trim());
+        const timer = setTimeout(() => {
+            setDebouncedQuery(query.trim());
+        }, delay);
 
-        return () => debouncedSearch.cancel();
-    }, [query, debouncedSearch]);
+        return () => clearTimeout(timer);
+    }, [query, delay]);
 
     const { data, isFetching } = useQuery({
         queryKey: ["search", debouncedQuery],
