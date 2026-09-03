@@ -59,16 +59,16 @@ const EditCoupon = () => {
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <div className="mx-auto w-full">
-                <div className="mb-6 flex items-center gap-3">
-                    <Button type="button" variant="ghost" size="icon" onClick={() => navigate("/admin/coupons")}>
-                        <ArrowLeft className="size-4" />
-                    </Button>
-
+                <div className="flex items-center justify-between mb-4">
                     <div>
                         <h1 className="text-2xl font-semibold tracking-tight">Edit Coupon</h1>
-
                         <p className="text-sm text-muted-foreground">Update coupon configuration.</p>
                     </div>
+
+                    <Button type="button" variant="outline" onClick={() => navigate("/admin/coupons")}>
+                        <ArrowLeft className="mr-2 size-4" />
+                        Back to Coupons
+                    </Button>
                 </div>
 
                 <CouponForm initialData={coupon} isPending={isPending} onSubmit={handleSubmit} onCancel={() => navigate("/admin/coupons")} />

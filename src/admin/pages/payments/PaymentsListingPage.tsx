@@ -125,7 +125,7 @@ const PaymentsListingPage = () => {
                                 setPage(0);
                             }}
                         >
-                            <SelectTrigger>
+                            <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select payment status" />
                             </SelectTrigger>
 
@@ -154,7 +154,7 @@ const PaymentsListingPage = () => {
                                 setPage(0);
                             }}
                         >
-                            <SelectTrigger>
+                            <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select payment method" />
                             </SelectTrigger>
 

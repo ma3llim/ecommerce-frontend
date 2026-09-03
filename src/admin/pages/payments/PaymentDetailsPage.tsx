@@ -1,6 +1,7 @@
 import { PaymentApi } from "@/admin/api/PaymentApi";
 import { AdminButton } from "@/components/common/AdminButton";
 import PageLoader from "@/components/common/PageLoader";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
@@ -45,17 +46,16 @@ const PaymentDetailsPage = () => {
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                    <AdminButton variant="secondary" onClick={() => navigate("/admin/payments")}>
-                        <ArrowLeft className="size-4" />
-                        Back
-                    </AdminButton>
-
+                <div className="flex items-center justify-between mb-4">
                     <div>
-                        <h1 className="text-2xl font-bold">Payment Details</h1>
-
+                        <h1 className="text-2xl font-semibold tracking-tight">Payment Details</h1>
                         <p className="text-muted-foreground">View payment information.</p>
                     </div>
+
+                    <Button type="button" variant="outline" onClick={() => navigate("/admin/payments/payment-listing")}>
+                        <ArrowLeft className="mr-2 size-4" />
+                        Back to Payments
+                    </Button>
                 </div>
 
                 <Card>
