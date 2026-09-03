@@ -64,15 +64,15 @@ const ProductDetails = () => {
     return (
         <>
             <Helmet>
-                <title>{`${product?.name} - SameerCart`}</title>
+                <title>{`${product?.name} - E-Commerce`}</title>
                 <meta
                     name="description"
-                    content={`${product?.description} Shop ${product?.name} at the best price on SameerCart with secure shopping and fast delivery.`}
+                    content={`${product?.description} Shop ${product?.name} at the best price on E-Commerce with secure shopping and fast delivery.`}
                 />
-                <meta name="keywords" content={`${product?.name}, ${product?.slug}, buy ${product?.name} online, ${product?.name} price, SameerCart`} />
-                <meta property="og:title" content={`${product?.name} - SameerCart`} />
-                <meta property="og:description" content={`${product?.description} Shop now on SameerCart.`} />
-                <meta property="og:url" content={`https://sameercart.com/product-details/${product?.slug}`} />
+                <meta name="keywords" content={`${product?.name}, ${product?.slug}, buy ${product?.name} online, ${product?.name} price, E-Commerce`} />
+                <meta property="og:title" content={`${product?.name} - E-Commerce`} />
+                <meta property="og:description" content={`${product?.description} Shop now on E-Commerce.`} />
+                <meta property="og:url" content={`https://E-Commerce.com/product-details/${product?.slug}`} />
                 <meta property="og:type" content="product" />
                 {selectedVariant?.images?.[0]?.url && <meta property="og:image" content={selectedVariant?.images[0].url} />}
                 <meta name="robots" content="index, follow" />

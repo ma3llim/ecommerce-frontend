@@ -7,15 +7,15 @@ const PrivacyPolicy = () => {
     return (
         <>
             <Helmet>
-                <title>Privacy Policy - SameerCart</title>
+                <title>Privacy Policy - E-Commerce</title>
                 <meta
                     name="description"
-                    content="Read SameerCart's Privacy Policy to understand how we collect, use, and protect your personal information while shopping online."
+                    content="Read E-Commerce's Privacy Policy to understand how we collect, use, and protect your personal information while shopping online."
                 />
-                <meta name="keywords" content="privacy policy, data protection, online security, SameerCart privacy, customer data security" />
-                <meta property="og:title" content="Privacy Policy - SameerCart" />
-                <meta property="og:description" content="Learn how SameerCart protects your personal data and ensures a safe shopping experience." />
-                <meta property="og:url" content="https://sameercart.com/privacy-policy" />
+                <meta name="keywords" content="privacy policy, data protection, online security, E-Commerce privacy, customer data security" />
+                <meta property="og:title" content="Privacy Policy - E-Commerce" />
+                <meta property="og:description" content="Learn how E-Commerce protects your personal data and ensures a safe shopping experience." />
+                <meta property="og:url" content="https://E-Commerce.com/privacy-policy" />
                 <meta property="og:type" content="website" />
                 <meta name="robots" content="index, follow" />
             </Helmet>
@@ -25,7 +25,7 @@ const PrivacyPolicy = () => {
                     <div className="w-full space-y-8">
                         <h1 className="text-4xl font-bold text-light-blue dark:text-dark-light mb-6">Privacy Policy</h1>
                         <p className="text-lg mb-6">
-                            SameerCart, we is committed to protecting your privacy. This Privacy Policy outlines how we collect, use, disclose, and safeguard
+                            E-Commerce, we is committed to protecting your privacy. This Privacy Policy outlines how we collect, use, disclose, and safeguard
                             your information when you visit our website or make a purchase from us. Please read this policy carefully. If you do not agree with
                             the terms of this Privacy Policy, please do not access the Site.
                         </p>

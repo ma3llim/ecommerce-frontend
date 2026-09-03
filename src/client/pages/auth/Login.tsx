@@ -54,7 +54,7 @@ const Login = () => {
                 <div className="mb-8 text-center">
                     <h1 className="text-3xl font-bold">Welcome Back</h1>
 
-                    <p className="mt-2 text-sm text-muted-foreground">Login to your SameerCart account</p>
+                    <p className="mt-2 text-sm text-muted-foreground">Login to your E-Commerce account</p>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

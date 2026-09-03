@@ -52,8 +52,8 @@ const Orders = () => {
     return (
         <>
             <Helmet>
-                <title>Order - SameerCart</title>
-                <meta name="description" content={`View details for your all order on SameerCart.`} />
+                <title>Order - E-Commerce</title>
+                <meta name="description" content={`View details for your all order on E-Commerce.`} />
                 <meta name="robots" content="noindex, follow" />
             </Helmet>
             <Banner title="Products" image={bannerImage}>

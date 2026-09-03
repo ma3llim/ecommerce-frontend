@@ -59,8 +59,8 @@ const Home = () => {
                 <meta property="og:title" content="Ecommerce - Best Online Shopping Platform" />
                 <meta property="og:description" content="Find amazing deals on top-quality products at Ecommerce." />
                 // Todo replace domain link
-                {/* <meta property="og:image" content="https://sameercart.com/src/client/assets/Logo.svg" />
-                <meta property="og:url" content="https://sameercart.com/" /> */}
+                {/* <meta property="og:image" content="https://E-Commerce.com/src/client/assets/Logo.svg" />
+                <meta property="og:url" content="https://E-Commerce.com/" /> */}
                 <meta name="robots" content="index, follow" />
             </Helmet>
             <Suspense fallback={<PageLoader />}>
