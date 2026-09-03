@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Eye } from "lucide-react";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 const Contacts = () => {
@@ -70,29 +71,36 @@ const Contacts = () => {
     ];
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="text-2xl font-bold tracking-tight">Contact Messages</h1>
+        <>
+            <Helmet>
+                <title>Contact Messages | Admin</title>
+                <meta name="description" content="Manage contact messages submitted through the ecommerce contact form." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
 
-                <p className="mt-1 text-muted-foreground">Manage messages submitted through the contact form.</p>
+            <div className="space-y-6">
+                <div>
+                    <h1 className="text-2xl font-bold tracking-tight">Contact Messages</h1>
+                    <p className="mt-1 text-muted-foreground">Manage messages submitted through the contact form.</p>
+                </div>
+
+                <DataTable
+                    columns={ContactColumns}
+                    data={data?.data.content ?? []}
+                    loading={isLoading}
+                    page={data?.data.page ?? 0}
+                    size={data?.data.size ?? 10}
+                    totalElements={data?.data.totalElements ?? 0}
+                    totalPages={data?.data.totalPages ?? 0}
+                    onPageChange={page => {
+                        setPagination(prev => ({
+                            ...prev,
+                            page,
+                        }));
+                    }}
+                />
             </div>
-
-            <DataTable
-                columns={ContactColumns}
-                data={data?.data.content ?? []}
-                loading={isLoading}
-                page={data?.data.page ?? 0}
-                size={data?.data.size ?? 10}
-                totalElements={data?.data.totalElements ?? 0}
-                totalPages={data?.data.totalPages ?? 0}
-                onPageChange={page => {
-                    setPagination(prev => ({
-                        ...prev,
-                        page,
-                    }));
-                }}
-            />
-        </div>
+        </>
     );
 };
 

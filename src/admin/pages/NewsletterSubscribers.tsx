@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { formatDate } from "@/utils/Time";
 import type { PaginationRequest } from "@/types/common/Pagination.types";
 import { DataTable } from "../components/table";
+import { Helmet } from "react-helmet-async";
 
 const NewsletterSubscribers = () => {
     const [pagination, setPagination] = useState<PaginationRequest>({
@@ -34,31 +35,38 @@ const NewsletterSubscribers = () => {
     ];
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Newsletter Subscribers</CardTitle>
+        <>
+            <Helmet>
+                <title>Newsletter Subscribers | Admin</title>
+                <meta name="description" content="View and manage newsletter subscribers in the ecommerce admin panel." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
 
-                <CardDescription>View users subscribed to the newsletter.</CardDescription>
-            </CardHeader>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Newsletter Subscribers</CardTitle>
+                    <CardDescription>View users subscribed to the newsletter.</CardDescription>
+                </CardHeader>
 
-            <CardContent>
-                <DataTable
-                    columns={NewsletterColumns}
-                    data={data?.data.content ?? []}
-                    loading={isLoading}
-                    page={data?.data.page ?? 0}
-                    size={data?.data.size ?? 10}
-                    totalElements={data?.data.totalElements ?? 0}
-                    totalPages={data?.data.totalPages ?? 0}
-                    onPageChange={page => {
-                        setPagination(prev => ({
-                            ...prev,
-                            page,
-                        }));
-                    }}
-                />
-            </CardContent>
-        </Card>
+                <CardContent>
+                    <DataTable
+                        columns={NewsletterColumns}
+                        data={data?.data.content ?? []}
+                        loading={isLoading}
+                        page={data?.data.page ?? 0}
+                        size={data?.data.size ?? 10}
+                        totalElements={data?.data.totalElements ?? 0}
+                        totalPages={data?.data.totalPages ?? 0}
+                        onPageChange={page => {
+                            setPagination(prev => ({
+                                ...prev,
+                                page,
+                            }));
+                        }}
+                    />
+                </CardContent>
+            </Card>
+        </>
     );
 };
 
