@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Menu, ShoppingCart, UserRound, Truck, LogOut } from "lucide-react";
 import SearchComponent from "./SearchComponent";
 import ThemeToggle from "@/providers/ThemeToggle";
-import capitalize from "lodash/capitalize";
 import { useDispatch, useSelector } from "react-redux";
 import { persistor, type RootState } from "@/store/store";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -57,8 +56,8 @@ const Header = () => {
         <header className="sticky top-0 z-50 w-full bg-background">
             <div className="flex min-h-19 items-center justify-between gap-6 px-4">
                 <Link to="/" className="group shrink-0 font-heading text-2xl font-bold tracking-tight">
-                    <span className="text-foreground transition-colors group-hover:text-primary">Sameer</span>
-                    <span className="text-primary">Cart</span>
+                    <span className="text-foreground transition-colors group-hover:text-primary">E</span>
+                    <span className="text-primary">Commerce</span>
                 </Link>
 
                 <div className="hidden w-full max-w-xl md:block lg:max-w-2xl">
@@ -150,7 +149,7 @@ const Header = () => {
                                 to={nav.path}
                                 className="rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-foreground/10"
                             >
-                                {capitalize(nav.label)}
+                                {nav.label.charAt(0).toUpperCase() + nav.label.slice(1)}
                             </Link>
                         ))}
                     </nav>

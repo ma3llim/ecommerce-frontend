@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import ProductVariants from "./ProductVariants";
+import { Helmet } from "react-helmet-async";
 
 const ProductDetails = () => {
     const { productId } = useParams<{ productId: string }>();
@@ -39,52 +40,59 @@ const ProductDetails = () => {
     }
 
     return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold tracking-tight">Product Details</h1>
-                    <p className="mt-1 text-muted-foreground">View product information and variants.</p>
-                </div>
-                <Button variant="outline" onClick={() => navigate("/admin/products/product-listing")}>
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back to Products
-                </Button>
-            </div>
-
-            <Card>
-                <CardHeader>
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <CardTitle>{product.name}</CardTitle>
-                            <CardDescription>{product.slug}</CardDescription>
-                        </div>
-                        <Badge variant={product.active ? "default" : "secondary"}>{product.active ? "Active" : "Inactive"}</Badge>
-                    </div>
-                </CardHeader>
-
-                <CardContent className="space-y-6">
-                    <div className="grid gap-6 md:grid-cols-2">
-                        <div>
-                            <p className="text-sm text-muted-foreground">Category</p>
-                            <p className="mt-1 font-medium">{product.category.name}</p>
-                        </div>
-                        <div>
-                            <p className="text-sm text-muted-foreground">Default Variant</p>
-                            <p className="mt-1 font-medium">{product.defaultVariantId ? "Available" : "Not Available"}</p>
-                        </div>
-                    </div>
+        <>
+            <Helmet>
+                <title>{`${product.name} | Product Details | Admin`}</title>
+                <meta name="description" content={`Admin product details for ${product.name}, including product information, specifications, and variants.`} />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="space-y-6">
+                <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium">Description</p>
-
-                        <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-muted-foreground">{product.description}</p>
+                        <h1 className="text-2xl font-bold tracking-tight">Product Details</h1>
+                        <p className="mt-1 text-muted-foreground">View product information and variants.</p>
                     </div>
-                </CardContent>
-            </Card>
+                    <Button variant="outline" onClick={() => navigate("/admin/products/product-listing")}>
+                        <ArrowLeft className="mr-2 h-4 w-4" />
+                        Back to Products
+                    </Button>
+                </div>
 
-            <ProductSpecifications specifications={product.specifications} />
+                <Card>
+                    <CardHeader>
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <CardTitle>{product.name}</CardTitle>
+                                <CardDescription>{product.slug}</CardDescription>
+                            </div>
+                            <Badge variant={product.active ? "default" : "secondary"}>{product.active ? "Active" : "Inactive"}</Badge>
+                        </div>
+                    </CardHeader>
 
-            <ProductVariants variants={product.variants} defaultVariantId={product.defaultVariantId!} />
-        </div>
+                    <CardContent className="space-y-6">
+                        <div className="grid gap-6 md:grid-cols-2">
+                            <div>
+                                <p className="text-sm text-muted-foreground">Category</p>
+                                <p className="mt-1 font-medium">{product.category.name}</p>
+                            </div>
+                            <div>
+                                <p className="text-sm text-muted-foreground">Default Variant</p>
+                                <p className="mt-1 font-medium">{product.defaultVariantId ? "Available" : "Not Available"}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p className="text-sm font-medium">Description</p>
+
+                            <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-muted-foreground">{product.description}</p>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <ProductSpecifications specifications={product.specifications} />
+
+                <ProductVariants variants={product.variants} defaultVariantId={product.defaultVariantId!} />
+            </div>
+        </>
     );
 };
 

@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import PageLoader from "@/components/common/PageLoader";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Helmet } from "react-helmet-async";
 
 const ContactDetails = () => {
     const navigate = useNavigate();
@@ -41,45 +42,52 @@ const ContactDetails = () => {
     }
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="text-2xl font-bold tracking-tight">Contact Details</h1>
+        <>
+            <Helmet>
+                <title>Contact Details | Admin</title>
+                <meta name="description" content="View contact message details submitted through the ecommerce contact form." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="space-y-6">
+                <div className="flex items-center justify-between mb-4">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight">Contact Details</h1>
+                        <p className="text-sm text-muted-foreground">View the contact message details.</p>
+                    </div>
 
-                <p className="mt-1 text-muted-foreground">View the contact message details.</p>
-            </div>
+                    <Button type="button" variant="outline" onClick={() => navigate("/admin/contacts/contact-listing")}>
+                        <ArrowLeft className="mr-2 size-4" />
+                        Back to Contacts
+                    </Button>
+                </div>
 
-            <Card>
-                <CardContent className="space-y-5 pt-6">
-                    <div className="space-y-2">
-                        <Label>Name</Label>
+                <Card>
+                    <CardContent className="space-y-5 pt-6">
+                        <div className="space-y-2">
+                            <Label>Name</Label>
 
-                        <div className="rounded-md border bg-muted/30 px-3 py-2 text-sm">
-                            {contact.firstName} {contact.lastName}
+                            <div className="rounded-md border bg-muted/30 px-3 py-2 text-sm">
+                                {contact.firstName} {contact.lastName}
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="space-y-2">
-                        <Label>Email</Label>
-                        <div className="rounded-md border bg-muted/30 px-3 py-2 text-sm">{contact.email}</div>
-                    </div>
+                        <div className="space-y-2">
+                            <Label>Email</Label>
+                            <div className="rounded-md border bg-muted/30 px-3 py-2 text-sm">{contact.email}</div>
+                        </div>
 
-                    <div className="space-y-2">
-                        <Label>Subject</Label>
-                        <div className="rounded-md border bg-muted/30 px-3 py-2 text-sm">{contact.subject}</div>
-                    </div>
-                    <div className="space-y-2">
-                        <Label>Message</Label>
-                        <Textarea value={contact.message} readOnly className="min-h-40 resize-none" />
-                    </div>
-                    <div className="flex justify-end pt-2">
-                        <Button type="button" variant="outline" onClick={() => navigate("/admin/contacts/contact-listing")}>
-                            <ArrowLeft className="mr-2 h-4 w-4" />
-                            Back to Contacts
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
-        </div>
+                        <div className="space-y-2">
+                            <Label>Subject</Label>
+                            <div className="rounded-md border bg-muted/30 px-3 py-2 text-sm">{contact.subject}</div>
+                        </div>
+                        <div className="space-y-2">
+                            <Label>Message</Label>
+                            <Textarea value={contact.message} readOnly className="min-h-40 resize-none" />
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        </>
     );
 };
 

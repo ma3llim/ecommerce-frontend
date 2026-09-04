@@ -3,27 +3,42 @@ import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
 import Container from "../components/Container";
 import { Helmet } from "react-helmet-async";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 const TermsAndCondition = () => {
     return (
         <>
             <Helmet>
-                <title>Terms and Conditions - SameerCart</title>
-                <meta name="description" content="Read the terms and conditions of SameerCart. Learn about our policies on purchases, returns, and usage." />
-                <meta name="keywords" content="terms and conditions, SameerCart policies, online shopping rules, ecommerce guidelines" />
-                <meta property="og:title" content="Terms and Conditions - SameerCart" />
-                <meta property="og:description" content="Check out the terms and conditions of using SameerCart's services." />
-                <meta property="og:url" content="https://sameercart.com/terms-and-conditions" />
+                <title>Terms and Conditions - E-Commerce</title>
+                <meta name="description" content="Read the terms and conditions of E-Commerce. Learn about our policies on purchases, returns, and usage." />
+                <meta name="keywords" content="terms and conditions, E-Commerce policies, online shopping rules, ecommerce guidelines" />
+                <meta property="og:title" content="Terms and Conditions - E-Commerce" />
+                <meta property="og:description" content="Check out the terms and conditions of using E-Commerce's services." />
+                <meta property="og:url" content="https://E-Commerce.com/terms-and-conditions" />
                 <meta name="robots" content="index, follow" />
             </Helmet>
-            <Banner image={termsAndcondition} title={"Terms And Condition"} />
+            <Banner image={termsAndcondition} title={"Terms And Condition"}>
+                <Breadcrumb>
+                    <BreadcrumbList className="text-lg">
+                        <BreadcrumbItem>
+                            <Link to="/" className="text-white/70 transition-colors hover:text-white dark:text-white/80 dark:hover:text-white">
+                                Home
+                            </Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className="text-white">Orders</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </Banner>
             <Container>
                 <section className="w-full my-10 space-y-5">
                     <div className="w-full">
                         <h1 className="text-xl font-medium underline mb-2">Introduction</h1>
                         <p>
-                            Welcome to SameerCart. By accessing and using this website, you agree to comply with and be bound by the following Terms and
-                            Conditions. These terms govern your use of the website and services offered by SameerCart located at{" "}
+                            Welcome to E-Commerce. By accessing and using this website, you agree to comply with and be bound by the following Terms and
+                            Conditions. These terms govern your use of the website and services offered by E-Commerce located at{" "}
                             <Link className="text-dark-link" to={"/"}>
                                 http://localhost:5173/
                             </Link>
@@ -34,7 +49,7 @@ const TermsAndCondition = () => {
                         <h1 className="text-xl font-medium underline mb-2">Account Information</h1>
                         <p>
                             To access certain features of our website, you may be required to create an account. You are responsible for maintaining the
-                            confidentiality of your account credentials and ensuring the information provided is accurate, complete, and up to date. SameerCart
+                            confidentiality of your account credentials and ensuring the information provided is accurate, complete, and up to date. E-Commerce
                             is not liable for any loss or damage arising from your failure to protect your account details.
                         </p>
                     </div>
@@ -78,7 +93,7 @@ const TermsAndCondition = () => {
                     <div className="w-full">
                         <h1 className="text-xl font-medium underline mb-2">Intellectual Property</h1>
                         <p>
-                            All content on this website, including but not limited to text, graphics, logos, images, and software, is the property of SameerCart
+                            All content on this website, including but not limited to text, graphics, logos, images, and software, is the property of E-Commerce
                             and is protected under copyright, trademark, and other applicable intellectual property laws. You may not use, reproduce,
                             distribute, or create derivative works from any content on this site without prior written consent.
                         </p>
@@ -86,8 +101,8 @@ const TermsAndCondition = () => {
                     <div className="w-full">
                         <h1 className="text-xl font-medium underline mb-2">Limitation of Liability</h1>
                         <p>
-                            SameerCart strives to ensure the accuracy and reliability of the information provided on this website, but we do not guarantee that
-                            all content is error-free or up-to-date. To the fullest extent permitted by law, SameerCart is not liable for any direct, indirect,
+                            E-Commerce strives to ensure the accuracy and reliability of the information provided on this website, but we do not guarantee that
+                            all content is error-free or up-to-date. To the fullest extent permitted by law, E-Commerce is not liable for any direct, indirect,
                             incidental, or consequential damages arising from the use or inability to use our website, services, or products.
                         </p>
                     </div>
@@ -117,7 +132,7 @@ const TermsAndCondition = () => {
                     <div className="w-full">
                         <h1 className="text-xl font-medium underline mb-2">Changes to Terms</h1>
                         <p>
-                            SameerCart reserves the right to update or modify these Terms and Conditions at any time without prior notice. Any changes will be
+                            E-Commerce reserves the right to update or modify these Terms and Conditions at any time without prior notice. Any changes will be
                             effective immediately upon posting on this page. Your continued use of the website constitutes acceptance of any modifications. We
                             encourage you to review this page regularly to stay informed of any changes.
                         </p>

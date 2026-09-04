@@ -26,6 +26,7 @@ export const ENDPOINTS = {
     },
     PRODUCT: {
         BASE: "/products",
+        GET_BY_TAG: (tagSlug: string) => `/products/tag/${tagSlug}`,
         BY_SLUG: (productSlug: string) => `/products/${productSlug}`,
         GET_REVIEWS: (productSlug: string) => `/products/${productSlug}/reviews`,
     },

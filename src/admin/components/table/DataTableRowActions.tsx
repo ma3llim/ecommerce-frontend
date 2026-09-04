@@ -20,7 +20,7 @@ interface DataTableRowActionsProps {
 
 export function DataTableRowActions({ actions = [] }: DataTableRowActionsProps) {
     return (
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 justify-center">
             {actions.map((action, index) => {
                 if (action.custom) {
                     return <div key={`${action.label}-${index}`}>{action.custom}</div>;
@@ -33,7 +33,7 @@ export function DataTableRowActions({ actions = [] }: DataTableRowActionsProps) 
                         variant={action.variant ?? "secondary"}
                         size="sm"
                         onClick={action.onClick}
-                        disabled={action.disabled}
+                        // disabled={action.disabled}
                         className={action.className}
                     >
                         {Icon && <Icon className="size-4" />}

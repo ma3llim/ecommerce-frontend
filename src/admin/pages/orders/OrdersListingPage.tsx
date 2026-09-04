@@ -151,7 +151,7 @@ const OrdersListingPage = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="mb-6 grid gap-4 md:grid-cols-4">
-                            <div className="space-y-2 md:col-span-2">
+                            <div className="space-y-2 md:col-span-1">
                                 <Input
                                     placeholder="Search by order number..."
                                     value={searchInput}
@@ -174,7 +174,7 @@ const OrdersListingPage = () => {
                                     }));
                                 }}
                             >
-                                <SelectTrigger>
+                                <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Order Status" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -186,6 +186,7 @@ const OrdersListingPage = () => {
                                     <SelectItem value="CANCELLED">Cancelled</SelectItem>
                                 </SelectContent>
                             </Select>
+
                             <Select
                                 value={paymentStatus || "ALL"}
                                 onValueChange={value => {
@@ -197,7 +198,7 @@ const OrdersListingPage = () => {
                                     }));
                                 }}
                             >
-                                <SelectTrigger>
+                                <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Payment Status" />
                                 </SelectTrigger>
 
@@ -210,16 +211,15 @@ const OrdersListingPage = () => {
                                     <SelectItem value="REFUNDED">Refunded</SelectItem>
                                 </SelectContent>
                             </Select>
-                        </div>
+                            <div className="mb-4 flex gap-2">
+                                <Button type="button" onClick={handleSearch}>
+                                    Search
+                                </Button>
 
-                        <div className="mb-4 flex gap-2">
-                            <Button type="button" onClick={handleSearch}>
-                                Search
-                            </Button>
-
-                            <Button type="button" variant="outline" onClick={handleClearFilters}>
-                                Clear
-                            </Button>
+                                <Button type="button" variant="outline" onClick={handleClearFilters}>
+                                    Clear
+                                </Button>
+                            </div>
                         </div>
 
                         {error && <FormError message="Failed to load orders." />}

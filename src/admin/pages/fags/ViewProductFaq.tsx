@@ -40,7 +40,7 @@ const ViewProductFaqPage = () => {
                 <meta name="description" content="View detailed information about a product frequently asked question." />
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
-            <div className="mx-auto w-full max-w-4xl">
+            <div className="mx-auto w-full">
                 <div className="mb-6 flex items-center justify-between">
                     <div>
                         <h1 className="text-2xl font-semibold tracking-tight">FAQ Details</h1>

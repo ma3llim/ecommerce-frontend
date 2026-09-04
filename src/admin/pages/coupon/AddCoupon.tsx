@@ -40,15 +40,16 @@ const AddCoupon = () => {
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <div className="mx-auto w-full">
-                <div className="mb-6 flex items-center gap-3">
-                    <Button type="button" variant="ghost" size="icon" onClick={() => navigate("/admin/coupons")}>
-                        <ArrowLeft className="size-4" />
-                    </Button>
-
+                <div className="flex items-center justify-between mb-4">
                     <div>
                         <h1 className="text-2xl font-semibold tracking-tight">Add Coupon</h1>
                         <p className="text-sm text-muted-foreground">Create a new discount coupon.</p>
                     </div>
+
+                    <Button type="button" variant="outline" onClick={() => navigate("/admin/coupons")}>
+                        <ArrowLeft className="mr-2 size-4" />
+                        Back to Coupons
+                    </Button>
                 </div>
 
                 <CouponForm isPending={isPending} onSubmit={handleSubmit} onCancel={() => navigate("/admin/coupons")} />

@@ -21,6 +21,7 @@ import CheckoutItems from "@/client/components/checkout/CheckoutItems";
 import CouponCard from "@/client/components/checkout/CouponCard";
 import DeliveryAddress from "@/client/components/checkout/DeliveryAddress";
 import OrderSummary from "@/client/components/checkout/OrderSummary";
+import { Helmet } from "react-helmet-async";
 
 const Checkout = () => {
     const navigate = useNavigate();
@@ -169,46 +170,53 @@ const Checkout = () => {
     const isPlacingOrder = isCreatingOrder || isInitiatingPayment;
 
     return (
-        <Container>
-            <main className="w-full py-8 md:py-10">
-                <div>
-                    <Button variant="ghost" className="-ml-3">
+        <>
+            <Helmet>
+                <title>Checkout | ecommerce</title>
+                <meta name="description" content="Complete your order securely with our checkout process." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <Container>
+                <main className="w-full py-8 md:py-10">
+                    <div>
                         <Link to="/cart">
-                            <ArrowLeft className="mr-2 h-4 w-4" />
-                            Back to Cart
+                            <Button variant="secondary" className="-ml-3">
+                                <ArrowLeft className="mr-2 h-4 w-4" />
+                                Back to Cart
+                            </Button>
                         </Link>
-                    </Button>
-                    <h1 className="mt-4 text-3xl font-bold tracking-tight">Checkout</h1>
-                    <p className="mt-1 text-muted-foreground">Review your order before placing it.</p>
-                </div>
-
-                <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px]">
-                    <div className="space-y-6">
-                        <CheckoutItems items={items} />
-                        <CouponCard couponResult={couponResult} isApplyingCoupon={isApplyingCoupon} onApplyCoupon={handleApplyCoupon} />
-                        <DeliveryAddress
-                            addresses={addresses}
-                            selectedAddressId={selectedAddressId}
-                            isLoading={isLoadingAddresses}
-                            isError={isAddressError}
-                            onSelect={setSelectedAddressId}
-                            onAddAddress={handleAddAddress}
-                        />
+                        <h1 className="mt-4 text-3xl font-bold tracking-tight">Checkout</h1>
+                        <p className="mt-1 text-muted-foreground">Review your order before placing it.</p>
                     </div>
 
-                    <OrderSummary
-                        cart={cart}
-                        items={items}
-                        couponResult={couponResult}
-                        paymentMethod={paymentMethod}
-                        onPaymentMethodChange={setPaymentMethod}
-                        onPlaceOrder={handlePlaceOrder}
-                        isPlacingOrder={isPlacingOrder}
-                        selectedAddressId={selectedAddressId}
-                    />
-                </div>
-            </main>
-        </Container>
+                    <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px]">
+                        <div className="space-y-6">
+                            <CheckoutItems items={items} />
+                            <CouponCard couponResult={couponResult} isApplyingCoupon={isApplyingCoupon} onApplyCoupon={handleApplyCoupon} />
+                            <DeliveryAddress
+                                addresses={addresses}
+                                selectedAddressId={selectedAddressId}
+                                isLoading={isLoadingAddresses}
+                                isError={isAddressError}
+                                onSelect={setSelectedAddressId}
+                                onAddAddress={handleAddAddress}
+                            />
+                        </div>
+
+                        <OrderSummary
+                            cart={cart}
+                            items={items}
+                            couponResult={couponResult}
+                            paymentMethod={paymentMethod}
+                            onPaymentMethodChange={setPaymentMethod}
+                            onPlaceOrder={handlePlaceOrder}
+                            isPlacingOrder={isPlacingOrder}
+                            selectedAddressId={selectedAddressId}
+                        />
+                    </div>
+                </main>
+            </Container>
+        </>
     );
 };
 

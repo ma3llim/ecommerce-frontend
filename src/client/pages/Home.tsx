@@ -10,6 +10,7 @@ import Categories from "../components/home/Categories";
 import Container from "../components/Container";
 
 const Slider = lazy(() => import("@/client/components/home/Slider"));
+const TagProductSlider = lazy(() => import("@/client/components/home/TagProductSlider"));
 
 const Home = () => {
     const sliderData = useMemo<SliderItem[]>(
@@ -59,8 +60,8 @@ const Home = () => {
                 <meta property="og:title" content="Ecommerce - Best Online Shopping Platform" />
                 <meta property="og:description" content="Find amazing deals on top-quality products at Ecommerce." />
                 // Todo replace domain link
-                {/* <meta property="og:image" content="https://sameercart.com/src/client/assets/Logo.svg" />
-                <meta property="og:url" content="https://sameercart.com/" /> */}
+                {/* <meta property="og:image" content="https://E-Commerce.com/src/client/assets/Logo.svg" />
+                <meta property="og:url" content="https://E-Commerce.com/" /> */}
                 <meta name="robots" content="index, follow" />
             </Helmet>
             <Suspense fallback={<PageLoader />}>
@@ -69,6 +70,21 @@ const Home = () => {
             <Container>
                 <Suspense fallback={<PageLoader />}>
                     <Categories />
+                </Suspense>
+                <Suspense fallback={<PageLoader />}>
+                    <TagProductSlider tagSlug="best-seller" title="Best Seller" />
+                </Suspense>
+                <Suspense fallback={<PageLoader />}>
+                    <TagProductSlider tagSlug="new-arrival" title="New Arrival" />
+                </Suspense>
+                <Suspense fallback={<PageLoader />}>
+                    <TagProductSlider tagSlug="trending" title="Trending" />
+                </Suspense>
+                <Suspense fallback={<PageLoader />}>
+                    <TagProductSlider tagSlug="featured" title="Featured" />
+                </Suspense>
+                <Suspense fallback={<PageLoader />}>
+                    <TagProductSlider tagSlug="sale" title="Sale" />
                 </Suspense>
             </Container>
         </>

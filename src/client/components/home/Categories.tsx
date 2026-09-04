@@ -5,7 +5,6 @@ import type { Swiper as SwiperType } from "swiper";
 import { Link } from "react-router-dom";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { upperFirst } from "lodash";
 import SectionHeader from "../SectionHeader";
 import { useQuery } from "@tanstack/react-query";
 import { CategoryApi } from "@/client/api/Category.api";
@@ -78,7 +77,7 @@ const Categories = () => {
                             <div className="flex flex-col gap-3 items-center">
                                 <Link to={`/category/${category.slug}`}>
                                     <h3 className="cursor-pointer text-center text-xl font-bold transition-colors hover:text-primary">
-                                        {upperFirst(category.name)}
+                                        {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
                                     </h3>
                                 </Link>
 

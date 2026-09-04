@@ -66,7 +66,7 @@ const ShipmentDetails = () => {
                 />
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
-            <div className="mx-auto w-full max-w-6xl">
+            <div className="mx-auto w-full">
                 <div className="mb-6 flex items-center justify-between">
                     <div>
                         <h1 className="text-2xl font-semibold tracking-tight">Shipment Details</h1>

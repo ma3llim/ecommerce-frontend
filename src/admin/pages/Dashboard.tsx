@@ -136,7 +136,7 @@ const Dashboard = () => {
                                         opacity: 0.2,
                                     }}
                                 />
-                                <Bar dataKey="count" radius={[4, 4, 0, 0]} activeBar={false} />
+                                <Bar dataKey="count" fill="#2563eb" radius={[4, 4, 0, 0]} activeBar={false} />
                             </BarChart>
                         </ResponsiveContainer>
                     </CardContent>
@@ -185,13 +185,19 @@ const Dashboard = () => {
                                 <BarChart data={productStatistics}>
                                     <XAxis dataKey="category" tick={{ fontSize: 12 }} />
                                     <YAxis allowDecimals={false} />
+
                                     <Tooltip
                                         cursor={{
                                             fill: "hsl(var(--muted))",
                                             opacity: 0.2,
                                         }}
                                     />
-                                    <Bar dataKey="count" radius={[4, 4, 0, 0]} />
+
+                                    <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                                        {productStatistics.map((_, index) => (
+                                            <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Bar>
                                 </BarChart>
                             </ResponsiveContainer>
                         ) : (

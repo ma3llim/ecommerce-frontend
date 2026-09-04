@@ -20,11 +20,11 @@ const VerifyEmail = lazy(() => import("@/client/pages/auth/VerifyEmail"));
 const ForgotPassword = lazy(() => import("@/client/pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("@/client/pages/auth/ResetPassword"));
 const Dashboard = lazy(() => import("@/client/pages/account/Dashboard"));
-const Profile = lazy(() => import("@/client/pages/account/Profile"));
 const ChangePassword = lazy(() => import("@/client/pages/account/ChangePassword"));
 const Account = lazy(() => import("@/client/pages/account/Account"));
 const Addresses = lazy(() => import("@/client/pages/account/Addresses"));
 const Products = lazy(() => import("@/client/pages/products/Products"));
+const AllProducts = lazy(() => import("@/client/pages/products/AllProducts"));
 const ProductDetails = lazy(() => import("@/client/pages/products/ProductDetails"));
 const Cart = lazy(() => import("@/client/pages/cart/Cart"));
 const Checkout = lazy(() => import("@/client/pages/cart/Checkout"));
@@ -70,7 +70,7 @@ const ClientRoutes = () => {
                 path="/products"
                 element={
                     <Suspense fallback={<PageLoader />}>
-                        <Products />
+                        <AllProducts />
                     </Suspense>
                 }
             />
@@ -224,14 +224,6 @@ const ClientRoutes = () => {
                         element={
                             <Suspense fallback={<PageLoader />}>
                                 <Dashboard />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path="profile"
-                        element={
-                            <Suspense fallback={<PageLoader />}>
-                                <Profile />
                             </Suspense>
                         }
                     />
