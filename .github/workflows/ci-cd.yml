@@ -57,7 +57,12 @@ jobs:
                   ls -la dist
 
             - name: Verify built backend URL
-              run: grep -R "ecommerce.api.mohdsameer.info\|localhost:8080" dist
+              run: |
+                  echo "Production URL:"
+                  grep -R -n "ecommerce.api.mohdsameer.info" dist/assets || true
+
+                  echo "Localhost URL:"
+                  grep -R -n "localhost:8080" dist/assets || true
 
             - name: Deploy to Cloudflare Pages
               run: npx wrangler pages deploy dist --project-name ecommerce-frontend
