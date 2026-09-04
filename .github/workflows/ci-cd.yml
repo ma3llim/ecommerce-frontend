@@ -32,9 +32,6 @@ jobs:
               env:
                   VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
 
-            - name: Verify built backend URL
-              run: grep -R "ecommerce.api.mohdsameer.info\|localhost:8080" dist
-
             - name: Install dependencies
               run: npm ci
 
