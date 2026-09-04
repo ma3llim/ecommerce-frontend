@@ -9,7 +9,7 @@
         "lint": "eslint .",
         "typecheck": "tsc --noEmit",
         "format": "prettier . --write",
-        "format:check": "prettier . --check --ignore-pattern results.sarif",
+        "format:check": "prettier . --check",
         "preview": "vite preview",
         "prepare": "husky"
     },
