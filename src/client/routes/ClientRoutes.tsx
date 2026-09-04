@@ -30,6 +30,7 @@ const Cart = lazy(() => import("@/client/pages/cart/Cart"));
 const Checkout = lazy(() => import("@/client/pages/cart/Checkout"));
 const Orders = lazy(() => import("@/client/pages/Orders"));
 const OrderDetails = lazy(() => import("@/client/pages/OrderDetails"));
+const NotFound = lazy(() => import("@/client/pages/NotFound"));
 
 const ClientRoutes = () => {
     return (
@@ -245,6 +246,7 @@ const ClientRoutes = () => {
                     />
                 </Route>
             </Route>
+            <Route path="*" element={<NotFound />} />
         </Route>
     );
 };
