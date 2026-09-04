@@ -47,8 +47,8 @@ const ForgotPassword = () => {
     return (
         <>
             <Helmet>
-                <title>Forgot Password | ecommerce</title>
-                <meta name="description" content="Reset your ecommerce account password." />
+                <title>Forgot Password - Ecommerce</title>
+                <meta name="description" content="Reset your Ecommerce account password securely and regain access to your account." />
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <section className="flex min-h-[70vh] w-full items-center justify-center px-4 py-12">

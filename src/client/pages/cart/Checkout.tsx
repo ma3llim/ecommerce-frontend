@@ -172,8 +172,8 @@ const Checkout = () => {
     return (
         <>
             <Helmet>
-                <title>Checkout | ecommerce</title>
-                <meta name="description" content="Complete your order securely with our checkout process." />
+                <title>Checkout - Ecommerce</title>
+                <meta name="description" content="Complete your order securely through Ecommerce's checkout process." />
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <Container>

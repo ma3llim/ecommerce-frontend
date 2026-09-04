@@ -30,7 +30,7 @@ const SortableImage = ({
     return (
         <div ref={setNodeRef} style={style} className={`overflow-hidden rounded-lg border bg-background ${isDragging ? "z-50 opacity-50 shadow-xl" : ""}`}>
             <div className="relative h-48 overflow-hidden bg-muted">
-                <img src={image.imageUrl} alt={`${sku} image`} className="h-full w-full object-cover" />
+                <img loading="lazy" src={image.imageUrl} alt={`${sku} image`} className="h-full w-full object-cover" />
 
                 <button
                     type="button"

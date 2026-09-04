@@ -136,8 +136,8 @@ const Dashboard = () => {
     return (
         <>
             <Helmet>
-                <title>My Profile | ecommerce</title>
-                <meta name="description" content="Manage your profile information, account details, and personal information." />
+                <title>My Profile - Ecommerce</title>
+                <meta name="description" content="Manage your Ecommerce profile, account details, and personal information securely." />
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <section className="w-full space-y-6 overflow-hidden rounded-2xl border bg-card p-4 shadow-sm sm:space-y-8 sm:p-5 md:p-8">
@@ -152,7 +152,12 @@ const Dashboard = () => {
                             <div className="relative shrink-0">
                                 <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border bg-muted">
                                     {user?.profileImageUrl ? (
-                                        <img src={user.profileImageUrl} alt={`${user.firstName} ${user.lastName}`} className="h-full w-full object-cover" />
+                                        <img
+                                            loading="lazy"
+                                            src={user.profileImageUrl}
+                                            alt={`${user.firstName} ${user.lastName}`}
+                                            className="h-full w-full object-cover"
+                                        />
                                     ) : (
                                         <span className="text-2xl font-bold text-muted-foreground">
                                             {user?.firstName?.charAt(0)}

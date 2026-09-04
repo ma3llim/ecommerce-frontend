@@ -118,8 +118,8 @@ const Cart = () => {
     return (
         <>
             <Helmet>
-                <title>Shopping Cart | ecommerce</title>
-                <meta name="description" content="Review the products in your shopping cart before checkout." />
+                <title>Shopping Cart - Ecommerce</title>
+                <meta name="description" content="Review the products in your shopping cart before securely completing your purchase on Ecommerce." />
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             {isLoading ? (
@@ -166,7 +166,7 @@ const CartItemCard = ({ item, isUpdating, isDeleting, onQuantityChange, onDelete
         <article className="rounded-xl border bg-card p-4 transition-colors duration-300 hover:border-primary/50 sm:p-5">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
                 <Link to={`/product-details/${item.productSlug}`} className="h-24 w-24 shrink-0 overflow-hidden rounded-lg border bg-muted/30">
-                    <img src={item.productVariantImage} alt={item.productName} className="h-full w-full object-contain p-2" />
+                    <img loading="lazy" src={item.productVariantImage} alt={item.productName} className="h-full w-full object-contain p-2" />
                 </Link>
 
                 <div className="min-w-0 flex-1">

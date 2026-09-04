@@ -79,8 +79,8 @@ const VerifyEmail = () => {
     return (
         <>
             <Helmet>
-                <title>Verify Email | ecommerce</title>
-                <meta name="description" content="Verify your email address to activate your ecommerce account." />
+                <title>Verify Email - Ecommerce</title>
+                <meta name="description" content="Verify your email address to activate your Ecommerce account." />
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <section className="flex min-h-[70vh] w-full items-center justify-center px-4 py-12">

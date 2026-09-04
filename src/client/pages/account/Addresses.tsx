@@ -150,10 +150,10 @@ const Addresses = () => {
     return (
         <>
             <Helmet>
-                <title>My Addresses | ecommerce</title>
-                <meta name="description" content="Manage your saved shipping and billing addresses." />
+                <title>My Addresses - Ecommerce</title>
+                <meta name="description" content="Manage your saved shipping and billing addresses securely on Ecommerce." />
                 <meta name="robots" content="noindex, nofollow" />
-            </Helmet>{" "}
+            </Helmet>
             <section className="w-full space-y-6">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>

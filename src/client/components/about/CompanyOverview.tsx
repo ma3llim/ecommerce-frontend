@@ -42,7 +42,7 @@ const CompanyOverview = () => {
             </div>
 
             <div className="flex justify-center">
-                <img src={content.image} alt="Company Overview" className="h-auto w-full rounded-lg object-cover shadow-lg md:w-87.5" />
+                <img src={content.image} loading="lazy" alt="Company Overview" className="h-auto w-full rounded-lg object-cover shadow-lg md:w-87.5" />
             </div>
         </section>
     );

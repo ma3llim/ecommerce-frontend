@@ -56,13 +56,15 @@ const Home = () => {
             <Helmet>
                 <title>Ecommerce - Best Online Shopping Platform</title>
                 <meta name="description" content="Shop the best products at Ecommerce. Get exclusive deals on electronics, fashion, and more!" />
-                <meta name="keywords" content="Ecommerce, online shopping, ecommerce, best deals, fashion, electronics" />
+                <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/" />
+                <meta property="og:type" content="website" />
                 <meta property="og:title" content="Ecommerce - Best Online Shopping Platform" />
                 <meta property="og:description" content="Find amazing deals on top-quality products at Ecommerce." />
-                // Todo replace domain link
-                {/* <meta property="og:image" content="https://E-Commerce.com/src/client/assets/Logo.svg" />
-                <meta property="og:url" content="https://E-Commerce.com/" /> */}
-                <meta name="robots" content="index, follow" />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Ecommerce - Best Online Shopping Platform" />
+                <meta name="twitter:description" content="Find amazing deals on top-quality products at Ecommerce." />
             </Helmet>
             <Suspense fallback={<PageLoader />}>
                 <Slider sliderData={sliderData} />

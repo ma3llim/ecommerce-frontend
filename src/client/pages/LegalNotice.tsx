@@ -9,22 +9,27 @@ const LegalNotice = () => {
     return (
         <>
             <Helmet>
-                <title>Legal Notice - ecommerce</title>
+                <title>Legal Notice - Ecommerce</title>
                 <meta
                     name="description"
-                    content="Learn about ecommerce's legal information, intellectual property, liability, privacy policy, and contact details."
+                    content="Learn about Ecommerce's legal information, intellectual property, liability, privacy, and other important legal details."
                 />
-                <meta name="keywords" content="ecommerce legal notice, company information, intellectual property, liability, privacy policy" />
-                <meta property="og:title" content="Legal Notice - ecommerce" />
+                <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/legal-notice" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Legal Notice - Ecommerce" />
                 <meta
                     property="og:description"
-                    content="View ecommerce's legal notice, company information, intellectual property, liability, and privacy information."
+                    content="View Ecommerce's legal information, including intellectual property, liability, privacy, and other important legal details."
                 />
-                <meta property="og:url" content="https://ecommerce.com/legal-notice" />
-                <meta property="og:type" content="website" />
-                <meta name="robots" content="index, follow" />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/legal-notice" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Legal Notice - Ecommerce" />
+                <meta
+                    name="twitter:description"
+                    content="View Ecommerce's legal information, including intellectual property, liability, privacy, and other important legal details."
+                />
             </Helmet>
-
             <Banner image={legalNoticeBanner} title="Legal Notice">
                 <Breadcrumb>
                     <BreadcrumbList className="text-lg">

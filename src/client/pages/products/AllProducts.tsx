@@ -9,12 +9,26 @@ const AllProducts = () => {
     return (
         <>
             <Helmet>
-                <title>All Products | E-Commerce</title>
+                <title>All Products - Ecommerce</title>
                 <meta
                     name="description"
-                    content="Browse all products at the best prices on E-Commerce. Shop quality products with fast delivery and secure checkout."
+                    content="Browse all products on Ecommerce and discover quality products at great prices with secure checkout and reliable delivery."
                 />
                 <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/products" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="All Products - Ecommerce" />
+                <meta
+                    property="og:description"
+                    content="Browse all products on Ecommerce and discover quality products at great prices with secure checkout and reliable delivery."
+                />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/products" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="All Products - Ecommerce" />
+                <meta
+                    name="twitter:description"
+                    content="Browse all products on Ecommerce and discover quality products at great prices with secure checkout and reliable delivery."
+                />
             </Helmet>
 
             <Banner title="All Products" image={bannerImage}>

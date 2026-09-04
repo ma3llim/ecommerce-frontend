@@ -19,7 +19,7 @@ const CheckoutItems = ({ items }: CheckoutItemsProps) => {
                 {items.map(item => (
                     <div key={item.id} className="flex gap-4 py-5 first:pt-0 last:pb-0">
                         <Link to={`/product-details/${item.productSlug}`} className="h-20 w-20 shrink-0 overflow-hidden rounded-lg border bg-muted/30">
-                            <img src={item.productVariantImage} alt={item.productName} className="h-full w-full object-contain p-2" />
+                            <img loading="lazy" src={item.productVariantImage} alt={item.productName} className="h-full w-full object-contain p-2" />
                         </Link>
                         <div className="min-w-0 flex-1">
                             <Link to={`/product-details/${item.productSlug}`} className="font-medium transition-colors hover:text-primary">

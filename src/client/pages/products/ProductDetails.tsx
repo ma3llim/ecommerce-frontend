@@ -72,18 +72,32 @@ const ProductDetails = () => {
     return (
         <>
             <Helmet>
-                <title>{`${product?.name} - E-Commerce`}</title>
+                <title>{`${product?.name ?? "Product"} - Ecommerce`}</title>
                 <meta
                     name="description"
-                    content={`${product?.description} Shop ${product?.name} at the best price on E-Commerce with secure shopping and fast delivery.`}
+                    content={
+                        product?.description
+                            ? `${product.description} Shop ${product.name} at Ecommerce with secure shopping and reliable delivery.`
+                            : `Shop ${product?.name ?? "this product"} at Ecommerce with secure shopping and reliable delivery.`
+                    }
                 />
-                <meta name="keywords" content={`${product?.name}, ${product?.slug}, buy ${product?.name} online, ${product?.name} price, E-Commerce`} />
-                <meta property="og:title" content={`${product?.name} - E-Commerce`} />
-                <meta property="og:description" content={`${product?.description} Shop now on E-Commerce.`} />
-                <meta property="og:url" content={`https://E-Commerce.com/product-details/${product?.slug}`} />
-                <meta property="og:type" content="product" />
-                {selectedVariant?.images?.[0]?.url && <meta property="og:image" content={selectedVariant?.images[0].url} />}
                 <meta name="robots" content="index, follow" />
+                <link rel="canonical" href={`https://ecommerce.mohdsameer.info/product-details/${product?.slug ?? ""}`} />
+                <meta property="og:type" content="product" />
+                <meta property="og:title" content={`${product?.name ?? "Product"} - Ecommerce`} />
+                <meta
+                    property="og:description"
+                    content={product?.description ? `${product.description} Shop now on Ecommerce.` : `Shop ${product?.name ?? "this product"} on Ecommerce.`}
+                />
+                <meta property="og:url" content={`https://ecommerce.mohdsameer.info/product-details/${product?.slug ?? ""}`} />
+                {selectedVariant?.images?.[0]?.url && <meta property="og:image" content={selectedVariant.images[0].url} />}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={`${product?.name ?? "Product"} - Ecommerce`} />
+                <meta
+                    name="twitter:description"
+                    content={product?.description ? `${product.description} Shop now on Ecommerce.` : `Shop ${product?.name ?? "this product"} on Ecommerce.`}
+                />
+                {selectedVariant?.images?.[0]?.url && <meta name="twitter:image" content={selectedVariant.images[0].url} />}
             </Helmet>
             <Banner title="Products" image={bannerImage}>
                 <Breadcrumb>

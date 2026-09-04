@@ -30,18 +30,26 @@ const Categories = () => {
     return (
         <>
             <Helmet>
-                <title>Shop by Category - ecommerce</title>
+                <title>Shop by Category - Ecommerce</title>
                 <meta
                     name="description"
-                    content="Explore a wide range of product categories on ecommerce. Find the best deals on fashion, electronics, home essentials, and more."
+                    content="Explore product categories on Ecommerce and find great deals on fashion, electronics, home essentials, and more."
                 />
-                <meta name="keywords" content="shopping categories, online store, buy online, best deals, ecommerce categories" />
-                <meta property="og:title" content="Shop by Category - ecommerce" />
-                <meta property="og:description" content="Browse and shop from various categories on ecommerce. Discover top deals today!" />
-                // Todo update with real domain
-                {/* <meta property="og:url" content="https://ecommerce.com/category" /> */}
-                <meta property="og:type" content="website" />
                 <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/category" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Shop by Category - Ecommerce" />
+                <meta
+                    property="og:description"
+                    content="Browse Ecommerce product categories and discover deals across fashion, electronics, home essentials, and more."
+                />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/category" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Shop by Category - Ecommerce" />
+                <meta
+                    name="twitter:description"
+                    content="Browse Ecommerce product categories and discover deals across fashion, electronics, home essentials, and more."
+                />
             </Helmet>
             <Banner title="Category" image={bannerImage}>
                 <Breadcrumb>

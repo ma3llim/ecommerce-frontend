@@ -26,7 +26,7 @@ const OrderItemCard = ({ item, canReview }: OrderItemCardProps) => {
         <div className="border-b py-5 first:pt-0 last:border-b-0 last:pb-0">
             <div className="flex gap-4">
                 <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border">
-                    <img src={item.imageUrl} alt={item.productName} className="h-full w-full object-contain" />
+                    <img loading="lazy" src={item.imageUrl} alt={item.productName} className="h-full w-full object-contain" />
                 </div>
 
                 <div className="min-w-0 flex-1">

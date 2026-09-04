@@ -10,13 +10,26 @@ const ContactUs = () => {
     return (
         <>
             <Helmet>
-                <title>Contact Us - E-Commerce</title>
-                <meta name="description" content="Have questions? Contact E-Commerce for customer support, inquiries, and assistance." />
-                <meta name="keywords" content="contact E-Commerce, customer support, ecommerce help" />
-                <meta property="og:title" content="Contact Us - E-Commerce" />
-                <meta property="og:description" content="Reach out to E-Commerce for any inquiries or support." />
-                <meta property="og:url" content="https://E-Commerce.com/contact-us" />
+                <title>Contact Us - Ecommerce</title>
+                <meta
+                    name="description"
+                    content="Contact Ecommerce for customer support, product inquiries, order assistance, and other questions about our online shopping services."
+                />
                 <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/contact-us" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Contact Us - Ecommerce" />
+                <meta
+                    property="og:description"
+                    content="Contact Ecommerce for customer support, product inquiries, order assistance, and other questions about our online shopping services."
+                />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/contact-us" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Contact Us - Ecommerce" />
+                <meta
+                    name="twitter:description"
+                    content="Contact Ecommerce for customer support, product inquiries, order assistance, and other questions about our online shopping services."
+                />
             </Helmet>
             <Banner image={contactBanner} title="Contact Us">
                 <Breadcrumb>

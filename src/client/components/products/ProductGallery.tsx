@@ -34,7 +34,7 @@ const ProductGallery = ({ images, productName }: ProductGalleryProps) => {
                                 currentImage === index ? "border-primary" : "border-border hover:border-primary/50"
                             }`}
                         >
-                            <img src={image.url} alt={`${productName} ${index + 1}`} className="h-full w-full rounded-md object-contain" />
+                            <img loading="lazy" src={image.url} alt={`${productName} ${index + 1}`} className="h-full w-full rounded-md object-contain" />
                         </button>
                     ))}
                 </div>
@@ -42,7 +42,7 @@ const ProductGallery = ({ images, productName }: ProductGalleryProps) => {
 
             <div className="relative min-w-0 flex-1">
                 <div className="aspect-square w-full overflow-hidden rounded-xl border bg-muted/20 p-4 sm:p-6">
-                    <img src={selectedImage.url} alt={productName} className="h-full w-full object-contain transition-opacity duration-300" />
+                    <img loading="lazy" src={selectedImage.url} alt={productName} className="h-full w-full object-contain transition-opacity duration-300" />
                 </div>
 
                 {sortedImages.length > 1 && (

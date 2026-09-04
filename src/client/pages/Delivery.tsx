@@ -12,20 +12,26 @@ const Delivery = () => {
     return (
         <>
             <Helmet>
-                <title>Fast & Reliable Delivery - ecommerce</title>
+                <title>Legal Notice - Ecommerce</title>
                 <meta
                     name="description"
-                    content="Get your orders delivered quickly and safely with ecommerce. Learn about our shipping options, delivery times, and policies."
+                    content="Learn about Ecommerce's legal information, intellectual property, liability, privacy, and other important legal details."
                 />
-                <meta name="keywords" content="delivery, shipping, ecommerce delivery, fast shipping, ecommerce delivery, order tracking" />
-                <meta property="og:title" content="Fast & Reliable Delivery - ecommerce" />
+                <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/legal-notice" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Legal Notice - Ecommerce" />
                 <meta
                     property="og:description"
-                    content="ecommerce ensures quick and secure delivery for all your orders. Check our shipping details and policies."
+                    content="View Ecommerce's legal information, including intellectual property, liability, privacy, and other important legal details."
                 />
-                <meta property="og:url" content="https://ecommerce.com/delivery" />
-                <meta property="og:type" content="website" />
-                <meta name="robots" content="index, follow" />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/legal-notice" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Legal Notice - Ecommerce" />
+                <meta
+                    name="twitter:description"
+                    content="View Ecommerce's legal information, including intellectual property, liability, privacy, and other important legal details."
+                />
             </Helmet>
             <Banner image={bannerImage} title={"Delivery Information"}>
                 <Breadcrumb>

@@ -132,7 +132,7 @@ const EditCategory = () => {
 
                         <div className="space-y-2">
                             <Label>Current Image</Label>
-                            <img src={category?.imageUrl} alt={category?.name} className="h-20 w-32 rounded-md border object-cover" />
+                            <img loading="lazy" src={category?.imageUrl} alt={category?.name} className="h-20 w-32 rounded-md border object-cover" />
                         </div>
 
                         <div className="flex items-center gap-3">

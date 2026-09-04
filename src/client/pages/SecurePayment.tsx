@@ -29,20 +29,26 @@ const SecurePayment = () => {
     return (
         <>
             <Helmet>
-                <title>Secure Payment Methods - ecommerce</title>
+                <title>Secure Payment Methods - Ecommerce</title>
                 <meta
                     name="description"
-                    content="Shop safely with ecommerce! We offer secure payment options, including credit cards, PayPal, and more. Your transactions are protected."
+                    content="Shop safely with Ecommerce using secure and reliable payment options. Your transactions are protected for a safe online shopping experience."
                 />
-                <meta name="keywords" content="secure payment, online payment, safe transactions, credit card, PayPal, ecommerce payments" />
-                <meta property="og:title" content="Secure Payment Methods - ecommerce" />
+                <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/secure-payment" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Secure Payment Methods - Ecommerce" />
                 <meta
                     property="og:description"
-                    content="Enjoy secure and reliable payments with ecommerce. We support multiple payment methods to ensure a smooth shopping experience."
+                    content="Enjoy secure and reliable payments with Ecommerce. We support multiple payment methods for a smooth shopping experience."
                 />
-                <meta property="og:url" content="https://ecommerce.com/secure-payment" />
-                <meta property="og:type" content="website" />
-                <meta name="robots" content="index, follow" />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/secure-payment" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Secure Payment Methods - Ecommerce" />
+                <meta
+                    name="twitter:description"
+                    content="Enjoy secure and reliable payments with Ecommerce. We support multiple payment methods for a smooth shopping experience."
+                />
             </Helmet>
 
             <Banner image={securePaymentBanner} title="Secure Payment">

@@ -46,8 +46,8 @@ const Register = () => {
     return (
         <>
             <Helmet>
-                <title>Create Account | ecommerce</title>
-                <meta name="description" content="Create an account to shop and manage your ecommerce account." />
+                <title>Create Account - Ecommerce</title>
+                <meta name="description" content="Create an Ecommerce account to shop online and manage your orders, profile, and account settings." />
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <section className="flex min-h-[70vh] w-full items-center justify-center px-4 py-12">

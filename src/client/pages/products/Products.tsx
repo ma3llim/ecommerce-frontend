@@ -18,21 +18,44 @@ const Products = () => {
     return (
         <>
             <Helmet>
-                <title>{categorySlug ? `${categorySlug.replace("-", " ")} Products - E-Commerce` : "Products - E-Commerce"}</title>
+                <title>{categorySlug ? `${categorySlug.replace(/-/g, " ")} Products - Ecommerce` : "All Products - Ecommerce"}</title>
                 <meta
                     name="description"
                     content={
                         categorySlug
-                            ? `Buy top-quality ${categorySlug.replace("-", " ")} products at the best prices on E-Commerce. Fast delivery and secure shopping.`
-                            : "Browse top-quality products at the best prices on E-Commerce."
+                            ? `Shop ${categorySlug.replace(/-/g, " ")} products at Ecommerce. Discover quality products, great prices, secure shopping, and reliable delivery.`
+                            : "Browse and shop quality products at Ecommerce. Discover great prices, secure shopping, and reliable delivery."
                     }
                 />
-                <meta name="keywords" content={`${categorySlug}, buy ${categorySlug} online, best ${categorySlug} products, E-Commerce`} />
-                <meta property="og:title" content={`${categorySlug?.replace("-", " ")} Products - E-Commerce`} />
-                <meta property="og:description" content={`Discover the latest ${categorySlug?.replace("-", " ")} collection on E-Commerce. Shop now!`} />
-                <meta property="og:url" content={`https://E-Commerce.com/${categorySlug}/${categorySlug}/products`} />
-                <meta property="og:type" content="website" />
                 <meta name="robots" content="index, follow" />
+                <link
+                    rel="canonical"
+                    href={categorySlug ? `https://ecommerce.mohdsameer.info/category/${categorySlug}` : "https://ecommerce.mohdsameer.info/products"}
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content={categorySlug ? `${categorySlug.replace(/-/g, " ")} Products - Ecommerce` : "All Products - Ecommerce"} />
+                <meta
+                    property="og:description"
+                    content={
+                        categorySlug
+                            ? `Discover ${categorySlug.replace(/-/g, " ")} products on Ecommerce. Shop quality products at great prices.`
+                            : "Browse quality products on Ecommerce and discover great prices across our collection."
+                    }
+                />
+                <meta
+                    property="og:url"
+                    content={categorySlug ? `https://ecommerce.mohdsameer.info/category/${categorySlug}` : "https://ecommerce.mohdsameer.info/products"}
+                />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={categorySlug ? `${categorySlug.replace(/-/g, " ")} Products - Ecommerce` : "All Products - Ecommerce"} />
+                <meta
+                    name="twitter:description"
+                    content={
+                        categorySlug
+                            ? `Discover ${categorySlug.replace(/-/g, " ")} products on Ecommerce. Shop quality products at great prices.`
+                            : "Browse quality products on Ecommerce and discover great prices across our collection."
+                    }
+                />
             </Helmet>
             <Banner title={categoryName} image={bannerImage}>
                 <Breadcrumb>

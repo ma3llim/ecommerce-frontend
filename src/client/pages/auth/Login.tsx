@@ -52,8 +52,8 @@ const Login = () => {
     return (
         <>
             <Helmet>
-                <title>Login | ecommerce</title>
-                <meta name="description" content="Sign in to your ecommerce account." />
+                <title>Login - Ecommerce</title>
+                <meta name="description" content="Sign in securely to your Ecommerce account to manage your orders, profile, and shopping activity." />
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <section className="flex min-h-[70vh] items-center justify-center px-4 py-12">

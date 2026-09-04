@@ -9,17 +9,26 @@ const PrivacyPolicy = () => {
     return (
         <>
             <Helmet>
-                <title>Privacy Policy - E-Commerce</title>
+                <title>Privacy Policy - Ecommerce</title>
                 <meta
                     name="description"
-                    content="Read E-Commerce's Privacy Policy to understand how we collect, use, and protect your personal information while shopping online."
+                    content="Read Ecommerce's Privacy Policy to understand how we collect, use, store, and protect your personal information while you shop online."
                 />
-                <meta name="keywords" content="privacy policy, data protection, online security, E-Commerce privacy, customer data security" />
-                <meta property="og:title" content="Privacy Policy - E-Commerce" />
-                <meta property="og:description" content="Learn how E-Commerce protects your personal data and ensures a safe shopping experience." />
-                <meta property="og:url" content="https://E-Commerce.com/privacy-policy" />
-                <meta property="og:type" content="website" />
                 <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/privacy-policy" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Privacy Policy - Ecommerce" />
+                <meta
+                    property="og:description"
+                    content="Learn how Ecommerce collects, uses, and protects your personal information and helps keep your online shopping experience secure."
+                />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/privacy-policy" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Privacy Policy - Ecommerce" />
+                <meta
+                    name="twitter:description"
+                    content="Learn how Ecommerce collects, uses, and protects your personal information and helps keep your online shopping experience secure."
+                />
             </Helmet>
             <Banner image={privacyPolicyBanner} title={"Privacy Policy"}>
                 <Breadcrumb>

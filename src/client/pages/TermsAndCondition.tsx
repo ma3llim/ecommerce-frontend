@@ -9,13 +9,26 @@ const TermsAndCondition = () => {
     return (
         <>
             <Helmet>
-                <title>Terms and Conditions - E-Commerce</title>
-                <meta name="description" content="Read the terms and conditions of E-Commerce. Learn about our policies on purchases, returns, and usage." />
-                <meta name="keywords" content="terms and conditions, E-Commerce policies, online shopping rules, ecommerce guidelines" />
-                <meta property="og:title" content="Terms and Conditions - E-Commerce" />
-                <meta property="og:description" content="Check out the terms and conditions of using E-Commerce's services." />
-                <meta property="og:url" content="https://E-Commerce.com/terms-and-conditions" />
+                <title>Terms and Conditions - Ecommerce</title>
+                <meta
+                    name="description"
+                    content="Read the terms and conditions of Ecommerce, including our policies on purchases, returns, payments, and use of our online shopping platform."
+                />
                 <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/terms-and-conditions" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Terms and Conditions - Ecommerce" />
+                <meta
+                    property="og:description"
+                    content="Read the terms and conditions for using Ecommerce, including our policies on purchases, returns, payments, and services."
+                />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/terms-and-conditions" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Terms and Conditions - Ecommerce" />
+                <meta
+                    name="twitter:description"
+                    content="Read the terms and conditions for using Ecommerce, including our policies on purchases, returns, payments, and services."
+                />
             </Helmet>
             <Banner image={termsAndcondition} title={"Terms And Condition"}>
                 <Breadcrumb>

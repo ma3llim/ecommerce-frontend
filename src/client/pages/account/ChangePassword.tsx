@@ -49,8 +49,8 @@ const ChangePassword = () => {
     return (
         <>
             <Helmet>
-                <title>Change Password | ecommerce</title>
-                <meta name="description" content="Update your account password and manage your password security." />
+                <title>Change Password - Ecommerce</title>
+                <meta name="description" content="Update your Ecommerce account password and manage your password security securely." />
                 <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <section className="mx-auto w-full space-y-8">

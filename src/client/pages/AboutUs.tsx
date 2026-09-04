@@ -12,13 +12,26 @@ const AboutUs = () => {
     return (
         <>
             <Helmet>
-                <title>About Us - ecommerce</title>
-                <meta name="description" content="Learn about ecommerce, our mission, and our commitment to providing quality products online." />
-                <meta name="keywords" content="ecommerce, about us, ecommerce story, best shopping platform" />
-                <meta property="og:title" content="About Us - ecommerce" />
-                <meta property="og:description" content="ecommerce is dedicated to bringing you the best shopping experience." />
-                <meta property="og:url" content="https://ecommerce.com/about-us" />
+                <title>About Us - Ecommerce</title>
+                <meta
+                    name="description"
+                    content="Learn about Ecommerce, our mission, and our commitment to providing quality products and a reliable online shopping experience."
+                />
                 <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/about-us" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="About Us - Ecommerce" />
+                <meta
+                    property="og:description"
+                    content="Learn about Ecommerce, our mission, and our commitment to providing quality products and a reliable online shopping experience."
+                />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/about-us" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="About Us - Ecommerce" />
+                <meta
+                    name="twitter:description"
+                    content="Learn about Ecommerce, our mission, and our commitment to providing quality products and a reliable online shopping experience."
+                />
             </Helmet>
             <Banner image={aboutBanner} title={"About Us"}>
                 <Breadcrumb>

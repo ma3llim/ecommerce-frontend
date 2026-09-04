@@ -9,20 +9,26 @@ const ReturnPolicy = () => {
     return (
         <>
             <Helmet>
-                <title>Return & Refund Policy - ecommerce</title>
+                <title>Return & Refund Policy - Ecommerce</title>
                 <meta
                     name="description"
-                    content="Learn about ecommerce's return and refund policy. Hassle-free returns and easy refunds for your online shopping."
+                    content="Learn about Ecommerce's return and refund policy, including return eligibility, refunds, exchanges, and the process for returning products."
                 />
-                <meta name="keywords" content="return policy, refund policy, ecommerce returns, product exchange, money-back guarantee" />
-                <meta property="og:title" content="Return & Refund Policy - ecommerce" />
+                <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://ecommerce.mohdsameer.info/return-policy" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Return & Refund Policy - Ecommerce" />
                 <meta
                     property="og:description"
-                    content="Need to return a product? Check out ecommerce's easy return and refund policy for hassle-free shopping."
+                    content="Learn about Ecommerce's return and refund policy, including return eligibility, refunds, exchanges, and the return process."
                 />
-                <meta property="og:url" content="https://ecommerce.com/return-policy" />
-                <meta property="og:type" content="website" />
-                <meta name="robots" content="index, follow" />
+                <meta property="og:url" content="https://ecommerce.mohdsameer.info/return-policy" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Return & Refund Policy - Ecommerce" />
+                <meta
+                    name="twitter:description"
+                    content="Learn about Ecommerce's return and refund policy, including return eligibility, refunds, exchanges, and the return process."
+                />
             </Helmet>
             <Banner title={"Return Policy"} image={returnPolicyBanner}>
                 <Breadcrumb>
