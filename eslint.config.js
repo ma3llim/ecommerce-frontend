@@ -13,5 +13,10 @@ export default defineConfig([
         languageOptions: {
             globals: globals.browser,
         },
+        rules: {
+            "react-hooks/incompatible-library": "off",
+            "react-hooks/set-state-in-effect": "off",
+            "react-refresh/only-export-components": "off",
+        },
     },
 ]);

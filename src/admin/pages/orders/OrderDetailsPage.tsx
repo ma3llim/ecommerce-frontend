@@ -74,10 +74,15 @@ const OrderDetailsPage = () => {
     });
 
     const { mutate: createShipment, isPending: isCreating } = useMutation({
-        mutationFn: () =>
-            ShipmentApi.createShipment(order?.orderId!, {
+        mutationFn: () => {
+            if (!order?.orderId) {
+                throw new Error("Order ID is required to create a shipment.");
+            }
+
+            return ShipmentApi.createShipment(order.orderId, {
                 courierName: courierName.trim(),
-            }),
+            });
+        },
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ["order", order?.orderId],

@@ -1,12 +1,12 @@
-import { useEffect, type DependencyList } from "react";
+import { useEffect } from "react";
 
-const useTopScroll = (topPosition: number = 0, dependency: DependencyList = []) => {
+const useTopScroll = (topPosition: number = 0, dependency?: unknown) => {
     useEffect(() => {
         window.scrollTo({
             top: topPosition,
             behavior: "smooth",
         });
-    }, dependency);
+    }, [dependency, topPosition]);
 };
 
 export default useTopScroll;

@@ -78,7 +78,7 @@ const UpdateProductForm = () => {
                           },
                       ],
         });
-    }, [productResponse, categoryResponse, reset]);
+    }, [product, categoryResponse, reset]);
 
     const { fields, append, remove } = useFieldArray({
         control,

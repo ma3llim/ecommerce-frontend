@@ -7,7 +7,7 @@ export type LoginRequest = {
     password: string;
 };
 
-export interface Admin extends User {}
+export type Admin = User;
 
 export interface AdminAuthState {
     admin: Admin | null;
