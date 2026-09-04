@@ -44,7 +44,6 @@ const UpdateTagForm = () => {
             name: tagResponse.data?.name,
         });
     }, [tagResponse, reset]);
-    console.log(tagResponse?.data);
 
     const { mutate, isPending: isUpdating } = useMutation({
         mutationFn: (data: UpdateTagFormValues) =>

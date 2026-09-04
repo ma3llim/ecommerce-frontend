@@ -71,8 +71,7 @@ const Checkout = () => {
                     name: `${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim(),
                     email: user?.email,
                     phoneNumber: user?.phoneNumber ?? undefined,
-                    onSuccess: paymentResponse => {
-                        console.log("Razorpay payment success:", paymentResponse);
+                    onSuccess: () => {
                         queryClient.invalidateQueries({
                             queryKey: ["cart"],
                         });

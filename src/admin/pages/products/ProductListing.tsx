@@ -26,7 +26,6 @@ const ProductListing = () => {
     });
 
     const products = data?.data.content ?? [];
-    console.log(products);
 
     const productColumns: ColumnDef<Product>[] = [
         {
