@@ -79,7 +79,7 @@ The E-Commerce frontend communicates with the backend through REST APIs and prov
 
 ## Deployment
 
-The frontend is deployed independently using Vercel.
+The frontend is deployed independently using cloudflare.
 
 ```text
 Developer
@@ -88,7 +88,7 @@ Developer
 GitHub
     │
     ▼
-Vercel
+cloudflare
     │
     ▼
 E-Commerce Frontend
